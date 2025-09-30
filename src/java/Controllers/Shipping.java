@@ -17,7 +17,17 @@ public class Shipping extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        dao.Ins.loadOrdersForShipper(account.getAccountId());
+
+        if (request.getParameter("subpageIndex") == null) {
+            request.setAttribute("clickedSubpageIndex", 1);
+        }
+
+        request.setAttribute("dao", dao.Ins);
+        request.getRequestDispatcher("Shipping.jsp").forward(request, response);
+    
     }
 
     
