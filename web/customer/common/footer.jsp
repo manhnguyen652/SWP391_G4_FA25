@@ -75,8 +75,7 @@
     </div>
     <div class="footer-bottom">
         <div class="container">
-            <p class="copyright-heading">Suspendisse in auctor augue. Cras fermentum est ac fermentum tempor. Etiam
-                vel magna volutpat, posuere eros</p>
+            <p class="copyright-heading">Thank you!!!</p>
             <a href="#" class="payment-block">
                 <img src="image/icon/payment.png" alt="">
             </a>
