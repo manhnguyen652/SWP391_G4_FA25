@@ -1,8 +1,3 @@
-<%-- 
-    Document   : header.js
-    Created on : Sep 14, 2025, 9:44:10 PM
-    Author     : ADMIN
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +6,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3">
-                    <a href="index.html" class="site-brand">
-                        <img src="image/logo.png" alt="">
+                    <a href="home" class="site-brand">
+                        <img src="${pageContext.request.contextPath}/customer/image/logo.png" alt="">
                     </a>
                 </div>
                 <div class="col-lg-5">
@@ -65,7 +60,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- @include('menu.htm') -->
                     </div>
                 </div>
             </div>
@@ -199,7 +193,7 @@
                     <div class="main-navigation flex-lg-right">
                         <ul class="main-menu menu-right main-menu--white li-last-0">
                             <li class="menu-item has-children">
-                                <a href="javascript:void(0)">Trang chủ</a>
+                                <a href="home">Trang chủ</a>
                             </li>
                             <!-- Shop -->
 <!--                            <li class="menu-item has-children mega-menu">
