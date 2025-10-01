@@ -12,7 +12,7 @@
             <div class=" col-xl-3 col-lg-4 col-sm-6">
                 <div class="single-footer pb--40">
                     <div class="brand-footer footer-title">
-                        <img src="image/logo--footer.png" alt="">
+                        <img src="${pageContext.request.contextPath}/customer/image/logo--footer.png" alt="">
                     </div>
                     <div class="footer-contact">
                         <p><span class="label">Địa chỉ:</span><span class="text">Hà Nội, Việt Nam</span></p>
@@ -77,7 +77,7 @@
         <div class="container">
             <p class="copyright-heading">Thank you!!!</p>
             <a href="#" class="payment-block">
-                <img src="image/icon/payment.png" alt="">
+                <img src="${pageContext.request.contextPath}/customer/image/icon/payment.png" alt="">
             </a>
             <p class="copyright-text">Copyright © 2025 <a href="#" class="author">Pustok</a>. All Right Reserved.
                 <br>

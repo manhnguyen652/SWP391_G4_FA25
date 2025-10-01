@@ -8,9 +8,9 @@
         <title>Pustok - Book Store</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Use Minified Plugins Version For Fast Page Load -->
-        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/user/css/plugins.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/user/css/main.css" />
-        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/user/image/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
 
     <body>
@@ -159,14 +159,18 @@
                                                     <a href="#" class="author">
                                                         Epple
                                                     </a>
-                                                    <h3><a href="product-details.html">Here Is A Quick Cure For Book</a></h3>
+                                                    //To do 
+                                                    
+                                                    
+                                                    
+                                                    <h3><a href="/book_detail.jsp">Here Is A Quick Cure For Book</a></h3>
                                                 </div>
                                                 <div class="product-card--body">
                                                     <div class="card-image">
-                                                        <img src="image/products/product-2.jpg" alt="">
+                                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-2.jpg" alt="">
                                                         <div class="hover-contents">
-                                                            <a href="product-details.html" class="hover-image">
-                                                                <img src="image/products/product-1.jpg" alt="">
+                                                            <a href="book_detail.jsp" class="hover-image">
+                                                                <img src="${pageContext.request.contextPath}/customer/image/products/product-1.jpg" alt="">
                                                             </a>
                                                             <div class="hover-btns">
                                                                 <a href="cart.html" class="single-btn">
@@ -234,169 +238,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="product-card">
-                                            <div class="product-grid-content">
-                                                <div class="product-header">
-                                                    <a href="#" class="author">
-                                                        Upple
-                                                    </a>
-                                                    <h3><a href="product-details.html">Little Known Ways To Rid Yourself</a>
-                                                    </h3>
-                                                </div>
-                                                <div class="product-card--body">
-                                                    <div class="card-image">
-                                                        <img src="image/products/product-11.jpg" alt="">
-                                                        <div class="hover-contents">
-                                                            <a href="product-details.html" class="hover-image">
-                                                                <img src="image/products/product-12.jpg" alt="">
-                                                            </a>
-                                                            <div class="hover-btns">
-                                                                <a href="cart.html" class="single-btn">
-                                                                    <i class="fas fa-shopping-basket"></i>
-                                                                </a>
-                                                                <a href="wishlist.html" class="single-btn">
-                                                                    <i class="fas fa-heart"></i>
-                                                                </a>
-                                                                <a href="compare.html" class="single-btn">
-                                                                    <i class="fas fa-random"></i>
-                                                                </a>
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                                   class="single-btn">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content">
-                                                <div class="card-image">
-                                                    <img src="image/products/product-11.jpg" alt="">
-                                                </div>
-                                                <div class="product-card--body">
-                                                    <div class="product-header">
-                                                        <a href="#" class="author">
-                                                            Apple
-                                                        </a>
-                                                        <h3><a href="product-details.html" tabindex="0">Revolutionize Your BOOK
-                                                                With These Easy-peasy Tips</a></h3>
-                                                    </div>
-                                                    <article>
-                                                        <h2 class="sr-only">Card List Article</h2>
-                                                        <p>More room to move. With 80GB or 160GB of storage and up to 40 hours
-                                                            of battery life, the new iPod classic lets you enjoy
-                                                            up to 40,000 songs or..</p>
-                                                    </article>
-                                                    <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                    <div class="rating-block">
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star "></span>
-                                                    </div>
-                                                    <div class="btn-block">
-                                                        <a href="#" class="btn btn-outlined">Add To Cart</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-heart"></i> Add To
-                                                            Wishlist</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-random"></i> Add To
-                                                            Cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="product-card">
-                                            <div class="product-grid-content">
-                                                <div class="product-header">
-                                                    <a href="#" class="author">
-                                                        Bpple
-                                                    </a>
-                                                    <h3><a href="product-details.html">Qple GPad with Retina Sisplay</a></h3>
-                                                </div>
-                                                <div class="product-card--body">
-                                                    <div class="card-image">
-                                                        <img src="image/products/product-2.jpg" alt="">
-                                                        <div class="hover-contents">
-                                                            <a href="product-details.html" class="hover-image">
-                                                                <img src="image/products/product-1.jpg" alt="">
-                                                            </a>
-                                                            <div class="hover-btns">
-                                                                <a href="cart.html" class="single-btn">
-                                                                    <i class="fas fa-shopping-basket"></i>
-                                                                </a>
-                                                                <a href="wishlist.html" class="single-btn">
-                                                                    <i class="fas fa-heart"></i>
-                                                                </a>
-                                                                <a href="compare.html" class="single-btn">
-                                                                    <i class="fas fa-random"></i>
-                                                                </a>
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-                                                                   class="single-btn">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content">
-                                                <div class="card-image">
-                                                    <img src="image/products/product-2.jpg" alt="">
-                                                </div>
-                                                <div class="product-card--body">
-                                                    <div class="product-header">
-                                                        <a href="#" class="author">
-                                                            Zpple
-                                                        </a>
-                                                        <h3><a href="product-details.html" tabindex="0">Here Is A Quick Cure For
-                                                                Book</a></h3>
-                                                    </div>
-                                                    <article>
-                                                        <h2 class="sr-only">Card List Article</h2>
-                                                        <p>More room to move. With 80GB or 160GB of storage and up to 40 hours
-                                                            of battery life, the new iPod classic lets you enjoy
-                                                            up to 40,000 songs or..</p>
-                                                    </article>
-                                                    <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                    <div class="rating-block">
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star "></span>
-                                                    </div>
-                                                    <div class="btn-block">
-                                                        <a href="#" class="btn btn-outlined">Add To Cart</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-heart"></i> Add To
-                                                            Wishlist</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-random"></i> Add To
-                                                            Cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <!-- Pagination Block -->
                                 <div class="row pt--30">
@@ -624,28 +466,28 @@
                          {"breakpoint":320, "settings": {"slidesToShow": 1} }
                          ]'>
                         <div class="single-slide">
-                            <img src="image/others/brand-1.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-2.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-3.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-3.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-4.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-4.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-5.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-5.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-6.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-6.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-1.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
                         </div>
                         <div class="single-slide">
-                            <img src="image/others/brand-2.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -655,9 +497,9 @@
     ===================================== -->
         <jsp:include page="./common/footer.jsp"></jsp:include>
         <!-- Use Minified Plugins Version For Fast Page Load -->
-        <script src="${pageContext.request.contextPath}/user/js/plugins.js"></script>
-        <script src="${pageContext.request.contextPath}/user/js/ajax-mail.js"></script>
-        <script src="${pageContext.request.contextPath}/user/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
 
 
