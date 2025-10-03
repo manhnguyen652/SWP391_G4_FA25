@@ -34,7 +34,23 @@ public class Shipping extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+
+        if (request.getParameter("subpageIndex") == null) {
+            request.setAttribute("clickedSubpageIndex", 1);
+        }
+
+        try {
+            // neu nhan thao tac nhan giao hang
+            if (request.getParameter("shipSubmitButton") != null) {
+                int orderId = Integer.parseInt(request.getParameter("orderId"));
+                dao.Ins.ship(orderId, account.getAccountId());
+            } 
+
+        } catch (Exception e) {
+            System.out.println("Error in doPost (Shipping): " + e.getMessage());
+        }
     }
 
 
