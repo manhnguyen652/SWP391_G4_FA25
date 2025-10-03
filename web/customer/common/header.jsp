@@ -20,8 +20,8 @@
                     <div class="main-navigation flex-lg-right">
                         <div class="cart-widget">
                             <div class="login-block">
-                                <a href="login-register.html" class="font-weight-bold">Đăng nhập</a> <br>
-                                <span>hoặc</span><a href="login-register.html">Đăng kí</a>
+                                <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
+                                <span>hoặc</span><a href="login-register">Đăng kí</a>
                             </div>
                             <div class="cart-block">
                                 <div class="cart-total">
@@ -29,7 +29,7 @@
                                         1
                                     </span>
                                     <span class="text-item">
-                                       Giỏ hàng
+                                        Giỏ hàng
                                     </span>
                                     <span class="price">
                                         VND 0.00
@@ -196,71 +196,71 @@
                                 <a href="home">Trang chủ</a>
                             </li>
                             <!-- Shop -->
-<!--                            <li class="menu-item has-children mega-menu">
-                                <a href="javascript:void(0)">shop <i
-                                        class="fas fa-chevron-down dropdown-arrow"></i></a>
-                                <ul class="sub-menu four-column">
-                                    <li class="cus-col-25">
-                                        <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
-                                        <ul class="mega-single-block">
-                                            <li><a href="shop-grid.html">Fullwidth</a></li>
-                                            <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
-                                            <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cus-col-25">
-                                        <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
-                                        <ul class="mega-single-block">
-                                            <li><a href="shop-list.html">Fullwidth</a></li>
-                                            <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
-                                            <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cus-col-25">
-                                        <h3 class="menu-title"> <a href="javascript:void(0)">Product Details
-                                                1</a></h3>
-                                        <ul class="mega-single-block">
-                                            <li><a href="product-details.html">Product Details Page</a></li>
-                                            <li><a href="product-details-affiliate.html">Product Details
-                                                    Affiliate</a></li>
-                                            <li><a href="product-details-group.html">Product Details Group</a>
-                                            </li>
-                                            <li><a href="product-details-variable.html">Product Details
-                                                    Variables</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cus-col-25">
-                                        <h3 class="menu-title"><a href="javascript:void(0)">Product Details
-                                                2</a></h3>
-                                        <ul class="mega-single-block">
-                                            <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
-                                            </li>
-                                            <li><a href="product-details-right-thumbnail.html">Right
-                                                    Thumbnail</a></li>
-                                            <li><a href="product-details-left-gallery.html">Left Gallery</a>
-                                            </li>
-                                            <li><a href="product-details-right-gallery.html">Right Gallery</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>-->
+                            <!--                            <li class="menu-item has-children mega-menu">
+                                                            <a href="javascript:void(0)">shop <i
+                                                                    class="fas fa-chevron-down dropdown-arrow"></i></a>
+                                                            <ul class="sub-menu four-column">
+                                                                <li class="cus-col-25">
+                                                                    <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
+                                                                    <ul class="mega-single-block">
+                                                                        <li><a href="shop-grid.html">Fullwidth</a></li>
+                                                                        <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
+                                                                        <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="cus-col-25">
+                                                                    <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
+                                                                    <ul class="mega-single-block">
+                                                                        <li><a href="shop-list.html">Fullwidth</a></li>
+                                                                        <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
+                                                                        <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="cus-col-25">
+                                                                    <h3 class="menu-title"> <a href="javascript:void(0)">Product Details
+                                                                            1</a></h3>
+                                                                    <ul class="mega-single-block">
+                                                                        <li><a href="product-details.html">Product Details Page</a></li>
+                                                                        <li><a href="product-details-affiliate.html">Product Details
+                                                                                Affiliate</a></li>
+                                                                        <li><a href="product-details-group.html">Product Details Group</a>
+                                                                        </li>
+                                                                        <li><a href="product-details-variable.html">Product Details
+                                                                                Variables</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="cus-col-25">
+                                                                    <h3 class="menu-title"><a href="javascript:void(0)">Product Details
+                                                                            2</a></h3>
+                                                                    <ul class="mega-single-block">
+                                                                        <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
+                                                                        </li>
+                                                                        <li><a href="product-details-right-thumbnail.html">Right
+                                                                                Thumbnail</a></li>
+                                                                        <li><a href="product-details-left-gallery.html">Left Gallery</a>
+                                                                        </li>
+                                                                        <li><a href="product-details-right-gallery.html">Right Gallery</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>-->
                             <!-- Pages -->
-<!--                            <li class="menu-item has-children">
-                                <a href="javascript:void(0)">Pages <i
-                                        class="fas fa-chevron-down dropdown-arrow"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="compare.html">Compare</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="login-register.html">Login Register</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="order-complete.html">Order Complete</a></li>
-                                    <li><a href="faq.html">Faq</a></li>
-                                    <li><a href="contact-2.html">contact 02</a></li>
-                                </ul>
-                            </li>-->
+                            <!--                            <li class="menu-item has-children">
+                                                            <a href="javascript:void(0)">Pages <i
+                                                                    class="fas fa-chevron-down dropdown-arrow"></i></a>
+                                                            <ul class="sub-menu">
+                                                                <li><a href="cart.html">Cart</a></li>
+                                                                <li><a href="checkout.html">Checkout</a></li>
+                                                                <li><a href="compare.html">Compare</a></li>
+                                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                                <li><a href="login_register.jsp">Login Register</a></li>
+                                                                <li><a href="my-account.html">My Account</a></li>
+                                                                <li><a href="order-complete.html">Order Complete</a></li>
+                                                                <li><a href="faq.html">Faq</a></li>
+                                                                <li><a href="contact-2.html">contact 02</a></li>
+                                                            </ul>
+                                                        </li>-->
                             <!-- Blog -->
                             <li class="menu-item has-children mega-menu">
                                 <a href="javascript:void(0)">Blog</a>
