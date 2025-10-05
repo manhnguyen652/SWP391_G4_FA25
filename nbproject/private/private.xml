@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="PRJ301">
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/DAO/DBConnect.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/web/customer/book_detail.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/web/customer/home.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/web/customer/common/footer.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/web/customer/common/header.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Models/Books.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Models/Accounts.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/HomeController.java</file>
         </group>
     </open-files>
