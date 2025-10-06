@@ -8,8 +8,11 @@
             <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/HomeController.java</file>
         </group>
         <group>
-            <file>file:/D:/SWP/SWP391_G4_FA25/web/customer/login_register.jsp</file>
-            <file>file:/D:/SWP/SWP391_G4_FA25/web/customer/home.jsp</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/Controllers/LoginRegisterController.java</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/dao/DBConnection.java</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/dao/AccountDAO.java</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/login_register.jsp</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/model/Account.java</file>
         </group>
     </open-files>
 </project-private>
