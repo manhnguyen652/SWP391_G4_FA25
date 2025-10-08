@@ -20,14 +20,14 @@
     <body>
         <div class="site-wrapper" id="top">
             <jsp:include page="./common/header.jsp"></jsp:include>
-            <section class="breadcrumb-section">
-                <h2 class="sr-only">Site Breadcrumb</h2>
-                <div class="container">
-                    <div class="breadcrumb-contents">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active">Login</li>
+                <section class="breadcrumb-section">
+                    <h2 class="sr-only">Site Breadcrumb</h2>
+                    <div class="container">
+                        <div class="breadcrumb-contents">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Home</a></li>
+                                <li class="breadcrumb-item active">Tài khoản của tôi</li>
                             </ol>
                         </nav>
                     </div>
@@ -41,54 +41,47 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
                             <!-- Login Form s-->
-                            <form action="login-register" method="post">
-                                <input type="hidden" name="action" value="register">
-                                <div class="login-form">
-                                    <h4 class="login-title">New Customer</h4>
-                                    <p><span class="font-weight-bold">I am a new customer</span></p>
-                                    <div class="row">
-                                        <div class="col-md-12 col-12 mb--15">
-                                            <label for="name">Full Name</label>
-                                            <input class="mb-0 form-control" type="text" name="fullname" id="name" placeholder="Enter your full name">
-                                        </div>
-                                        <div class="col-12 mb--20">
-                                            <label for="email">Email</label>
-                                            <input class="mb-0 form-control" type="email" name="email" id="email" placeholder="Enter Your Email Address Here..">
-                                        </div>
-                                        <div class="col-lg-6 mb--20">
-                                            <label for="password">Password</label>
-                                            <input class="mb-0 form-control" type="password" name="password" id="password" placeholder="Enter your password">
-                                        </div>
-                                        <div class="col-lg-6 mb--20">
-                                            <label for="repeat-password">Repeat Password</label>
-                                            <input class="mb-0 form-control" type="password" name="repeat_password" id="repeat-password" placeholder="Repeat your password">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-outlined">Register</button>
-                                        </div>
+                            <form class="myaccount-form">
+                                <h3>Chi Tiết Tài Khoản</h3>
+                                <div class="myaccount-form-inner">
+                                    <div class="single-input">
+                                        <label>Họ và Tên</label>
+                                        <%-- THÊM CLASS: Thêm "form-control" để đồng bộ giao diện --%>
+                                        <input type="text" class="form-control" value="${sessionScope.account.l_name} ${sessionScope.account.f_name}" readonly>
+                                    </div>
+                                    <div class="single-input">
+                                        <label>Email</label>
+                                        <%-- THÊM CLASS: Thêm "form-control" --%>
+                                        <input type="email" class="form-control" value="${sessionScope.account.u_email}" readonly>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                            <form action="login-register" method="post">
-                                <input type="hidden" name="action" value="login">
-                                <div class="login-form">
-                                    <h4 class="login-title">Returning Customer</h4>
-                                    <p><span class="font-weight-bold">I am a returning customer</span></p>
-                                    <div class="row">
-                                        <div class="col-md-12 col-12 mb--15">
-                                            <label for="email1">Enter your email address here...</label>
-                                            <input class="mb-0 form-control" type="email" name="login_email" id="email1" placeholder="Enter your email address here...">
+                            <h3>Đổi Mật Khẩu</h3>
+                            <form action="my-account" method="post" class="myaccount-form">
+                                <div class="myaccount-form-inner">                                                                     
+                                    <fieldset>
+                                        <legend class="hidden">Password change</legend>
+                                        <div class="single-input">
+                                            <label for="current_password">Mật khẩu hiện tại</label>
+                                            <%-- THÊM CLASS: Thêm "form-control" --%>
+                                            <input type="password" id="current_password" name="current_password" class="form-control" required>
                                         </div>
-                                        <div class="col-12 mb--20">
-                                            <label for="login-password">Password</label>
-                                            <input class="mb-0 form-control" type="password" name="login_password" id="login-password" placeholder="Enter your password">
+                                        <div class="single-input">
+                                            <label for="new_password">Mật khẩu mới</label>
+                                            <%-- THÊM CLASS: Thêm "form-control" --%>
+                                            <input type="password" id="new_password" name="new_password" class="form-control" required>
                                         </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-outlined">Login</button>
-                                            <button type="submit" class="btn btn-outlined">Forgot password</button>
+                                        <div class="single-input">
+                                            <label for="repeat_password">Xác nhận mật khẩu mới</label>
+                                            <%-- THÊM CLASS: Thêm "form-control" --%>
+                                            <input type="password" id="repeat_password" name="repeat_password" class="form-control" required>
                                         </div>
+                                    </fieldset>
+                                    <div class="single-input">
+                                        <%-- SỬA LẠI: Dùng class "btn" của theme để tạo kiểu cho button --%>
+                                        <button class="btn btn-outlined" type="submit">Lưu Thay Đổi</button>                                    
                                     </div>
                                 </div>
                             </form>
