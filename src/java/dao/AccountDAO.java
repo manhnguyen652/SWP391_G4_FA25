@@ -1,19 +1,14 @@
-package DAO;
+package dao; 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import model.Account;
+import dao.DBConnection; 
 
 public class AccountDAO {
-
-    // 🟢 Đăng ký tài khoản
+    // đăng kí
     public boolean register(Account acc) {
         String sql = "INSERT INTO account(u_email, u_pass, f_name, l_name, dob, permission_id) VALUES (?, ?, ?, ?, ?, ?)";
-        DBConnect db = new DBConnect(); // tạo đối tượng DBConnect
-
-        try (Connection conn = db.connection;
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, acc.getU_email());
@@ -25,36 +20,32 @@ public class AccountDAO {
 
             return ps.executeUpdate() > 0;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // 🟡 Đăng nhập tài khoản
+    // đăng nhập
     public Account login(String email, String password) {
         String sql = "SELECT * FROM account WHERE u_email = ? AND u_pass = ?";
-        DBConnect db = new DBConnect(); // tạo đối tượng DBConnect
-
-        try (Connection conn = db.connection;
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
+             
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-
+            
             if (rs.next()) {
                 Account acc = new Account();
                 acc.setU_id(rs.getInt("u_id"));
                 acc.setU_email(rs.getString("u_email"));
                 acc.setF_name(rs.getString("f_name"));
                 acc.setL_name(rs.getString("l_name"));
-                acc.setDob(rs.getDate("dob"));
                 acc.setPermission_id(rs.getInt("permission_id"));
                 return acc;
             }
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
