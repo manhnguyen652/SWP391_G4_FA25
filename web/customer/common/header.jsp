@@ -39,11 +39,11 @@
                                 <div class="cart-dropdown-block">
                                     <div class=" single-cart-block ">
                                         <div class="cart-product">
-                                            <a href="product-details.html" class="image">
+                                            <a href="home?state=detail" class="image">
                                                 <img src="image/products/cart-product-1.jpg" alt="">
                                             </a>
                                             <div class="content">
-                                                <h3 class="title"><a href="product-details.html">Đắc Nhân Tâm</a></h3>
+                                                <h3 class="title"><a href="home?state=detail">Đắc Nhân Tâm</a></h3>
                                                 <p class="price"><span class="qty">1 ×</span> 140.000 VND</p>
                                                 <button class="cross-btn"><i class="fas fa-times"></i></button>
                                             </div>
