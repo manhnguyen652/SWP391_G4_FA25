@@ -13,9 +13,9 @@ public class Account {
 
     
     public int getU_id() { return u_id; }
-    String getU_email() { return u_email; }
-    void setU_id(int u_id) { this.u_id = u_id; }
-    void setU_email(String u_email) { this.u_email = u_email; }
+    public String getU_email() { return u_email; }
+    public void setU_id(int u_id) { this.u_id = u_id; }
+    public void setU_email(String u_email) { this.u_email = u_email; }
     public String getU_pass() { return u_pass; }
     public void setU_pass(String u_pass) { this.u_pass = u_pass; }
     public int getPermission_id() { return permission_id; }

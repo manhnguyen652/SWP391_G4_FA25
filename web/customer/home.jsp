@@ -163,7 +163,7 @@
                                                     
                                                     
                                                     
-                                                    <h3><a href="/book_detail.jsp">Here Is A Quick Cure For Book</a></h3>
+                                                    <h3><a href="home?state=detail">Here Is A Quick Cure For Book</a></h3>
                                                 </div>
                                                 <div class="product-card--body">
                                                     <div class="card-image">
