@@ -32,7 +32,7 @@ public class LoginRegisterController extends HttpServlet {
         String email = request.getParameter("login_email");
         String password = request.getParameter("login_password");
 
-        Account acc = dao.login(email, password);
+        model.Account acc = dao.login(email, password);
         if (acc != null) {
             request.getSession().setAttribute("account", acc);
             response.sendRedirect("customer/home.jsp");
