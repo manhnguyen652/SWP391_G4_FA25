@@ -19,9 +19,34 @@
                 <div class="col-lg-4">
                     <div class="main-navigation flex-lg-right">
                         <div class="cart-widget">
-                            <div class="login-block">
-                                <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
-                                <span>hoặc</span><a href="login-register">Đăng kí</a>
+                            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+                            <div class="header-links">
+                                <ul class="nav align-items-center">
+                                    <li class="item">
+                                        <c:choose>
+                                            <%-- TRƯỜNG HỢP: Người dùng ĐÃ đăng nhập --%>
+                                            <c:when test="${not empty sessionScope.account}">
+                                                <div class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Hello, ${sessionScope.account.l_name} ${sessionScope.account.f_name}
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                                        <li><a class="dropdown-item" href="my-account">Tài khoản của tôi</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                            <%-- Link này sẽ gọi đến LogoutController bạn vừa tạo --%>
+                                                        <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+                                                    </ul>
+                                                </div>
+                                            </c:when>
+
+                                            <%-- TRƯỜNG HỢP: Người dùng CHƯA đăng nhập --%>
+                                            <c:otherwise>
+                                                <a href="login-register">Đăng nhập | Đăng ký</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="cart-block">
                                 <div class="cart-total">
