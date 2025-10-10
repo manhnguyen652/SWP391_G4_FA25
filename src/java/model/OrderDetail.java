@@ -4,19 +4,21 @@
  */
 package model;
 
-public class BookImage {
+public class OrderDetail {
     private int id;
-    private String imgUrl;
-    private int bId; // Khóa ngoại tới bảng books
+    private int orderId;
+    private int bId;
+    private int quantity;
 
     // Constructors
-    public BookImage() {
+    public OrderDetail() {
     }
 
-    public BookImage(int id, String imgUrl, int bId) {
+    public OrderDetail(int id, int orderId, int bId, int quantity) {
         this.id = id;
-        this.imgUrl = imgUrl;
+        this.orderId = orderId;
         this.bId = bId;
+        this.quantity = quantity;
     }
 
     // Getters and Setters
@@ -28,12 +30,12 @@ public class BookImage {
         this.id = id;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getBId() {
@@ -42,5 +44,13 @@ public class BookImage {
 
     public void setBId(int bId) {
         this.bId = bId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

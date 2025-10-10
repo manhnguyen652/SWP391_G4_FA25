@@ -3,19 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-public class Publisher {
+public class Status {
     private int id;
     private String name;
-    private String addr;
 
     // Constructors
-    public Publisher() {
+    public Status() {
     }
 
-    public Publisher(int id, String name, String addr) {
+    public Status(int id, String name) {
         this.id = id;
         this.name = name;
-        this.addr = addr;
     }
 
     // Getters and Setters
@@ -33,13 +31,5 @@ public class Publisher {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
     }
 }

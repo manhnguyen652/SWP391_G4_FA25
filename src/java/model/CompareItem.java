@@ -3,19 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
-public class BookImage {
+public class CompareItem {
     private int id;
-    private String imgUrl;
-    private int bId; // Khóa ngoại tới bảng books
+    private int compareId; // Sửa từ order_id
+    private int bId;
 
     // Constructors
-    public BookImage() {
+    public CompareItem() {
     }
 
-    public BookImage(int id, String imgUrl, int bId) {
+    public CompareItem(int id, int compareId, int bId) {
         this.id = id;
-        this.imgUrl = imgUrl;
+        this.compareId = compareId;
         this.bId = bId;
     }
 
@@ -28,12 +27,12 @@ public class BookImage {
         this.id = id;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public int getCompareId() {
+        return compareId;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setCompareId(int compareId) {
+        this.compareId = compareId;
     }
 
     public int getBId() {

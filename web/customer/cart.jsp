@@ -10,9 +10,9 @@
         <title>Pustok - Book Store</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Use Minified Plugins Version For Fast Page Load -->
-        <link rel="stylesheet" type="text/css" media="screen" href="css/plugins.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-        <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
 
     <body>
@@ -25,7 +25,7 @@
                     <div class="breadcrumb-contents">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="home">Home</a></li>
                                 <li class="breadcrumb-item active">Cart</li>
                             </ol>
                         </nav>
@@ -417,9 +417,9 @@
 ===================================== -->
        <jsp:include page="./common/footer.jsp"></jsp:include>
         <!-- Use Minified Plugins Version For Fast Page Load -->
-        <script src="js/plugins.js"></script>
-        <script src="js/ajax-mail.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
 
 

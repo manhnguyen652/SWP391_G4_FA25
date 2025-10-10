@@ -1,36 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
-/**
- *
- * @author ADMIN
- */
+
 public class Category {
-    private int category_id;
-    private String name;
+    private int id;
+    private String cateName;
 
-    public int getCategory_id() {
-        return category_id;
+    public Category() {
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public Category(int id, String cateName) {
+        this.id = id;
+        this.cateName = cateName;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" + "category_id=" + category_id + ", name=" + name + '}';
+    public String getCateName() {
+        return cateName;
     }
-    
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
+    }
 }
