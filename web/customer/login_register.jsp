@@ -816,6 +816,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-outlined">Login</button>
+                                            <button type="submit" class="btn btn-outlined">Forgot password</button>
                                         </div>
                                     </div>
                                     <%
@@ -954,6 +955,7 @@
         <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
+
 
 
 
