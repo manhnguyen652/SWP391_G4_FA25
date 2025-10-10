@@ -42,7 +42,9 @@
 
                                             <%-- TRƯỜNG HỢP: Người dùng CHƯA đăng nhập --%>
                                             <c:otherwise>
-                                                <a href="login-register">Đăng nhập | Đăng ký</a>
+
+                                                <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
+                                                <span>hoặc</span><a href="login-register.html">Đăng kí</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </li>

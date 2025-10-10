@@ -1,11 +1,13 @@
 package Controllers;
 
+import dao.BookDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet; // Thêm import này
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Book;
 
 public class HomeController extends HttpServlet {
 
@@ -14,7 +16,9 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         String state = request.getParameter("state");
         if (state == null) {
-            
+            BookDAO bookDAO = new BookDAO();
+            List<Book> bookList = bookDAO.getAllBooks();
+            request.setAttribute("bookList", bookList);
             request.getRequestDispatcher("/customer/home.jsp").forward(request, response);
         } else if ("detail".equals(state)) {
             
@@ -28,10 +32,6 @@ public class HomeController extends HttpServlet {
         }
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

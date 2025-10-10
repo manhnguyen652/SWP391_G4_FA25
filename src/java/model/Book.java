@@ -7,12 +7,12 @@ public class Book {
     private int publicationYear;
     private double price;
     private int stock;
-    private int pId; // publisher_id
-    private int aId; // author_id
-    private int imageId; // cover_image_id
-    private int cId; // category_id
-
-    // Constructors
+    private int pId; 
+    private int aId; 
+    private int imageId; 
+    private int cId; 
+    private String authorName;
+    
     public Book() {
     }
 
@@ -108,5 +108,21 @@ public class Book {
 
     public void setCId(int cId) {
         this.cId = cId;
+    }
+     public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bId=" + bId +
+                ", bTitle='" + bTitle + '\'' +
+                ", price=" + price +
+                ", authorName='" + authorName + '\'' +
+                '}';
     }
 }

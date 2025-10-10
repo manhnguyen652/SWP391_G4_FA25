@@ -1,4 +1,5 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -152,21 +153,23 @@
                                     </div>
                                 </div>
                                 <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
+                                <c:forEach var="book" items="${bookList}">
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="product-card">
                                             <div class="product-grid-content">
                                                 <div class="product-header">
                                                     <a href="#" class="author">
-                                                        Epple
+                                                        ${book.authorName}
                                                     </a>
-                                                    <h3><a href="home?state=detail">Here Is A Quick Cure For Book</a></h3>
+                                                    <h3><a href="home?state=detail&bookId=${book.BId}">${book.BTitle}</a></h3>
                                                 </div>
                                                 <div class="product-card--body">
                                                     <div class="card-image">
-                                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-2.jpg" alt="">
+
+                                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-1.jpg" alt="">
                                                         <div class="hover-contents">
-                                                            <a href="home?state=detail" class="hover-image">
-                                                                <img src="${pageContext.request.contextPath}/customer/image/products/product-1.jpg" alt="">
+                                                            <a href="home?state=detail&bookId=${book.BId}" class="hover-image">
+                                                                <img src="${pageContext.request.contextPath}/customer/image/products/product-2.jpg" alt="">
                                                             </a>
                                                             <div class="hover-btns">
                                                                 <a href="cart.html" class="single-btn">
@@ -186,314 +189,273 @@
                                                         </div>
                                                     </div>
                                                     <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-list-content">
-                                                <div class="card-image">
-                                                    <img src="image/products/product-3.jpg" alt="">
-                                                </div>
-                                                <div class="product-card--body">
-                                                    <div class="product-header">
-                                                        <a href="#" class="author">
-                                                            Gpple
-                                                        </a>
-                                                        <h3><a href="home?state=detail" tabindex="0">Qpple cPad with Retina
-                                                                Display MD510LL/A</a></h3>
-                                                    </div>
-                                                    <article>
-                                                        <h2 class="sr-only">Card List Article</h2>
-                                                        <p>More room to move. With 80GB or 160GB of storage and up to 40 hours
-                                                            of battery life, the new iPod classic lets you enjoy
-                                                            up to 40,000 songs or..</p>
-                                                    </article>
-                                                    <div class="price-block">
-                                                        <span class="price">£51.20</span>
-                                                        <del class="price-old">£51.20</del>
-                                                        <span class="price-discount">20%</span>
-                                                    </div>
-                                                    <div class="rating-block">
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star star_on"></span>
-                                                        <span class="fas fa-star "></span>
-                                                    </div>
-                                                    <div class="btn-block">
-                                                        <a href="#" class="btn btn-outlined">Add To Cart</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-heart"></i> Add To
-                                                            Wishlist</a>
-                                                        <a href="#" class="card-link"><i class="fas fa-random"></i> Add To
-                                                            Cart</a>
+                                                        <span class="price">${book.price} VND</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                   
-                                   
-                                </div>
-                                <!-- Pagination Block -->
-                                <div class="row pt--30">
-                                    <div class="col-md-12">
-                                        <div class="pagination-block">
-                                            <ul class="pagination-btns flex-center">
-                                                <li><a href="#" class="single-btn prev-btn ">|<i
-                                                            class="zmdi zmdi-chevron-left"></i> </a></li>
-                                                <li><a href="#" class="single-btn prev-btn "><i
-                                                            class="zmdi zmdi-chevron-left"></i> </a></li>
-                                                <li class="active"><a href="#" class="single-btn">1</a></li>
-                                                <li><a href="#" class="single-btn">2</a></li>
-                                                <li><a href="#" class="single-btn">3</a></li>
-                                                <li><a href="#" class="single-btn">4</a></li>
-                                                <li><a href="#" class="single-btn next-btn"><i
-                                                            class="zmdi zmdi-chevron-right"></i></a></li>
-                                                <li><a href="#" class="single-btn next-btn"><i
-                                                            class="zmdi zmdi-chevron-right"></i>|</a></li>
-                                            </ul>
-                                        </div>
+                                </c:forEach>  
+
+                            </div>
+                            <!-- Pagination Block -->
+                            <div class="row pt--30">
+                                <div class="col-md-12">
+                                    <div class="pagination-block">
+                                        <ul class="pagination-btns flex-center">
+                                            <li><a href="#" class="single-btn prev-btn ">|<i
+                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
+                                            <li><a href="#" class="single-btn prev-btn "><i
+                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
+                                            <li class="active"><a href="#" class="single-btn">1</a></li>
+                                            <li><a href="#" class="single-btn">2</a></li>
+                                            <li><a href="#" class="single-btn">3</a></li>
+                                            <li><a href="#" class="single-btn">4</a></li>
+                                            <li><a href="#" class="single-btn next-btn"><i
+                                                        class="zmdi zmdi-chevron-right"></i></a></li>
+                                            <li><a href="#" class="single-btn next-btn"><i
+                                                        class="zmdi zmdi-chevron-right"></i>|</a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <!-- Modal -->
-                                <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="quickModal" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            <div class="product-details-modal">
-                                                <div class="row">
-                                                    <div class="col-lg-5">
-                                                        <!-- Product Details Slider Big Image-->
-                                                        <div class="product-details-slider sb-slick-slider arrow-type-two" data-slick-setting='{
-                                                             "slidesToShow": 1,
-                                                             "arrows": false,
-                                                             "fade": true,
-                                                             "draggable": false,
-                                                             "swipe": false,
-                                                             "asNavFor": ".product-slider-nav"
-                                                             }'>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-1.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-2.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-3.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-4.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-5.jpg" alt="">
-                                                            </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="quickModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="product-details-modal">
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <!-- Product Details Slider Big Image-->
+                                                    <div class="product-details-slider sb-slick-slider arrow-type-two" data-slick-setting='{
+                                                         "slidesToShow": 1,
+                                                         "arrows": false,
+                                                         "fade": true,
+                                                         "draggable": false,
+                                                         "swipe": false,
+                                                         "asNavFor": ".product-slider-nav"
+                                                         }'>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-1.jpg" alt="">
                                                         </div>
-                                                        <!-- Product Details Slider Nav -->
-                                                        <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
-                                                             data-slick-setting='{
-                                                             "infinite":true,
-                                                             "autoplay": true,
-                                                             "autoplaySpeed": 8000,
-                                                             "slidesToShow": 4,
-                                                             "arrows": true,
-                                                             "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},
-                                                             "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},
-                                                             "asNavFor": ".product-details-slider",
-                                                             "focusOnSelect": true
-                                                             }'>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-1.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-2.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-3.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-4.jpg" alt="">
-                                                            </div>
-                                                            <div class="single-slide">
-                                                                <img src="image/products/product-details-5.jpg" alt="">
-                                                            </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-2.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-3.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-4.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-5.jpg" alt="">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mt--30 mt-lg--30">
-                                                        <div class="product-details-info pl-lg--30 ">
-                                                            <p class="tag-block">Tags: <a href="#">Movado</a>, <a href="#">Omega</a></p>
-                                                            <h3 class="product-title">Beats EP Wired On-Ear Headphone-Black</h3>
-                                                            <ul class="list-unstyled">
-                                                                <li>Ex Tax: <span class="list-value"> £60.24</span></li>
-                                                                <li>Brands: <a href="#" class="list-value font-weight-bold"> Canon</a></li>
-                                                                <li>Product Code: <span class="list-value"> model1</span></li>
-                                                                <li>Reward Points: <span class="list-value"> 200</span></li>
-                                                                <li>Availability: <span class="list-value"> In Stock</span></li>
-                                                            </ul>
-                                                            <div class="price-block">
-                                                                <span class="price-new">£73.79</span>
-                                                                <del class="price-old">£91.86</del>
+                                                    <!-- Product Details Slider Nav -->
+                                                    <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two"
+                                                         data-slick-setting='{
+                                                         "infinite":true,
+                                                         "autoplay": true,
+                                                         "autoplaySpeed": 8000,
+                                                         "slidesToShow": 4,
+                                                         "arrows": true,
+                                                         "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},
+                                                         "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},
+                                                         "asNavFor": ".product-details-slider",
+                                                         "focusOnSelect": true
+                                                         }'>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-1.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-2.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-3.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-4.jpg" alt="">
+                                                        </div>
+                                                        <div class="single-slide">
+                                                            <img src="image/products/product-details-5.jpg" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 mt--30 mt-lg--30">
+                                                    <div class="product-details-info pl-lg--30 ">
+                                                        <p class="tag-block">Tags: <a href="#">Movado</a>, <a href="#">Omega</a></p>
+                                                        <h3 class="product-title">Beats EP Wired On-Ear Headphone-Black</h3>
+                                                        <ul class="list-unstyled">
+                                                            <li>Ex Tax: <span class="list-value"> £60.24</span></li>
+                                                            <li>Brands: <a href="#" class="list-value font-weight-bold"> Canon</a></li>
+                                                            <li>Product Code: <span class="list-value"> model1</span></li>
+                                                            <li>Reward Points: <span class="list-value"> 200</span></li>
+                                                            <li>Availability: <span class="list-value"> In Stock</span></li>
+                                                        </ul>
+                                                        <div class="price-block">
+                                                            <span class="price-new">£73.79</span>
+                                                            <del class="price-old">£91.86</del>
+                                                        </div>
+                                                        <div class="rating-widget">
+                                                            <div class="rating-block">
+                                                                <span class="fas fa-star star_on"></span>
+                                                                <span class="fas fa-star star_on"></span>
+                                                                <span class="fas fa-star star_on"></span>
+                                                                <span class="fas fa-star star_on"></span>
+                                                                <span class="fas fa-star "></span>
                                                             </div>
-                                                            <div class="rating-widget">
-                                                                <div class="rating-block">
-                                                                    <span class="fas fa-star star_on"></span>
-                                                                    <span class="fas fa-star star_on"></span>
-                                                                    <span class="fas fa-star star_on"></span>
-                                                                    <span class="fas fa-star star_on"></span>
-                                                                    <span class="fas fa-star "></span>
-                                                                </div>
-                                                                <div class="review-widget">
-                                                                    <a href="#">(1 Reviews)</a> <span>|</span>
-                                                                    <a href="#">Write a review</a>
-                                                                </div>
+                                                            <div class="review-widget">
+                                                                <a href="#">(1 Reviews)</a> <span>|</span>
+                                                                <a href="#">Write a review</a>
                                                             </div>
-                                                            <article class="product-details-article">
-                                                                <h4 class="sr-only">Product Summery</h4>
-                                                                <p>Long printed dress with thin adjustable straps. V-neckline and wiring under
-                                                                    the Dust with ruffles
-                                                                    at the bottom
-                                                                    of the
-                                                                    dress.</p>
-                                                            </article>
-                                                            <div class="add-to-cart-row">
-                                                                <div class="count-input-block">
-                                                                    <span class="widget-label">Qty</span>
-                                                                    <input type="number" class="form-control text-center" value="1">
-                                                                </div>
-                                                                <div class="add-cart-btn">
-                                                                    <a href="#" class="btn btn-outlined--primary"><span
-                                                                            class="plus-icon">+</span>Add to Cart</a>
-                                                                </div>
+                                                        </div>
+                                                        <article class="product-details-article">
+                                                            <h4 class="sr-only">Product Summery</h4>
+                                                            <p>Long printed dress with thin adjustable straps. V-neckline and wiring under
+                                                                the Dust with ruffles
+                                                                at the bottom
+                                                                of the
+                                                                dress.</p>
+                                                        </article>
+                                                        <div class="add-to-cart-row">
+                                                            <div class="count-input-block">
+                                                                <span class="widget-label">Qty</span>
+                                                                <input type="number" class="form-control text-center" value="1">
                                                             </div>
-                                                            <div class="compare-wishlist-row">
-                                                                <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
-                                                                <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
+                                                            <div class="add-cart-btn">
+                                                                <a href="#" class="btn btn-outlined--primary"><span
+                                                                        class="plus-icon">+</span>Add to Cart</a>
                                                             </div>
+                                                        </div>
+                                                        <div class="compare-wishlist-row">
+                                                            <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
+                                                            <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <div class="widget-social-share">
-                                                    <span class="widget-label">Share:</span>
-                                                    <div class="modal-social-share">
-                                                        <a href="#" class="single-icon"><i class="fab fa-facebook-f"></i></a>
-                                                        <a href="#" class="single-icon"><i class="fab fa-twitter"></i></a>
-                                                        <a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
-                                                        <a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
-                                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="widget-social-share">
+                                                <span class="widget-label">Share:</span>
+                                                <div class="modal-social-share">
+                                                    <a href="#" class="single-icon"><i class="fab fa-facebook-f"></i></a>
+                                                    <a href="#" class="single-icon"><i class="fab fa-twitter"></i></a>
+                                                    <a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
+                                                    <a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3  mt--40 mt-lg--0">
-                                <div class="inner-page-sidebar">
-                                    <!-- Accordion -->
-                                    <div class="single-block">
-                                        <h3 class="sidebar-title">Categories</h3>
-                                        <ul class="sidebar-menu--shop">
-                                            <li><a href="#">Accessories (5)</a></li>
-                                            <li><a href="#">Arts & Photography (10)</a></li>
-                                            <li><a href="#">Biographies (16)</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Price -->
-                                    <div class="single-block">
-                                        <h3 class="sidebar-title">Fillter By Price</h3>
-                                        <div class="range-slider pt--30">
-                                            <div class="sb-range-slider"></div>
-                                            <div class="slider-price">
-                                                <p>
-                                                    <input type="text" id="amount" readonly="">
-                                                </p>
-                                            </div>
+                        </div>
+                        <div class="col-lg-3  mt--40 mt-lg--0">
+                            <div class="inner-page-sidebar">
+                                <!-- Accordion -->
+                                <div class="single-block">
+                                    <h3 class="sidebar-title">Categories</h3>
+                                    <ul class="sidebar-menu--shop">
+                                        <li><a href="#">Accessories (5)</a></li>
+                                        <li><a href="#">Arts & Photography (10)</a></li>
+                                        <li><a href="#">Biographies (16)</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Price -->
+                                <div class="single-block">
+                                    <h3 class="sidebar-title">Fillter By Price</h3>
+                                    <div class="range-slider pt--30">
+                                        <div class="sb-range-slider"></div>
+                                        <div class="slider-price">
+                                            <p>
+                                                <input type="text" id="amount" readonly="">
+                                            </p>
                                         </div>
                                     </div>
-                                    <!-- Size -->
-                                    <div class="single-block">
-                                        <h3 class="sidebar-title">Manufacturer</h3>
-                                        <ul class="sidebar-menu--shop menu-type-2">
-                                           
-                                            <li><a href="#">Louis Vuitton <span>(12)</span></a></li>
-                                            <li><a href="#">Tommy Hilfiger <span>(0)</span></a></li>
-                                            <li><a href="#">Versace <span>(0)</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Color -->
-                                    <div class="single-block">
-                                        <h3 class="sidebar-title">Select By Publisher</h3>
-                                        <ul class="sidebar-menu--shop menu-type-2">
-                                           
-                                            <li><a href="#">Kim Đồng <span>(8)</span></a></li>
-                                            <li><a href="#">Cánh Diều <span>(11)</span> </a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Promotion Block -->
-                                    <div class="single-block">
-                                        <a href="#" class="promo-image sidebar">
-                                            <img src="image/others/home-side-promo.jpg" alt="">
-                                        </a>
-                                    </div>
+                                </div>
+                                <!-- Size -->
+                                <div class="single-block">
+                                    <h3 class="sidebar-title">Manufacturer</h3>
+                                    <ul class="sidebar-menu--shop menu-type-2">
+
+                                        <li><a href="#">Louis Vuitton <span>(12)</span></a></li>
+                                        <li><a href="#">Tommy Hilfiger <span>(0)</span></a></li>
+                                        <li><a href="#">Versace <span>(0)</span></a></li>
+                                    </ul>
+                                </div>
+                                <!-- Color -->
+                                <div class="single-block">
+                                    <h3 class="sidebar-title">Select By Publisher</h3>
+                                    <ul class="sidebar-menu--shop menu-type-2">
+
+                                        <li><a href="#">Kim Đồng <span>(8)</span></a></li>
+                                        <li><a href="#">Cánh Diều <span>(11)</span> </a></li>
+                                    </ul>
+                                </div>
+                                <!-- Promotion Block -->
+                                <div class="single-block">
+                                    <a href="#" class="promo-image sidebar">
+                                        <img src="image/others/home-side-promo.jpg" alt="">
+                                    </a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            <!--=================================
-      Brands Slider
-    ===================================== -->
-            <section class="section-margin">
-                <h2 class="sr-only">Brand Slider</h2>
-                <div class="container">
-                    <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                         "autoplay": true,
-                         "autoplaySpeed": 8000,
-                         "slidesToShow": 6
-                         }' data-slick-responsive='[
-                         {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                         {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                         {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                         {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                         {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                         ]'>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-3.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-4.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-5.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-6.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
                         </div>
                     </div>
                 </div>
-            </section>
-            <!--=================================
-        Footer Area
-    ===================================== -->
+            </main>
+        </div>
+        <!--=================================
+  Brands Slider
+===================================== -->
+        <section class="section-margin">
+            <h2 class="sr-only">Brand Slider</h2>
+            <div class="container">
+                <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+                     "autoplay": true,
+                     "autoplaySpeed": 8000,
+                     "slidesToShow": 6
+                     }' data-slick-responsive='[
+                     {"breakpoint":992, "settings": {"slidesToShow": 4} },
+                     {"breakpoint":768, "settings": {"slidesToShow": 3} },
+                     {"breakpoint":575, "settings": {"slidesToShow": 3} },
+                     {"breakpoint":480, "settings": {"slidesToShow": 2} },
+                     {"breakpoint":320, "settings": {"slidesToShow": 1} }
+                     ]'>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-3.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-4.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-5.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-6.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
+                    </div>
+                    <div class="single-slide">
+                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=================================
+    Footer Area
+===================================== -->
         <jsp:include page="./common/footer.jsp"></jsp:include>
-        <!-- Use Minified Plugins Version For Fast Page Load -->
-        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+            <!-- Use Minified Plugins Version For Fast Page Load -->
+            <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
