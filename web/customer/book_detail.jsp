@@ -10,9 +10,9 @@
         <title>Pustok - Book Store</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Use Minified Plugins Version For Fast Page Load -->
-        <link rel="stylesheet" type="text/css" media="screen" href="css/plugins.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-        <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
 
     <body>
@@ -73,19 +73,19 @@
                                      "focusOnSelect": true
                                      }'>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-1.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-1.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-2.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-2.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-3.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-3.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-4.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-4.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-5.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-5.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -676,9 +676,9 @@
             Footer Area
         ===================================== -->
         <jsp:include page="./common/footer.jsp"></jsp:include>
-        <script src="js/plugins.js"></script>
-        <script src="js/ajax-mail.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
 
 

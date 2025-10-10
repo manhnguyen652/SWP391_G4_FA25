@@ -4,19 +4,17 @@
  */
 package model;
 
-public class Author {
+public class Cart {
     private int id;
-    private String name;
-    private String bio;
+    private int uId;
 
     // Constructors
-    public Author() {
+    public Cart() {
     }
 
-    public Author(int id, String name, String bio) {
+    public Cart(int id, int uId) {
         this.id = id;
-        this.name = name;
-        this.bio = bio;
+        this.uId = uId;
     }
 
     // Getters and Setters
@@ -28,19 +26,11 @@ public class Author {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getUId() {
+        return uId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setUId(int uId) {
+        this.uId = uId;
     }
 }

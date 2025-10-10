@@ -1,28 +1,49 @@
-
 package model;
 
 public class Book {
-    private int b_id;
-    private String title;
+    private int bId;
+    private String bTitle;
     private String description;
-    private int publish_year;
-    private long price;
+    private int publicationYear;
+    private double price;
     private int stock;
+    private int pId; // publisher_id
+    private int aId; // author_id
+    private int imageId; // cover_image_id
+    private int cId; // category_id
 
-    public int getB_id() {
-        return b_id;
+    // Constructors
+    public Book() {
     }
 
-    public void setB_id(int b_id) {
-        this.b_id = b_id;
+    public Book(int bId, String bTitle, String description, int publicationYear, double price, int stock, int pId, int aId, int imageId, int cId) {
+        this.bId = bId;
+        this.bTitle = bTitle;
+        this.description = description;
+        this.publicationYear = publicationYear;
+        this.price = price;
+        this.stock = stock;
+        this.pId = pId;
+        this.aId = aId;
+        this.imageId = imageId;
+        this.cId = cId;
     }
 
-    public String getTitle() {
-        return title;
+    // Getters and Setters
+    public int getBId() {
+        return bId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBId(int bId) {
+        this.bId = bId;
+    }
+
+    public String getBTitle() {
+        return bTitle;
+    }
+
+    public void setBTitle(String bTitle) {
+        this.bTitle = bTitle;
     }
 
     public String getDescription() {
@@ -33,19 +54,19 @@ public class Book {
         this.description = description;
     }
 
-    public int getPublish_year() {
-        return publish_year;
+    public int getPublicationYear() {
+        return publicationYear;
     }
 
-    public void setPublish_year(int publish_year) {
-        this.publish_year = publish_year;
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -57,9 +78,35 @@ public class Book {
         this.stock = stock;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" + "b_id=" + b_id + ", title=" + title + ", description=" + description + ", publish_year=" + publish_year + ", price=" + price + ", stock=" + stock + '}';
+    public int getPId() {
+        return pId;
     }
-    
+
+    public void setPId(int pId) {
+        this.pId = pId;
+    }
+
+    public int getAId() {
+        return aId;
+    }
+
+    public void setAId(int aId) {
+        this.aId = aId;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public int getCId() {
+        return cId;
+    }
+
+    public void setCId(int cId) {
+        this.cId = cId;
+    }
 }

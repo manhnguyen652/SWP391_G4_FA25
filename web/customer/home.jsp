@@ -159,17 +159,13 @@
                                                     <a href="#" class="author">
                                                         Epple
                                                     </a>
-                                                    //To do 
-                                                    
-                                                    
-                                                    
                                                     <h3><a href="home?state=detail">Here Is A Quick Cure For Book</a></h3>
                                                 </div>
                                                 <div class="product-card--body">
                                                     <div class="card-image">
                                                         <img src="${pageContext.request.contextPath}/customer/image/products/product-2.jpg" alt="">
                                                         <div class="hover-contents">
-                                                            <a href="book_detail.jsp" class="hover-image">
+                                                            <a href="home?state=detail" class="hover-image">
                                                                 <img src="${pageContext.request.contextPath}/customer/image/products/product-1.jpg" alt="">
                                                             </a>
                                                             <div class="hover-btns">
@@ -205,7 +201,7 @@
                                                         <a href="#" class="author">
                                                             Gpple
                                                         </a>
-                                                        <h3><a href="product-details.html" tabindex="0">Qpple cPad with Retina
+                                                        <h3><a href="home?state=detail" tabindex="0">Qpple cPad with Retina
                                                                 Display MD510LL/A</a></h3>
                                                     </div>
                                                     <article>

@@ -4,18 +4,18 @@
  */
 package model;
 
-public class BookImage {
+public class WishlistItem {
     private int id;
-    private String imgUrl;
-    private int bId; // Khóa ngoại tới bảng books
+    private int wishlistId;
+    private int bId;
 
     // Constructors
-    public BookImage() {
+    public WishlistItem() {
     }
 
-    public BookImage(int id, String imgUrl, int bId) {
+    public WishlistItem(int id, int wishlistId, int bId) {
         this.id = id;
-        this.imgUrl = imgUrl;
+        this.wishlistId = wishlistId;
         this.bId = bId;
     }
 
@@ -28,12 +28,12 @@ public class BookImage {
         this.id = id;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public int getWishlistId() {
+        return wishlistId;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setWishlistId(int wishlistId) {
+        this.wishlistId = wishlistId;
     }
 
     public int getBId() {

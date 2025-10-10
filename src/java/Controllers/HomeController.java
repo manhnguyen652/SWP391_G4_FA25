@@ -19,12 +19,10 @@ public class HomeController extends HttpServlet {
         } else if ("detail".equals(state)) {
             
             request.getRequestDispatcher("/customer/book_detail.jsp").forward(request, response);
-
         }else if("cart".equals(state)){
             
             request.getRequestDispatcher("/customer/cart.jsp").forward(request, response);
         }else{
-            //todo 
             
             
         }
@@ -37,5 +35,6 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 }

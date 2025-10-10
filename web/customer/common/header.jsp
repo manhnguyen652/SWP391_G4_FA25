@@ -65,7 +65,7 @@
                                     <div class=" single-cart-block ">
                                         <div class="cart-product">
                                             <a href="home?state=detail" class="image">
-                                                <img src="image/products/cart-product-1.jpg" alt="">
+                                                <img src="${pageContext.request.contextPath}/customer/image/products/cart-product-1.jpg" alt="">
                                             </a>
                                             <div class="content">
                                                 <h3 class="title"><a href="home?state=detail">Đắc Nhân Tâm</a></h3>
