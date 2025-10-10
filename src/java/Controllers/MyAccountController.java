@@ -1,7 +1,7 @@
 package Controllers;
 
 import dao.AccountDAO;
-import Models.Account;
+import model.Account;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
