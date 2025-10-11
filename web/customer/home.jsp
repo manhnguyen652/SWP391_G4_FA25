@@ -358,9 +358,9 @@
                                 <div class="single-block">
                                     <h3 class="sidebar-title">Categories</h3>
                                     <ul class="sidebar-menu--shop">
-                                        <li><a href="#">Accessories (5)</a></li>
-                                        <li><a href="#">Arts & Photography (10)</a></li>
-                                        <li><a href="#">Biographies (16)</a></li>
+                                        <c:forEach var="cat" items="${categoryList}">
+                                            <li><a href="#">${cat.cateName}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Price -->
@@ -380,9 +380,9 @@
                                     <h3 class="sidebar-title">Manufacturer</h3>
                                     <ul class="sidebar-menu--shop menu-type-2">
 
-                                        <li><a href="#">Louis Vuitton <span>(12)</span></a></li>
-                                        <li><a href="#">Tommy Hilfiger <span>(0)</span></a></li>
-                                        <li><a href="#">Versace <span>(0)</span></a></li>
+                                        <c:forEach var="author" items="${authorList}">
+                                            <li><a href="#">${author.name}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Color -->
@@ -390,8 +390,9 @@
                                     <h3 class="sidebar-title">Select By Publisher</h3>
                                     <ul class="sidebar-menu--shop menu-type-2">
 
-                                        <li><a href="#">Kim Đồng <span>(8)</span></a></li>
-                                        <li><a href="#">Cánh Diều <span>(11)</span> </a></li>
+                                        <c:forEach var="pub" items="${publisherList}">
+                                            <li><a href="#">${pub.name}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Promotion Block -->
