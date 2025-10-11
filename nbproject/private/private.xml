@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="PRJ301">
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/model/Book.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/model/BookImage.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/dao/DBConnection.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/dao/AuthorDAO.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/UserManagement(Admin)</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/dao/CategoryDAO.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/dao/PublisherDAO.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4/web/customer/home.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/model/Author.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4/src/java/model/Category.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/LogoutController.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/LoginRegisterController.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/MyAccountController.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4/web/customer/css/main.css</file>
             <file>file:/D:/Project_WEB/SWP391_G4/src/java/Controllers/HomeController.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4/src/java/dao/BookDAO.java</file>
         </group>

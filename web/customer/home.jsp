@@ -203,18 +203,19 @@
                                 <div class="col-md-12">
                                     <div class="pagination-block">
                                         <ul class="pagination-btns flex-center">
-                                            <li><a href="#" class="single-btn prev-btn ">|<i
-                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
-                                            <li><a href="#" class="single-btn prev-btn "><i
-                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
-                                            <li class="active"><a href="#" class="single-btn">1</a></li>
-                                            <li><a href="#" class="single-btn">2</a></li>
-                                            <li><a href="#" class="single-btn">3</a></li>
-                                            <li><a href="#" class="single-btn">4</a></li>
-                                            <li><a href="#" class="single-btn next-btn"><i
-                                                        class="zmdi zmdi-chevron-right"></i></a></li>
-                                            <li><a href="#" class="single-btn next-btn"><i
-                                                        class="zmdi zmdi-chevron-right"></i>|</a></li>
+                                            <c:if test="${currentPage > 1}">
+                                                <li><a href="home?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                                    </c:if>
+
+                                            <c:forEach begin="1" end="${totalPages}" var="i">
+                                                <li class="${i == currentPage ? 'active' : ''}">
+                                                    <a href="home?page=${i}" class="single-btn">${i}</a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${currentPage < totalPages}">
+                                                <li><a href="home?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                                    </c:if>
                                         </ul>
                                     </div>
                                 </div>
@@ -358,9 +359,9 @@
                                 <div class="single-block">
                                     <h3 class="sidebar-title">Categories</h3>
                                     <ul class="sidebar-menu--shop">
-                                        <li><a href="#">Accessories (5)</a></li>
-                                        <li><a href="#">Arts & Photography (10)</a></li>
-                                        <li><a href="#">Biographies (16)</a></li>
+                                        <c:forEach var="cat" items="${categoryList}">
+                                            <li><a href="#">${cat.cateName}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Price -->
@@ -380,9 +381,9 @@
                                     <h3 class="sidebar-title">Manufacturer</h3>
                                     <ul class="sidebar-menu--shop menu-type-2">
 
-                                        <li><a href="#">Louis Vuitton <span>(12)</span></a></li>
-                                        <li><a href="#">Tommy Hilfiger <span>(0)</span></a></li>
-                                        <li><a href="#">Versace <span>(0)</span></a></li>
+                                        <c:forEach var="author" items="${authorList}">
+                                            <li><a href="#">${author.name}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Color -->
@@ -390,8 +391,9 @@
                                     <h3 class="sidebar-title">Select By Publisher</h3>
                                     <ul class="sidebar-menu--shop menu-type-2">
 
-                                        <li><a href="#">Kim Đồng <span>(8)</span></a></li>
-                                        <li><a href="#">Cánh Diều <span>(11)</span> </a></li>
+                                        <c:forEach var="pub" items="${publisherList}">
+                                            <li><a href="#">${pub.name}</a></li>
+                                            </c:forEach>
                                     </ul>
                                 </div>
                                 <!-- Promotion Block -->
