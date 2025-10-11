@@ -203,18 +203,19 @@
                                 <div class="col-md-12">
                                     <div class="pagination-block">
                                         <ul class="pagination-btns flex-center">
-                                            <li><a href="#" class="single-btn prev-btn ">|<i
-                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
-                                            <li><a href="#" class="single-btn prev-btn "><i
-                                                        class="zmdi zmdi-chevron-left"></i> </a></li>
-                                            <li class="active"><a href="#" class="single-btn">1</a></li>
-                                            <li><a href="#" class="single-btn">2</a></li>
-                                            <li><a href="#" class="single-btn">3</a></li>
-                                            <li><a href="#" class="single-btn">4</a></li>
-                                            <li><a href="#" class="single-btn next-btn"><i
-                                                        class="zmdi zmdi-chevron-right"></i></a></li>
-                                            <li><a href="#" class="single-btn next-btn"><i
-                                                        class="zmdi zmdi-chevron-right"></i>|</a></li>
+                                            <c:if test="${currentPage > 1}">
+                                                <li><a href="home?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                                    </c:if>
+
+                                            <c:forEach begin="1" end="${totalPages}" var="i">
+                                                <li class="${i == currentPage ? 'active' : ''}">
+                                                    <a href="home?page=${i}" class="single-btn">${i}</a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${currentPage < totalPages}">
+                                                <li><a href="home?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                                    </c:if>
                                         </ul>
                                     </div>
                                 </div>

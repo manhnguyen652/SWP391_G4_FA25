@@ -17,15 +17,17 @@ import model.Publisher;
 
 public class HomeController extends HttpServlet {
 
+    private static final int BOOKS_PER_PAGE = 9;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String state = request.getParameter("state");
-        
+
         CategoryDAO categoryDAO = new CategoryDAO();
         AuthorDAO authorDAO = new AuthorDAO();
         PublisherDAO publisherDAO = new PublisherDAO();
-        
+
         List<Category> categoryList = categoryDAO.getAllCategories();
         List<Author> authorList = authorDAO.getAllAuthors();
         List<Publisher> publisherList = publisherDAO.getAllPublishers();
@@ -33,12 +35,22 @@ public class HomeController extends HttpServlet {
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("authorList", authorList);
         request.setAttribute("publisherList", publisherList);
-        
+
         BookDAO bookDAO = new BookDAO();
-        
+
         if (state == null) {
-            List<Book> bookList = bookDAO.getAllBooks();
+            String pageStr = request.getParameter("page");
+            int currentPage = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+
+            int totalBooks = bookDAO.getTotalBooks();
+            int totalPages = (int) Math.ceil((double) totalBooks / BOOKS_PER_PAGE);
+
+            List<Book> bookList = bookDAO.getBooksByPage(currentPage, BOOKS_PER_PAGE);
+
             request.setAttribute("bookList", bookList);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", currentPage);
+
             request.getRequestDispatcher("/customer/home.jsp").forward(request, response);
 
         } else if ("detail".equals(state)) {
@@ -50,14 +62,14 @@ public class HomeController extends HttpServlet {
                 request.getRequestDispatcher("/customer/book_detail.jsp").forward(request, response);
 
             } catch (NumberFormatException e) {
-                response.sendRedirect("home"); 
+                response.sendRedirect("home");
             }
 
         } else if ("cart".equals(state)) {
-            
+
             request.getRequestDispatcher("/customer/cart.jsp").forward(request, response);
         } else {
-            
+
         }
     }
 

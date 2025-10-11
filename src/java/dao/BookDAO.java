@@ -61,7 +61,7 @@ public class BookDAO {
         }
         return bookList;
     }
-    
+
     public Book getBookById(int id) {
         String query = "SELECT b.*, a.name AS authorName "
                 + "FROM books b "
@@ -70,7 +70,7 @@ public class BookDAO {
         try {
             conn = DBConnection.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, id); 
+            ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -105,7 +105,58 @@ public class BookDAO {
                 e.printStackTrace();
             }
         }
-        return null; 
+        return null;
+    }
+
+    public int getTotalBooks() {
+        String query = "SELECT count(*) FROM books";
+        try {
+            conn = DBConnection.getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối
+        }
+        return 0;
+    }
+
+    public List<Book> getBooksByPage(int pageNumber, int pageSize) {
+        List<Book> bookList = new ArrayList<>();
+        String query = "SELECT b.*, a.name AS authorName "
+                + "FROM books b INNER JOIN authors a ON b.a_id = a.id "
+                + "ORDER BY b.b_id " // Cần ORDER BY để phân trang chính xác
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        try {
+            conn = DBConnection.getConnection();
+            ps = conn.prepareStatement(query);
+            // Tính toán offset
+            int offset = (pageNumber - 1) * pageSize;
+            ps.setInt(1, offset);
+            ps.setInt(2, pageSize);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                // ... (set các thuộc tính cho book như trong phương thức getAllBooks)
+                book.setBId(rs.getInt("b_id"));
+                book.setBTitle(rs.getString("b_title"));
+                book.setPrice(rs.getDouble("price"));
+                book.setAuthorName(rs.getString("authorName"));
+                // ... set các thuộc tính còn lại
+                bookList.add(book);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối
+        }
+        return bookList;
     }
 
 //    public static void main(String[] args) {
