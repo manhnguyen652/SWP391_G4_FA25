@@ -40,5 +40,41 @@
         }
     </style>
 </head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar trái -->
+        <div class="col-md-2 sidebar">
+            <h4>Feedback</h4>
+            <a href="#">All Feedback</a>
+            <a href="?filter=pending">Pending</a>
+            <a href="?filter=approved">Approved</a>
+            <a href="?filter=rejected">Rejected</a>
+        </div>
+
+        <!-- Nội dung phải -->
+        <div class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3>Feedback List</h3>
+
+                <!-- Search + Sort -->
+                <form class="search-bar" action="feedback" method="get">
+                    <input type="text" name="q" class="form-control" placeholder="Search feedback...">
+                    <select name="sort" class="form-select">
+                        <option value="">Sort by</option>
+                        <option value="date_desc">Newest</option>
+                        <option value="date_asc">Oldest</option>
+                        <option value="name_asc">Name A-Z</option>
+                        <option value="name_desc">Name Z-A</option>
+                    </select>
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+</body>
 
 </html>
