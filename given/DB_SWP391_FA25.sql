@@ -1,7 +1,5 @@
 ﻿-- Tạo cơ sở dữ liệu mới (tùy chọn, bạn có thể chạy script trong một DB đã có)
 create database BookStoreDB;
--- Sử dụng cơ sở dữ liệu vừa tạo
-USE BookStoreDB;
 GO
 
 -- Bảng lưu các quyền hạn (ví dụ: Admin, User)

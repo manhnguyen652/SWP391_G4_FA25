@@ -44,7 +44,7 @@
                                             <c:otherwise>
 
                                                 <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
-                                                <a href="login-register.html" class="font-weight-bold">Đăng kí</a>
+                                                <span> </span><a href="login-register.html" class="font-weight-bold">Đăng kí</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </li>
