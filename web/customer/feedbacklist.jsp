@@ -70,6 +70,58 @@
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
+            
+            <!-- Bảng danh sách Feedback -->
+            <table class="table table-bordered table-hover bg-white">
+                <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Content</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="fb" items="${feedbackList}" varStatus="loop">
+                    <tr>
+                        <td>${loop.index + 1}</td>
+                        <td>${fb.userName}</td>
+                        <td>${fb.content}</td>
+                        <td>${fb.createdDate}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${fb.status == 'approved'}"><span class="badge bg-success">Approved</span></c:when>
+                                <c:when test="${fb.status == 'pending'}"><span class="badge bg-warning text-dark">Pending</span></c:when>
+                                <c:otherwise><span class="badge bg-danger">Rejected</span></c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="table-actions">
+                            <form action="feedback" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${fb.id}">
+                                <button name="action" value="delete" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                                <form action="feedback" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${fb.id}">
+                                <button name="action" value="reject" class="btn btn-sm btn-secondary">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <!-- Phân trang -->
+            <nav>
+                <ul class="pagination">
+                    <c:forEach var="p" begin="1" end="${totalPages}">
+                        <li class="page-item ${p == currentPage ? 'active' : ''}">
+                            <a class="page-link" href="?page=${p}">${p}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
 
             
         </div>
