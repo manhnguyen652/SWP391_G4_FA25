@@ -18,7 +18,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
     <body>
-        <div class="site-wrapper" id="top">
+        <div class="site-header d-none d-lg-block"id="top">
             <div class="site-header d-none d-lg-block">
                 <div class="header-middle pt--10 pb--10">
                     <div class="container">
@@ -44,63 +44,7 @@
                                     <ul class="main-menu menu-right ">
                                         <li class="menu-item has-children">
                                             <a href="javascript:void(0)">Trang chủ <i class="fas fa-chevron-down dropdown-arrow"></i></a>
-<!--                                            <ul class="sub-menu">
-                                                <li> <a href="index.html">Home One</a></li>
-                                                <li> <a href="index-2.html">Home Two</a></li>
-                                                <li> <a href="index-3.html">Home Three</a></li>
-                                                <li> <a href="index-4.html">Home Four</a></li>
-                                            </ul>-->
                                         </li>
-                                        <!-- Shop -->
-<!--                                        <li class="menu-item has-children mega-menu">-->
-<!--                                            <a href="javascript:void(0)">Cửa hàng <i class="fas fa-chevron-down dropdown-arrow"></i></a>-->
-<!--                                            <ul class="sub-menu four-column">
-                                                <li class="cus-col-25">
-                                                    <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
-                                                    <ul class="mega-single-block">
-                                                        <li><a href="shop-grid.html">Fullwidth</a></li>
-                                                        <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
-                                                        <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="cus-col-25">
-                                                    <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
-                                                    <ul class="mega-single-block">
-                                                        <li><a href="shop-list.html">Fullwidth</a></li>
-                                                        <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
-                                                        <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="cus-col-25">
-                                                    <h3 class="menu-title"> <a href="javascript:void(0)">Product Details
-                                                            1</a></h3>
-                                                    <ul class="mega-single-block">
-                                                        <li><a href="product-details.html">Product Details Page</a></li>
-                                                        <li><a href="product-details-affiliate.html">Product Details
-                                                                Affiliate</a></li>
-                                                        <li><a href="product-details-group.html">Product Details Group</a>
-                                                        </li>
-                                                        <li><a href="product-details-variable.html">Product Details
-                                                                Variables</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="cus-col-25">
-                                                    <h3 class="menu-title"><a href="javascript:void(0)">Product Details
-                                                            2</a></h3>
-                                                    <ul class="mega-single-block">
-                                                        <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
-                                                        </li>
-                                                        <li><a href="product-details-right-thumbnail.html">Right
-                                                                Thumbnail</a></li>
-                                                        <li><a href="product-details-left-gallery.html">Left Gallery</a>
-                                                        </li>
-                                                        <li><a href="product-details-right-gallery.html">Right Gallery</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>-->
-<!--                                        </li>-->
-                                        <!-- Pages -->
                                         <li class="menu-item has-children">
                                             <a href="javascript:void(0)">Trang <i class="fas fa-chevron-down dropdown-arrow"></i></a>
                                             <ul class="sub-menu">
@@ -268,7 +212,7 @@
                                     <div class="cart-widget">
                                         <div class="login-block">
                                             <a href="login-register.html" class="font-weight-bold">Đăng nhập</a> <br>
-                                            <span>  </span><a href="login-register.html">Đăng ký</a>
+                                            <span>  </span><a href="${pageContext.request.contextPath}/customer/register.jsp">Đăng ký</a>Đăng ký</a>
                                         </div>
                                         <div class="cart-block">
                                             <div class="cart-total">
@@ -316,133 +260,41 @@
             <!--=============================================
 =            Login Register page content         =
 =============================================-->
-            <main class="page-section inner-page-sec-padding-bottom">
-  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="col-sm-12 col-md-8 col-lg-6">
-      <form action="login-register" method="post">
-        <input type="hidden" name="action" value="register">
-        <div class="login-form text-center p-4 shadow rounded bg-white">
-          <h4 class="login-title mb-3">Tạo Tài Khoản</h4>
-          <p><span class="font-weight-bold text-danger">Tôi là khách hàng mới!!!</span></p>
-          <div class="row">            
-            <div class="col-12 mb-3 text-start">
-              <label for="email">Email</label>
-              <input class="form-control" type="email" name="email" id="email" placeholder="abc123@gmail.com">
-            </div>
-            <div class="col-lg-6 mb-3 text-start">
-              <label for="password">Mật khẩu</label>
-              <input class="form-control" type="password" name="password" id="password" placeholder="Mật khẩu của bạn là...">
-            </div>
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</main>
-
-        </div>
-        <!--=================================
-  Brands Slider
-===================================== -->
-        <section class="section-margin">
-            <h2 class="sr-only">Brand Slider</h2>
-            <div class="container">
-                <div class="brand-slider sb-slick-slider border-top border-bottom slick-initialized slick-slider" data-slick-setting="{
-                     &quot;autoplay&quot;: true,
-                     &quot;autoplaySpeed&quot;: 8000,
-                     &quot;slidesToShow&quot;: 6
-                     }" data-slick-responsive="[
-                     {&quot;breakpoint&quot;:992, &quot;settings&quot;: {&quot;slidesToShow&quot;: 4} },
-                     {&quot;breakpoint&quot;:768, &quot;settings&quot;: {&quot;slidesToShow&quot;: 3} },
-                     {&quot;breakpoint&quot;:575, &quot;settings&quot;: {&quot;slidesToShow&quot;: 3} },
-                     {&quot;breakpoint&quot;:480, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2} },
-                     {&quot;breakpoint&quot;:320, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1} }
-                     ]"><div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 1360px; transform: translate3d(-850px, 0px, 0px);"><div class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 170px;" tabindex="-1"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-1.jpg" alt="">
-                                    </div></div></div><div class="slick-slide" data-slick-index="1" aria-hidden="true" style="width: 170px;" tabindex="-1"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-2.jpg" alt="">
-                                    </div></div></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" style="width: 170px;" tabindex="-1"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-3.jpg" alt="">
-                                    </div></div></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" style="width: 170px;" tabindex="-1"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-4.jpg" alt="">
-                                    </div></div></div><div class="slick-slide" data-slick-index="4" aria-hidden="true" style="width: 170px;" tabindex="-1"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-5.jpg" alt="">
-                                    </div></div></div><div class="slick-slide slick-current slick-active" data-slick-index="5" aria-hidden="false" style="width: 170px;"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-6.jpg" alt="">
-                                    </div></div></div><div class="slick-slide slick-active" data-slick-index="6" aria-hidden="false" style="width: 170px;"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-1.jpg" alt="">
-                                    </div></div></div><div class="slick-slide slick-active" data-slick-index="7" aria-hidden="false" style="width: 170px;"><div><div class="single-slide" style="width: 100%; display: inline-block;">
-                                        <img src="image/others/brand-2.jpg" alt="">
-                                    </div></div></div></div></div></div>
-            </div>
-        </section>
-        <!--=================================
-    Footer Area
-===================================== -->
-        <footer class="site-footer">
-            <div class="container">
-                <div class="row justify-content-between  section-padding">
-                    <div class=" col-xl-3 col-lg-4 col-sm-6">
-                        <div class="single-footer pb--40">
-                            <div class="brand-footer footer-title">
-                                <img src="image/logo--footer.png" alt="">
-                            </div>
-                            <div class="footer-contact">
-                                <p><span class="label">Địa chỉ:</span><span class="text">FPT, Thạch Thất, Hà Nội</span></p>
-                                <p><span class="label">Phone:</span><span class="text">+18088 234 5678</span></p>
-                                <p><span class="label">Email:</span><span class="text">cskh@pustok.com</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" col-xl-3 col-lg-2 col-sm-6">
-                        <div class="single-footer pb--40">
-                            <div class="footer-title">
-                                <h3>Thông tin</h3>
-                            </div>
-                            <ul class="footer-list normal-list">
-                                <li><a href="">Khuyến mại</a></li>
-                                <li><a href="">Giới thiệu</a></li>
-                                <li><a href="">Liên hệ đặt quảng cáo</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class=" col-xl-3 col-lg-2 col-sm-6">
-                        <div class="single-footer pb--40">
-                            <div class="footer-title">
-                                <h3>Pustok</h3>
-                            </div>
-                            <ul class="footer-list normal-list">
-                                <li><a href="">Chính sách bảo mật</a></li>
-                                <li><a href="">Điều khoản</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class=" col-xl-3 col-lg-4 col-sm-6">
-                        <div class="footer-title">
-                            <h3>Đăng ký nhận thông tin</h3>
-                        </div>
-                        <div class="newsletter-form mb--30">
-                            <form action="./php/mail.php">
-                                <input type="email" class="form-control" placeholder="Vui lòng nhập Email tại đây...">
-                                <button class="btn btn--primary w-100">Đăng ký</button>
+   <div class="container p-2" style="min-height: 100vh;
+            display: flex; 
+            justify-content: center;
+            align-items: center;" >
+            <div class="row w-100">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-body" style="border: 2px solid #007bff; border-radius: 10px; 
+                                                        box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+                                                        padding: 30px; font-size: 16px;">
+                            <h4 class="text-center">Chào mừng đến với Pustok</h4>
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Địa chỉ Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" 
+                                               aria-describedby="emailHelp" placeholder="Nhập Email..." required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mật khẩu</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword" 
+                                            placeholder="Nhập mật khẩu..." required="required">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" style="border-radius: 20px; background-color: #007bff; color: white; border: none;">Đăng ký</button>
+                                </div>
                             </form>
-                        </div>
-                        <div class="social-block">
-                            <h3 class="title">Thông tin của Pustok</h3>
-                            <ul class="social-list list-inline">
-                                <li class="single-social facebook"><a href=""><i class="ion ion-social-facebook"></i></a>
-                                </li>
-                                <li class="single-social twitter"><a href=""><i class="ion ion-social-twitter"></i></a></li>
-                                <li class="single-social google"><a href=""><i class="ion ion-social-googleplus-outline"></i></a></li>
-                                <li class="single-social youtube"><a href=""><i class="ion ion-social-youtube"></i></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        </div>
+<!--footer-->
+        <footer class="site-footer">
             <div class="footer-bottom">
                 <div class="container">
                     <h2 class="font-weight-bold" style="color:white">Miễn trừ trách nhiệm </h2>
