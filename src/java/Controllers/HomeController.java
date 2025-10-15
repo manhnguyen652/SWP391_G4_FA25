@@ -9,7 +9,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
 import model.Author;
 import model.Book;
 import model.Category;
@@ -66,8 +68,12 @@ public class HomeController extends HttpServlet {
             }
 
         } else if ("cart".equals(state)) {
-
-            request.getRequestDispatcher("/customer/cart.jsp").forward(request, response);
+            String action = request.getParameter("action");
+            if ("cart".equals(action)) {
+                addToCart(request, response);
+            } else {
+                request.getRequestDispatcher("/customer/cart.jsp").forward(request, response);
+            }
         } else {
 
         }
@@ -77,5 +83,38 @@ public class HomeController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    }
+
+    private void addToCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        // 1. Kiểm tra xem người dùng đã đăng nhập chưa
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login.jsp"); // Hoặc tên trang đăng nhập của bạn
+            return;
+        }
+
+        try {
+            // 2. Lấy thông tin từ form
+            int bookId = Integer.parseInt(request.getParameter("bookId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int accountId = account.getU_id();
+
+            // 3. Gọi DAO để thêm vào giỏ hàng
+            BookDAO cartDAO = new BookDAO();
+            cartDAO.addToCart(accountId, bookId, quantity);
+
+            // 4. Chuyển hướng lại trang chi tiết sản phẩm với thông báo thành công
+            response.sendRedirect("home?state=detail&bookId=" + bookId + "&add=success");
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            response.sendRedirect("home"); // Lỗi thì về trang chủ
+        }
     }
 }
