@@ -25,7 +25,7 @@
                                 <ul class="nav align-items-center">
                                     <li class="item">
                                         <c:choose>
-                                            <%-- TRƯỜNG HỢP: Người dùng ĐÃ đăng nhập --%>
+                                            
                                             <c:when test="${not empty sessionScope.account}">
                                                 <div class="dropdown">
                                                     <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,13 +34,13 @@
                                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                                         <li><a class="dropdown-item" href="my-account">Tài khoản của tôi</a></li>
                                                         <li><hr class="dropdown-divider"></li>
-                                                            <%-- Link này sẽ gọi đến LogoutController bạn vừa tạo --%>
+                                                           
                                                         <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                                                     </ul>
                                                 </div>
                                             </c:when>
 
-                                            <%-- TRƯỜNG HỢP: Người dùng CHƯA đăng nhập --%>
+                                           
                                             <c:otherwise>
 
                                                 <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class=" single-cart-block ">
                                         <div class="btn-block">
-                                            <a href="cart.html" class="btn">Xem giỏ hàng <i
+                                            <a href="home?state=cart" class="btn">Xem giỏ hàng <i
                                                     class="fas fa-chevron-right"></i></a>
                                             <a href="checkout.html" class="btn btn--primary">Thanh toán <i
                                                     class="fas fa-chevron-right"></i></a>

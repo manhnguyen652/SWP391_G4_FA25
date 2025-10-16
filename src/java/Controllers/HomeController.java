@@ -1,9 +1,10 @@
 package Controllers;
 
-import dao.AuthorDAO;
-import dao.BookDAO;
-import dao.CategoryDAO;
-import dao.PublisherDAO;
+import DAO.AuthorDAO;
+import DAO.BookDAO;
+import DAO.CartDAO;
+import DAO.CategoryDAO;
+import DAO.PublisherDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +26,8 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String state = request.getParameter("state");
-
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
         CategoryDAO categoryDAO = new CategoryDAO();
         AuthorDAO authorDAO = new AuthorDAO();
         PublisherDAO publisherDAO = new PublisherDAO();
@@ -68,9 +70,28 @@ public class HomeController extends HttpServlet {
             }
 
         } else if ("cart".equals(state)) {
-            String action = request.getParameter("action");
-            if ("cart".equals(action)) {
-                addToCart(request, response);
+            if ("add".equals(action)) {
+                Account account = (Account) session.getAttribute("account");
+                if (account == null) {
+                    response.sendRedirect("login-register"); // Hoặc URL trang login của bạn
+                    return;
+                }
+                try {
+                    int bookId = Integer.parseInt(request.getParameter("bookId"));
+                    int accountId = account.getU_id(); // Đảm bảo getter là getUId()
+
+                    CartDAO cartDAO = new CartDAO(); // Gọi đúng DAO
+                    cartDAO.addToCart(accountId, bookId, 1); // Thêm số lượng là 1
+
+                    String currentPage = request.getParameter("page");
+                    currentPage = (currentPage == null || currentPage.isEmpty()) ? "1" : currentPage;
+                    response.sendRedirect("home?page=" + currentPage + "&add=success");
+                    return; // Dừng lại sau khi xử lý xong
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    response.sendRedirect("home");
+                    return;
+                }
             } else {
                 request.getRequestDispatcher("/customer/cart.jsp").forward(request, response);
             }
@@ -85,36 +106,4 @@ public class HomeController extends HttpServlet {
 
     }
 
-    private void addToCart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-
-        // 1. Kiểm tra xem người dùng đã đăng nhập chưa
-        Account account = (Account) session.getAttribute("account");
-
-        if (account == null) {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
-            response.sendRedirect("login.jsp"); // Hoặc tên trang đăng nhập của bạn
-            return;
-        }
-
-        try {
-            // 2. Lấy thông tin từ form
-            int bookId = Integer.parseInt(request.getParameter("bookId"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            int accountId = account.getU_id();
-
-            // 3. Gọi DAO để thêm vào giỏ hàng
-            BookDAO cartDAO = new BookDAO();
-            cartDAO.addToCart(accountId, bookId, quantity);
-
-            // 4. Chuyển hướng lại trang chi tiết sản phẩm với thông báo thành công
-            response.sendRedirect("home?state=detail&bookId=" + bookId + "&add=success");
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            response.sendRedirect("home"); // Lỗi thì về trang chủ
-        }
-    }
 }

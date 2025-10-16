@@ -1,4 +1,4 @@
-package dao;
+package DAO;
 
 import model.Author;
 import java.sql.*;

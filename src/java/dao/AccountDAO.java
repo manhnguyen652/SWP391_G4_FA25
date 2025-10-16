@@ -1,4 +1,4 @@
-package dao;
+package DAO;
 
 import model.Account;
 import java.sql.Connection;
