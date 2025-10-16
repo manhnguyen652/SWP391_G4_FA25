@@ -156,7 +156,7 @@
                                                                 <img src="${pageContext.request.contextPath}/customer/image/products/product-2.jpg" alt="">
                                                             </a>
                                                             <div class="hover-btns">
-                                                                <a href="cart.html" class="single-btn">
+                                                                <a href="home?state=cart&action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-shopping-basket"></i>
                                                                 </a>
                                                                 <a href="wishlist.html" class="single-btn">

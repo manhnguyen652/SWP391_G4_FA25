@@ -1,12 +1,15 @@
-package dao;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Book;
+import model.CartItem;
 
 public class BookDAO {
 
@@ -216,6 +219,7 @@ public class BookDAO {
            
         }
     }
+    
 //    public static void main(String[] args) {
 //        BookDAO bookDAO = new BookDAO();
 //        Book bookList = bookDAO.getBookById(1);

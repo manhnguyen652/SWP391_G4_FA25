@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dao.AccountDAO;
+import DAO.AccountDAO;
 import model.Account;
 import java.sql.Date;
 
@@ -35,7 +35,7 @@ public class LoginRegisterController extends HttpServlet {
         model.Account acc = dao.login(email, password);
         if (acc != null) {
             request.getSession().setAttribute("account", acc);
-            response.sendRedirect("customer/home.jsp");
+            response.sendRedirect("home");
             return; // 
         } else {
             request.setAttribute("loginError", "Sai email hoặc mật khẩu!");
@@ -62,7 +62,7 @@ public class LoginRegisterController extends HttpServlet {
 
         if (dao.register(newAcc)) {
             request.getSession().setAttribute("account", newAcc);
-            response.sendRedirect("customer/home.jsp");
+            response.sendRedirect("home");
             return; // 
         } else {
             request.setAttribute("registerError", "Đăng ký thất bại, thử lại sau!");

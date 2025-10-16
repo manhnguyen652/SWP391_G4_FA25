@@ -121,16 +121,22 @@
                                     <h4 class="sr-only">Product Summery</h4>
                                     <p>${bookDetail.description}</p>
                                 </article>
-                                <div class="add-to-cart-row">
-                                    <div class="count-input-block">
-                                        <span class="widget-label">Qty</span>
-                                        <input type="number" class="form-control text-center" value="1">
+                                <form action="home?state=cart&action=cart" method="GET">
+                                    <input type="hidden" name="bookId" value="${bookDetail.BId}">
+
+                                    <div class="add-to-cart-row">
+                                        <div class="count-input-block">
+                                            <span class="widget-label">Số lượng</span>
+                                            <input type="number" name="quantity" class="form-control text-center" value="1" min="1">
+                                        </div>
+                                        <div class="add-cart-btn">
+
+                                            <button type="submit" class="btn btn-outlined--primary">
+                                                <span class="plus-icon">+</span>Thêm vào giỏ
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="add-cart-btn">
-                                        <a href="#" class="btn btn-outlined--primary"><span class="plus-icon">+</span>Add to
-                                            Cart</a>
-                                    </div>
-                                </div>
+                                </form>
                                 <div class="compare-wishlist-row">
                                     <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
                                     <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
