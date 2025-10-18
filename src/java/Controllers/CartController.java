@@ -29,10 +29,8 @@ public class CartController extends HttpServlet {
     }
 
     CartDAO cartDAO = new CartDAO();
-    // Lấy dữ liệu dưới dạng Map
     Map<CartItem, Book> cartMap = cartDAO.getCartItemsByAccountId(account.getU_id());
-
-    // Tính tổng tiền
+    
     double subTotal = 0;
     for (Map.Entry<CartItem, Book> entry : cartMap.entrySet()) {
         CartItem item = entry.getKey();
@@ -40,7 +38,7 @@ public class CartController extends HttpServlet {
         subTotal += item.getQuantity() * book.getPrice();
     }
 
-    // Gửi Map và tổng tiền sang JSP
+    
     request.setAttribute("cartMap", cartMap);
     request.setAttribute("subTotal", subTotal);
 
