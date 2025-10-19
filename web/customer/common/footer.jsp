@@ -66,7 +66,7 @@
                         <li class="single-social youtube" style="boder-radius: 20px;"><a href="#"><i class="ion ion-social-youtube"></i></a></li>
                     </ul>
 
-                    <!-- 🔽 Nút mới: Feedback List -->
+                    <!-- Feedback List -->
                     <div class="mt-3 text-center">
                         <a href="${pageContext.request.contextPath}/customer/feedback_list.jsp"
                            class="btn btn--primary w-100">
@@ -74,7 +74,7 @@
                         </a>
                     </div>
 
-                    <!-- 🔽 Nút mới: Shipping -->
+                    <!-- Shipping -->
                     <div class="mt-3 text-center">
                         <a href="${pageContext.request.contextPath}/customer/Shipping.jsp"
                            class="btn btn--primary w-100">
