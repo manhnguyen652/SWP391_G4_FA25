@@ -1,221 +1,168 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>)
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Đơn vận chuyển</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shipping Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS gốc của site -->
+    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
 
-    <!-- Bootstrap & Fonts -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <style>
-        body {
-            font-family: 'Varela Round', sans-serif;
-            background-color: #f7f7f7;
-        }
-        /* Header */
-        .top-header {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 8px 0;
-            font-size: 14px;
-        }
-        .top-header a {
-            color: #fff;
-            margin-left: 10px;
-        }
-        .main-header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e5e5e5;
-            padding: 15px 0;
-        }
-        .main-header .logo {
-            font-size: 28px;
-            color: #76b82a;
-            font-weight: bold;
-        }
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+    /* Sidebar */
+    .sidebar {
+        background-color: #fff;
+        border-right: 1px solid #ddd;
+        height: 100vh;
+        padding-top: 20px;
+    }
+    .sidebar h4 {
+        margin-bottom: 1rem;
+        color: #7bb241;
+        font-weight: 600;
+    }
+    .sidebar a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: 0.2s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+        background-color: #7bb241;
+        color: white;
+    }
 
-        /* Sidebar */
-        .sidebar {
-            background: #fff;
-            min-height: 100vh;
-            border-right: 1px solid #e5e5e5;
-            padding: 20px 0;
-        }
-        .sidebar h5 {
-            padding-left: 20px;
-            margin-bottom: 15px;
-            color: #76b82a;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .sidebar ul li a {
-            display: block;
-            padding: 10px 20px;
-            color: #333;
-            text-decoration: none;
-        }
-        .sidebar ul li a:hover {
-            background-color: #f0f0f0;
-            color: #76b82a;
-        }
+    /* Nút chính */
+    .btn--primary {
+        background-color: #7bb241 !important;
+        color: white !important;
+        border: none;
+    }
+    .btn--primary:hover {
+        background-color: #689a36 !important;
+    }
 
-        /* Content area */
-        .content-wrapper {
-            padding: 20px;
-        }
-        .table-wrapper {
-            background: #fff;
-            border-radius: 5px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .table-title {
-            margin-bottom: 15px;
-        }
-        .table-title h2 {
-            font-size: 22px;
-            margin: 0;
-        }
-        .pagination button {
-            margin-right: 5px;
-        }
-    </style>
+    .table-actions button {
+        margin-right: 5px;
+    }
+
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1rem;
+    }
+</style>
+
+
 </head>
 <body>
-
-<!-- 🔸 Top Header -->
-<div class="top-header">
-    <div class="container d-flex justify-content-between">
-        <div>
-            <i class="fas fa-headphones-alt"></i> Free Support 24/7: <strong>+01-202-555-0181</strong>
-        </div>
-        <div>
-            <a href="home">Home</a>
-            <a href="#">Contact</a>
-            <a href="#">My Account</a>
-        </div>
-    </div>
-</div>
-
-<!-- 🔸 Main Header -->
-<div class="main-header">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="logo">Pustok.</div>
-        <form class="form-inline" action="search">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search entire store" aria-label="Search" style="width: 300px;">
-            <button class="btn btn-success" type="submit">Search</button>
-        </form>
-    </div>
-</div>
-
 <div class="container-fluid">
     <div class="row">
-        <!-- 🟩 Sidebar -->
-        <div class="col-md-3 col-lg-2 sidebar">
-            <h5>Browse Categories</h5>
-            <ul>
-                <li><a href="#">Arts & Photography</a></li>
-                <li><a href="#">Biographies</a></li>
-                <li><a href="#">Business & Money</a></li>
-                <li><a href="#">Calendars</a></li>
-                <li><a href="#">Children's Books</a></li>
-                <li><a href="#">Comics</a></li>
-                <li><a href="#">Cookbooks</a></li>
-                <li><a href="#">More Categories</a></li>
+        <!-- Sidebar trái -->
+        <div class="col-md-2 sidebar">
+            <h4>Shipping</h4>
+            <a href="#" class="active">All Orders</a>
+            <a href="?filter=pending">Pending</a>
+            <a href="?filter=shipping">Shipping</a>
+            <a href="?filter=delivered">Delivered</a>
+            <a href="?filter=canceled">Canceled</a>
+        </div>
+
+    <!-- Nội dung chính -->
+    <div class="col-md-10 p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Shipping List</h3>
+
+            <!-- Search + Sort -->
+            <form class="search-bar" action="shipping" method="get">
+                <input type="text" name="q" class="form-control" placeholder="Search order...">
+                <select name="sort" class="form-select">
+                    <option value="">Sort by</option>
+                    <option value="date_desc">Newest</option>
+                    <option value="date_asc">Oldest</option>
+                    <option value="name_asc">Customer A-Z</option>
+                    <option value="name_desc">Customer Z-A</option>
+                </select>
+                <button class="btn btn--primary" type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Bảng danh sách đơn hàng -->
+        <table class="table table-bordered table-hover bg-white">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Order Date</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                    <th>Address</th>
+                    <th>Paid</th>
+                    <th>Shipping Fee</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="order" items="${orderList}" varStatus="loop">
+                    <tr>
+                        <td>${loop.index + 1}</td>
+                        <td>${order.customerName}</td>
+                        <td>${order.orderDate}</td>
+                        <td>${order.deliveryDate}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${order.status == 'Pending'}"><span class="badge bg-warning text-dark">Pending</span></c:when>
+                                <c:when test="${order.status == 'Shipping'}"><span class="badge bg-info text-dark">Shipping</span></c:when>
+                                <c:when test="${order.status == 'Delivered'}"><span class="badge bg-success">Delivered</span></c:when>
+                                <c:otherwise><span class="badge bg-danger">Canceled</span></c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>${order.deliveryAddress}</td>
+                        <td>${order.paymentStatus}</td>
+                        <td>${order.shippingFee}</td>
+                        <td class="table-actions">
+                            <form action="shipping" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${order.id}">
+                                <button name="action" value="start" class="btn btn-sm btn--primary"
+                                    ${order.status == 'Pending' ? '' : 'disabled'}>Ship</button>
+                            </form>
+                            <form action="shipping" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${order.id}">
+                                <button name="action" value="cancel" class="btn btn-sm btn-danger"
+                                    ${order.status == 'Delivered' ? 'disabled' : ''}>Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+        <!-- Phân trang -->
+        <nav>
+            <ul class="pagination">
+                <c:forEach var="p" begin="1" end="${totalPages}">
+                    <li class="page-item ${p == currentPage ? 'active' : ''}">
+                        <a class="page-link" href="?page=${p}">${p}</a>
+                    </li>
+                </c:forEach>
             </ul>
-        </div>
-
-        <!-- 🟨 Content -->
-        <div class="col-md-9 col-lg-10 content-wrapper">
-            <div class="mb-3">
-                <a href="home" class="btn btn-primary">Quay về trang chủ</a>
-            </div>
-
-            <h5>Tổng thu nhập: ${dao.getIncomeByShipperId(sessionScope.account.accountId)}</h5>
-            <h5>Tổng đơn hàng: ${dao.orders.size()}</h5>
-            <h5>Tổng đơn hàng đã giao: ${dao.getNumberOfDeliveredByShipperId(sessionScope.account.accountId)}</h5>
-
-            <div class="table-wrapper mt-3">
-                <div class="table-title d-flex justify-content-between align-items-center">
-                    <h2>Đơn vận chuyển</h2>
-                </div>
-
-                <!-- 🔸 Pagination -->
-                <form action="shipping" method="post" class="pagination mb-3">
-                    <c:forEach var="counter" begin="1" end="${(dao.orders.size() / 15) + (dao.orders.size() % 15 == 0 ? 0 : 1)}">
-                        <button type="submit" name="subpageIndex" value="${counter}" 
-                                class="btn btn-sm ${clickedSubpageIndex == counter ? 'btn-primary' : 'btn-outline-secondary'}">
-                            ${counter}
-                        </button>
-                    </c:forEach>
-                </form>
-
-                <!-- 🔸 Orders Table -->
-                <table class="table table-striped table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Chi tiết</th>
-                            <th>Người mua</th>
-                            <th>Ngày đặt</th>
-                            <th>Ngày nhận</th>
-                            <th>Trạng thái</th>
-                            <th>Địa chỉ nhận</th>
-                            <th>Đã thanh toán</th>
-                            <th>Phí vận chuyển</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="order" items="${dao.orders}" 
-                                   begin="${15 * (clickedSubpageIndex - 1)}" 
-                                   end="${15 * clickedSubpageIndex - 1}">
-                            <tr>
-                                <td><button class="btn btn-info btn-sm" onclick="detail(${order.orderId})">Chi tiết</button></td>
-                                <td>${dao.getAccountByAccountId(order.buyerId).fullName}</td>
-                                <td>${order.orderedDate}</td>
-                                <td>${order.deliveredDate}</td>
-                                <td style="color: ${order.status.equals('Đang duyệt') ? 'grey' : 
-                                                        order.status.equals('Đang giao') ? 'blue' :
-                                                        order.status.equals('Đã giao') ? 'green' : 
-                                                        order.status.equals('Đã hủy') ? 'red' : ''}">
-                                    ${order.status}
-                                </td>
-                                <td>${order.deliveryAddress}</td>
-                                <td>${order.paymentStatus}</td>
-                                <td>${order.shippingFee}</td>
-                                <td>
-                                    <form action="shipping" method="post">
-                                        <input type="hidden" value="${order.orderId}" name="orderId">
-                                        <button type="submit" class="btn btn-success btn-sm" name="shipSubmitButton"
-                                            ${(order.status.equals("Đang duyệt") && order.shipperId == 0) ? "" : "disabled"}>
-                                            Giao
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </nav>
     </div>
 </div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function detail(orderId){
-        // TODO: mở modal chi tiết đơn hàng
-        alert("Xem chi tiết đơn hàng: " + orderId);
-    }
-</script>
+
+</div>
 </body>
 </html>
