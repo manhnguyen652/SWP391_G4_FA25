@@ -1,55 +1,53 @@
-
-
 package Controllers;
 
+//import DAO.FeedbackDAO;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.List;
+//import model.Feedback;
 
 public class FeetBackList extends HttpServlet {
-   
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FeetBackList</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FeetBackList at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
 
-    
+//    private final FeedbackDAO feedbackDAO = new FeedbackDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-        request.getRequestDispatcher("/customer/feedback_list.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
 
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+        String q = request.getParameter("q");
+        String sort = request.getParameter("sort");
+        String filter = request.getParameter("filter");
+
+//        List<Feedback> list;
+
+//        if (q != null && !q.trim().isEmpty()) {
+//            list = feedbackDAO.searchFeedback(q, sort);
+//        } else {
+//            list = feedbackDAO.getAllFeedback();
+//        }
+//
+//        if (filter != null && !filter.isEmpty()) {
+//            list.removeIf(f -> !f.getStatus().equalsIgnoreCase(filter));
+//        }
+
+//        request.setAttribute("feedback_list", list);
         request.getRequestDispatcher("/customer/feedback_list.jsp").forward(request, response);
     }
 
-    
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        String action = request.getParameter("action");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+//        if ("delete".equals(action)) {
+//            feedbackDAO.deleteFeedback(id);
+//        } else if ("reject".equals(action)) {
+//            feedbackDAO.updateStatus(id, "rejected");
+//        }
+
+        response.sendRedirect("feedback");
+    }
 }
