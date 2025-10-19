@@ -1,4 +1,4 @@
-package dao;
+package DAO;
 
 import model.Account;
 import java.sql.Connection;
@@ -8,10 +8,33 @@ import java.sql.SQLException;
 
 public class AccountDAO {
 
+    public boolean updateVerificationCode(String email, String code) {
+        String sql = "UPDATE account SET verification_code = ?, is_verified = 0 WHERE u_email = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, code);
+            ps.setString(2, email);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean verifyAccount(String email, String code) {
+        String sql = "UPDATE account SET is_verified = 1, verification_code = NULL WHERE u_email = ? AND verification_code = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ps.setString(2, code);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public Account checkAccountExist(String email) {
         String sql = "SELECT * FROM account WHERE u_email = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -25,8 +48,7 @@ public class AccountDAO {
 
     public boolean register(Account acc) {
         String sql = "INSERT INTO account(u_email, u_pass, f_name, l_name, dob, permission_id) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, acc.getU_email());
             ps.setString(2, acc.getU_pass());
             ps.setString(3, acc.getF_name());
@@ -41,9 +63,8 @@ public class AccountDAO {
     }
 
     public Account login(String email, String password) {
-        String sql = "SELECT * FROM account WHERE u_email = ? AND u_pass = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM account WHERE u_email = ? AND u_pass = ? AND is_verified = 1";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -65,8 +86,7 @@ public class AccountDAO {
 
     public boolean changePassword(int userId, String newPassword) {
         String sql = "UPDATE account SET u_pass = ? WHERE u_id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, newPassword);
             ps.setInt(2, userId);
             return ps.executeUpdate() > 0;
@@ -78,8 +98,7 @@ public class AccountDAO {
 
     public Account getAccountByEmail(String email) {
         String sql = "SELECT * FROM account WHERE u_email = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -96,5 +115,17 @@ public class AccountDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean changePasswordByEmail(String email, String newPassword) {
+        String sql = "UPDATE account SET u_pass = ?, verification_code = NULL WHERE u_email = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
