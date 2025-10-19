@@ -70,10 +70,16 @@
                     <div class="mt-3 text-center">
                         <a href="${pageContext.request.contextPath}/customer/feedback_list.jsp"
                            class="btn btn--primary w-100">
-                            Xem danh sách Feedback
+                            View Feedback
                         </a>
+                    </div>
 
-
+                    <!-- 🔽 Nút mới: Shipping -->
+                    <div class="mt-3 text-center">
+                        <a href="${pageContext.request.contextPath}/customer/Shipping.jsp"
+                           class="btn btn--primary w-100">
+                            Shipping
+                        </a>
                     </div>
                 </div>
             </div>
