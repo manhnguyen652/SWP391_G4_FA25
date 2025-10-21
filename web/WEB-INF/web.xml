@@ -12,6 +12,10 @@
         <servlet-name>CartController</servlet-name>
         <servlet-class>Controllers.CartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WishlistController</servlet-name>
+        <servlet-class>Controllers.WishlistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,5 +27,9 @@
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WishlistController</servlet-name>
+        <url-pattern>/wishlist</url-pattern>
     </servlet-mapping>
 </web-app>

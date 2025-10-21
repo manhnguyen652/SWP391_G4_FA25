@@ -159,9 +159,9 @@
                                                                 <a href="home?state=cart&action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-shopping-basket"></i>
                                                                 </a>
-                                                                <a href="wishlist.html" class="single-btn">
-                                                                    <i class="fas fa-heart"></i>
-                                                                </a>
+                                                               <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
+        <i class="fas fa-heart"></i>
+    </a>
                                                                 <a href="compare.html" class="single-btn">
                                                                     <i class="fas fa-random"></i>
                                                                 </a>
