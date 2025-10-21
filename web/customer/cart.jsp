@@ -1,4 +1,5 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -45,43 +46,38 @@
                                         <!-- Cart Table -->
                                         <div class="cart-table table-responsive mb--40">
                                             <table class="table">
-                                                <!-- Head Row -->
                                                 <thead>
                                                     <tr>
                                                         <th class="pro-remove"></th>
-                                                        <th class="pro-thumbnail">Image</th>
-                                                        <th class="pro-title">Product</th>
-                                                        <th class="pro-price">Price</th>
-                                                        <th class="pro-quantity">Quantity</th>
-                                                        <th class="pro-subtotal">Total</th>
+                                                        <th class="pro-thumbnail">Ảnh</th>
+                                                        <th class="pro-title">Sản phẩm</th>
+                                                        <th class="pro-price">Giá</th>
+                                                        <th class="pro-quantity">Số lượng</th>
+                                                        <th class="pro-subtotal">Tổng</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <%-- Lặp qua Map. Mỗi entry chứa key (CartItem) và value (Book) --%>
-                                            <c:forEach var="entry" items="${cartMap}">
-                                                <c:set var="item" value="${entry.key}" />
-                                                <c:set var="book" value="${entry.value}" />
-
-                                                <tr>
-                                                    <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                                    <td class="pro-thumbnail">
-                                                        <a href="home?state=detail&bookId=${book.BId}">
-                                                            <img src="customer/image/products/product-1.jpg" alt="Product">
-                                                        </a>
-                                                    </td>
-                                                    <td class="pro-title"><a href="home?state=detail&bookId=${book.BId}">${book.BTitle}</a></td>
-                                                    <td class="pro-price"><span>${book.price} VND</span></td>
-                                                    <td class="pro-quantity">
-                                                        <div class="pro-qty">
-                                                            <div class="count-input-block">
-                                                                <input type="number" class="form-control text-center" value="${item.quantity}">
+                                                <%-- Lặp qua các sản phẩm trong giỏ hàng --%>
+                                                <c:forEach var="item" items="${cartItems}">
+                                                    <tr>
+                                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
+                                                        <td class="pro-thumbnail">
+                                                            <a href="home?state=detail&bookId=${item.bookId}">
+                                                                <img src="customer/image/products/product-1.jpg" alt="Product"> <%-- Thay bằng ảnh động nếu có --%>
+                                                            </a>
+                                                        </td>
+                                                        <td class="pro-title"><a href="home?state=detail&bookId=${item.bookId}">${item.title}</a></td>
+                                                        <td class="pro-price"><span>${item.price} VND</span></td>
+                                                        <td class="pro-quantity">
+                                                            <div class="pro-qty">
+                                                                <div class="count-input-block">
+                                                                    <input type="number" class="form-control text-center" value="${item.quantity}">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <%-- Tính tổng tiền cho mỗi dòng --%>
-                                                    <td class="pro-subtotal"><span>${item.quantity * book.price} VND</span></td>
-                                                </tr>
-                                            </c:forEach>
+                                                        </td>
+                                                        <td class="pro-subtotal"><span>${item.total} VND</span></td>
+                                                    </tr>
+                                                </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
@@ -317,14 +313,14 @@
                             <div class="col-lg-6 col-12 d-flex">
                                 <div class="cart-summary">
                                     <div class="cart-summary-wrap">
-                                        <h4><span>Cart Summary</span></h4>
-                                        <p>Sub Total <span class="text-primary">${subTotal} VND</span></p>
-                                        <p>Shipping Cost <span class="text-primary">Free</span></p>
-                                        <h2>Grand Total <span class="text-primary">${subTotal} VND</span></h2>
+                                        <h4><span>Tổng kết giỏ hàng</span></h4>
+                                        <p>Tổng phụ <span class="text-primary">${subTotal} VND</span></p>
+                                        <p>Phí vận chuyển <span class="text-primary">Free</span></p>
+                                        <h2>Tổng cộng <span class="text-primary">${subTotal} VND</span></h2>
                                     </div>
                                     <div class="cart-summary-button">
-                                        <a href="checkout.html" class="checkout-btn c-btn btn--primary">Checkout</a>
-                                        <button class="update-btn c-btn btn-outlined">Update Cart</button>
+                                        <a href="checkout.html" class="checkout-btn c-btn btn--primary">Thanh toán</a>
+                                        <button class="update-btn c-btn btn-outlined">Cập nhật giỏ hàng</button>
                                     </div>
                                 </div>
                             </div>

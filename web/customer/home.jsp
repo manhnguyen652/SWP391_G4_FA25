@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -173,7 +173,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="price-block">
-                                                        <span class="price">${book.price} VND</span>
+                                                        <span class="price"><fmt:formatNumber value="${book.price}" pattern="#,##0"/> VND</span>
                                                     </div>
                                                 </div>
                                             </div>

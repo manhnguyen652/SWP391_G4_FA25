@@ -71,7 +71,7 @@
                                     </div>
                                     <div class=" single-cart-block ">
                                         <div class="btn-block">
-                                            <a href="home?state=cart" class="btn">Xem giỏ hàng <i
+                                            <a href="cart" class="btn">Xem giỏ hàng <i
                                                     class="fas fa-chevron-right"></i></a>
                                             <a href="checkout.html" class="btn btn--primary">Thanh toán <i
                                                     class="fas fa-chevron-right"></i></a>
