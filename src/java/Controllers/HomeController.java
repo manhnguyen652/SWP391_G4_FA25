@@ -70,18 +70,19 @@ public class HomeController extends HttpServlet {
             }
 
         } else if ("cart".equals(state)) {
+            Account account = (Account) session.getAttribute("account");
+            if (account == null) {
+                response.sendRedirect("login-register");
+                return;
+            }
             if ("add".equals(action)) {
-                Account account = (Account) session.getAttribute("account");
-                if (account == null) {
-                    response.sendRedirect("login-register"); // Hoặc URL trang login của bạn
-                    return;
-                }
+
                 try {
                     int bookId = Integer.parseInt(request.getParameter("bookId"));
-                    int accountId = account.getU_id(); // Đảm bảo getter là getUId()
+                    int accountId = account.getU_id();
 
-                    CartDAO cartDAO = new CartDAO(); // Gọi đúng DAO
-                    cartDAO.addToCart(accountId, bookId, 1); // Thêm số lượng là 1
+                    CartDAO cartDAO = new CartDAO();
+                    cartDAO.addToCart(accountId, bookId, 1);
 
                     String currentPage = request.getParameter("page");
                     currentPage = (currentPage == null || currentPage.isEmpty()) ? "1" : currentPage;

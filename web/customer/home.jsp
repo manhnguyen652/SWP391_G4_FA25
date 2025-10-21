@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -159,9 +159,9 @@
                                                                 <a href="home?state=cart&action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-shopping-basket"></i>
                                                                 </a>
-                                                                <a href="wishlist.html" class="single-btn">
-                                                                    <i class="fas fa-heart"></i>
-                                                                </a>
+                                                               <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
+        <i class="fas fa-heart"></i>
+    </a>
                                                                 <a href="compare.html" class="single-btn">
                                                                     <i class="fas fa-random"></i>
                                                                 </a>
@@ -173,7 +173,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="price-block">
-                                                        <span class="price">${book.price} VND</span>
+                                                        <span class="price"><fmt:formatNumber value="${book.price}" pattern="#,##0"/> VND</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -9,10 +9,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 import model.Account;
 import model.Book;
 import model.CartItem;
+import model.CartItemDTO;
 
 public class CartController extends HttpServlet {
    
@@ -20,30 +22,29 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
+    HttpSession session = request.getSession();
     Account account = (Account) session.getAttribute("account");
 
     if (account == null) {
-        response.sendRedirect("login-register");
+        // Nếu chưa đăng nhập, chuyển về trang đăng nhập
+        response.sendRedirect("login-register"); // Hoặc URL trang login của bạn
         return;
     }
 
+    // Nếu đã đăng nhập, lấy các sản phẩm trong giỏ hàng
     CartDAO cartDAO = new CartDAO();
-    // Lấy dữ liệu dưới dạng Map
-    Map<CartItem, Book> cartMap = cartDAO.getCartItemsByAccountId(account.getU_id());
-
+    List<CartItemDTO> cartItems = cartDAO.getCartItemsByAccountId(account.getU_id());
+    
     // Tính tổng tiền
     double subTotal = 0;
-    for (Map.Entry<CartItem, Book> entry : cartMap.entrySet()) {
-        CartItem item = entry.getKey();
-        Book book = entry.getValue();
-        subTotal += item.getQuantity() * book.getPrice();
+    for (CartItemDTO item : cartItems) {
+        subTotal += item.getTotal();
     }
 
-    // Gửi Map và tổng tiền sang JSP
-    request.setAttribute("cartMap", cartMap);
+    // Gửi danh sách sản phẩm và tổng tiền sang trang JSP
+    request.setAttribute("cartItems", cartItems);
     request.setAttribute("subTotal", subTotal);
-
+    
     request.getRequestDispatcher("customer/cart.jsp").forward(request, response);
 }
      

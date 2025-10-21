@@ -3,10 +3,13 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import model.Book;
 import model.CartItem;
+import model.CartItemDTO;
 
 public class CartDAO {
 
@@ -81,47 +84,41 @@ public class CartDAO {
             }
         }
     }
-    public Map<CartItem, Book> getCartItemsByAccountId(int accountId) {
-        Map<CartItem, Book> cartMap = new HashMap<>();
-        String query = "SELECT ci.id as cart_item_id, ci.cart_id, ci.b_id, ci.quantity, b.b_title, b.price "
-                + "FROM cart c "
-                + "JOIN cart_items ci ON c.id = ci.cart_id "
-                + "JOIN books b ON ci.b_id = b.b_id "
-                + "WHERE c.u_id = ?";
+   
+    // Thêm phương thức này vào CartDAO.java
+public List<CartItemDTO> getCartItemsByAccountId(int accountId) {
+    List<CartItemDTO> itemList = new ArrayList<>();
+    String query = "SELECT b.b_id, b.b_title, b.price, ci.quantity " +
+                   "FROM cart c " +
+                   "JOIN cart_items ci ON c.id = ci.cart_id " +
+                   "JOIN books b ON ci.b_id = b.b_id " +
+                   "WHERE c.u_id = ?";
 
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
-        try {
-            conn = DBConnection.getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, accountId);
-            rs = ps.executeQuery();
+    try {
+        conn = DBConnection.getConnection();
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, accountId);
+        rs = ps.executeQuery();
 
-            while (rs.next()) {
-                // Tạo đối tượng CartItem
-                CartItem item = new CartItem();
-                item.setId(rs.getInt("cart_item_id"));
-                item.setCartId(rs.getInt("cart_id"));
-                item.setBId(rs.getInt("b_id"));
-                item.setQuantity(rs.getInt("quantity"));
-
-                // Tạo đối tượng Book
-                Book book = new Book();
-                book.setBId(rs.getInt("b_id"));
-                book.setBTitle(rs.getString("b_title"));
-                book.setPrice(rs.getDouble("price"));
-                // Bạn có thể set thêm các thuộc tính khác của Book nếu cần
-
-                // Đưa cặp CartItem và Book vào Map
-                cartMap.put(item, book);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Đóng các kết nối...
+        while (rs.next()) {
+            CartItemDTO item = new CartItemDTO();
+            item.setBookId(rs.getInt("b_id"));
+            item.setTitle(rs.getString("b_title"));
+            item.setPrice(rs.getDouble("price"));
+            item.setQuantity(rs.getInt("quantity"));
+            item.setTotal(item.getPrice() * item.getQuantity());
+            
+            itemList.add(item);
         }
-        return cartMap;
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        // Đóng kết nối...
     }
+    return itemList;
+}
 }
