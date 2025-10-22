@@ -172,6 +172,19 @@ CREATE TABLE compare_item (
 );
 GO
 
+--Bảng feedback
+CREATE TABLE feedback (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    u_id INT NOT NULL,                -- Người gửi feedback
+    b_id INT NULL,                    -- (Tùy chọn) Feedback cho sách nào
+    content NVARCHAR(MAX) NOT NULL,   -- Nội dung feedback
+    created_date DATETIME DEFAULT GETDATE(),
+    status NVARCHAR(50) DEFAULT 'pending', -- Trạng thái: pending / approved / rejected
+    FOREIGN KEY (u_id) REFERENCES account(u_id),
+    FOREIGN KEY (b_id) REFERENCES books(b_id)
+);
+GO
+
 
 -- Chèn dữ liệu cho các bảng không có khóa ngoại (bảng gốc)
 -- 1. Bảng permission
@@ -280,3 +293,11 @@ INSERT INTO order_details (order_id, b_id, quantity, price_per_item) VALUES
 GO
 
 PRINT 'Sample data inserted successfully.';
+
+--14. Feedback dữ liệu
+INSERT INTO feedback (u_id, b_id, content, status)
+VALUES 
+(2, 1, N"Sách rất hay, đọc lại tuổi thơ!", 'approved'),
+(3, 2, N"Chờ sách giao lâu quá!", 'pending'),
+(3, 3, N"Chất lượng in ổn, nội dung truyền cảm hứng.", 'approved');
+GO
