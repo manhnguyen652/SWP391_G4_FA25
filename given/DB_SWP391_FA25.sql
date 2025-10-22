@@ -51,8 +51,15 @@ CREATE TABLE account (
     f_name NVARCHAR(255),
     l_name NVARCHAR(255),
     dob DATE,
+    verification_code NVARCHAR(10),
+    is_verified BIT DEFAULT 0,
+    create_date DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (permission_id) REFERENCES permission(id)
 );
+GO
+
+-- Cập nhật create_date cho các bản ghi cũ (nếu có)
+UPDATE account SET create_date = GETDATE() WHERE create_date IS NULL;
 GO
 
 -- Bảng thông tin chi tiết của người dùng
@@ -167,20 +174,7 @@ CREATE TABLE compare_item (
     id INT PRIMARY KEY IDENTITY(1,1),
     compare_id INT,
     b_id INT,
-    FOREIGN KEY (compare_id) REFERENCES compare(id),
-    FOREIGN KEY (b_id) REFERENCES books(b_id)
-);
-GO
-
---Bảng feedback
-CREATE TABLE feedback (
-    id INT PRIMARY KEY IDENTITY(1,1),
-    u_id INT NOT NULL,                -- Người gửi feedback
-    b_id INT NULL,                    -- (Tùy chọn) Feedback cho sách nào
-    content NVARCHAR(MAX) NOT NULL,   -- Nội dung feedback
-    created_date DATETIME DEFAULT GETDATE(),
-    status NVARCHAR(50) DEFAULT 'pending', -- Trạng thái: pending / approved / rejected
-    FOREIGN KEY (u_id) REFERENCES account(u_id),
+    FOREIGN KEY (compare_id) REFERENCES compares(id),
     FOREIGN KEY (b_id) REFERENCES books(b_id)
 );
 GO
@@ -231,7 +225,7 @@ GO
 -- LƯU Ý: Trong thực tế, mật khẩu phải được băm (hashed) trước khi lưu.
 INSERT INTO account (u_email, u_pass, permission_id, f_name, l_name, dob) VALUES
 ('admin@bookstore.com', 'admin_password_123', 1, N'Văn', N'Quản trị', '1990-01-15'),
-('nguyenvana@example.com', 'user_pass_A', 2, N'An', N'Nguyễn Văn', '1998-05-20'),
+('nguyenvana@example.com', '1', 3, N'An', N'Nguyễn Văn', '1998-05-20'),
 ('tranthib@example.com', 'user_pass_B', 2, N'Bình', N'Trần Thị', '2001-11-30');
 GO
 
@@ -292,12 +286,35 @@ INSERT INTO order_details (order_id, b_id, quantity, price_per_item) VALUES
 (@orderIdBinh, 3, 1, 95000);  -- 1 cuốn Nhà Giả Kim
 GO
 
-PRINT 'Sample data inserted successfully.';
-
---14. Feedback dữ liệu
-INSERT INTO feedback (u_id, b_id, content, status)
-VALUES 
-(2, 1, N"Sách rất hay, đọc lại tuổi thơ!", 'approved'),
-(3, 2, N"Chờ sách giao lâu quá!", 'pending'),
-(3, 3, N"Chất lượng in ổn, nội dung truyền cảm hứng.", 'approved');
+-- 14. Bảng hoàn tiền (refunds)
+CREATE TABLE refunds (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    order_id INT NOT NULL,
+    user_id INT NOT NULL,
+    amount DECIMAL(18, 2) NOT NULL,
+    reason NVARCHAR(MAX),
+    status NVARCHAR(20) DEFAULT 'PENDING',
+    request_date DATETIME DEFAULT GETDATE(),
+    process_date DATETIME NULL,
+    processed_by NVARCHAR(255) NULL,
+    notes NVARCHAR(MAX) NULL,
+    FOREIGN KEY (order_id) REFERENCES [order](id),
+    FOREIGN KEY (user_id) REFERENCES account(u_id)
+);
 GO
+
+-- Thêm index để tối ưu performance
+CREATE INDEX IX_refunds_order_id ON refunds(order_id);
+CREATE INDEX IX_refunds_user_id ON refunds(user_id);
+CREATE INDEX IX_refunds_status ON refunds(status);
+CREATE INDEX IX_refunds_request_date ON refunds(request_date);
+GO
+
+-- Thêm dữ liệu mẫu cho refunds
+INSERT INTO refunds (order_id, user_id, amount, reason, status) VALUES
+(1, 2, 80000, 'Sản phẩm bị lỗi', 'PENDING'),
+(2, 3, 245000, 'Không hài lòng với chất lượng', 'APPROVED'),
+(2, 3, 100000, 'Giao hàng chậm', 'REJECTED');
+GO
+
+PRINT 'Sample data inserted successfully.';
