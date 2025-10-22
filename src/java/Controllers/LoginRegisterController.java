@@ -23,10 +23,13 @@ public class LoginRegisterController extends HttpServlet {
 
     // 🔹 KIỂM TRA ĐỊNH DẠNG EMAIL
     private boolean isValidEmailFormat(String email) {
-        if (email == null) return false;
+        if (email == null) {
+            return false;
+        }
         String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return email.matches(regex);
     }
+
     // 🔹 KIỂM TRA EMAIL THẬT SỰ TỒN TẠI BẰNG KICKBOX API
     private boolean verifyWithKickbox(String email) {
         try {
@@ -91,14 +94,34 @@ public class LoginRegisterController extends HttpServlet {
             Account acc = dao.login(email, password);
             if (acc != null) {
                 session.setAttribute("account", acc);
-                response.sendRedirect("home");
+
+                int role = acc.getPermission_id();
+                String url = "home"; 
+
+                switch (role) {
+                    case 1: // Admin
+                        url = ""; 
+                        break;
+                    case 2: // Customer
+                        url = "home";
+                        break;
+                    case 3: // Staff
+                        url = ""; 
+                        break;
+                    case 4: // Shipper
+                        url = "/customer/shipping.jsp"; 
+                        break;
+                    default:
+                        url = "home"; 
+                }
+                response.sendRedirect(url);
             } else {
                 request.setAttribute("loginError", "Sai email hoặc mật khẩu, hoặc tài khoản chưa xác thực!");
                 request.setAttribute("login_email", email);
                 request.getRequestDispatcher("/customer/login_register.jsp").forward(request, response);
             }
 
-        // 🟡 ĐĂNG KÝ
+            // 🟡 ĐĂNG KÝ
         } else if ("register".equals(action)) {
             String fullName = request.getParameter("fullname");
             String email = request.getParameter("email");
@@ -166,7 +189,7 @@ public class LoginRegisterController extends HttpServlet {
                 try {
                     String subject = "Xác thực tài khoản của bạn";
                     String message = "<h3>Mã xác thực của bạn là:</h3><h2>" + code + "</h2>"
-                                   + "<p>Vui lòng nhập mã này trên trang xác thực để kích hoạt tài khoản.</p>";
+                            + "<p>Vui lòng nhập mã này trên trang xác thực để kích hoạt tài khoản.</p>";
 
                     // 🔴 Gửi email xác thực và bắt lỗi gửi
                     EmailUtility.sendEmail(email, subject, message);
@@ -199,7 +222,7 @@ public class LoginRegisterController extends HttpServlet {
                 request.getRequestDispatcher("/customer/login_register.jsp").forward(request, response);
             }
 
-        // 🔵 XÁC THỰC TÀI KHOẢN
+            // 🔵 XÁC THỰC TÀI KHOẢN
         } else if ("verify".equals(action)) {
             String email = request.getParameter("email");
             String code = request.getParameter("code");
@@ -213,7 +236,7 @@ public class LoginRegisterController extends HttpServlet {
                 request.getRequestDispatcher("/customer/verify.jsp").forward(request, response);
             }
 
-        // 🟠 GỬI LẠI MÃ
+            // 🟠 GỬI LẠI MÃ
         } else if ("resend".equals(action)) {
             String email = request.getParameter("email");
             Instant lastResendTime = (Instant) session.getAttribute("lastResendTime");
@@ -233,8 +256,8 @@ public class LoginRegisterController extends HttpServlet {
             try {
                 String subject = "Mã xác thực mới của bạn";
                 String message = "<p>Bạn vừa yêu cầu gửi lại mã xác thực tài khoản.</p>"
-                               + "<h2>" + code + "</h2>"
-                               + "<p>Nếu bạn không yêu cầu, vui lòng bỏ qua email này.</p>";
+                        + "<h2>" + code + "</h2>"
+                        + "<p>Nếu bạn không yêu cầu, vui lòng bỏ qua email này.</p>";
                 EmailUtility.sendEmail(email, subject, message);
             } catch (Exception e) {
                 request.setAttribute("error", "Không thể gửi lại mã xác thực, vui lòng thử lại sau!");
