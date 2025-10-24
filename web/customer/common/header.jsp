@@ -1,4 +1,4 @@
-
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="site-header header-2 mb--20 d-none d-lg-block">
@@ -19,13 +19,13 @@
                 <div class="col-lg-4">
                     <div class="main-navigation flex-lg-right">
                         <div class="cart-widget">
-                            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+                          
 
                             <div class="header-links">
                                 <ul class="nav align-items-center">
                                     <li class="item">
                                         <c:choose>
-                                            
+
                                             <c:when test="${not empty sessionScope.account}">
                                                 <div class="dropdown">
                                                     <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,17 +34,19 @@
                                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                                         <li><a class="dropdown-item" href="my-account">Tài khoản của tôi</a></li>
                                                         <li><hr class="dropdown-divider"></li>
-                                                           
+
                                                         <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                                                     </ul>
                                                 </div>
                                             </c:when>
 
-                                           
+
                                             <c:otherwise>
 
-                                                <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
-                                                <span> </span><a href="login-register.html" class="font-weight-bold">Đăng kí</a>
+                                                <div class="login-block">
+                                                    <a href="login-register" class="font-weight-bold">Đăng nhập</a> <br>
+                                                    <span>hoặc</span><a href="login-register">Đăng kí</a>
+                                                </div>
                                             </c:otherwise>
                                         </c:choose>
                                     </li>
@@ -52,31 +54,54 @@
                             </div>
                             <div class="cart-block">
                                 <div class="cart-total">
-                                    <span class="font-weight-bold" >
+                                    <span class="text-number">
+                                        ${cartItemCount > 0 ? cartItemCount : 0}
+                                    </span>
+                                    <span class="text-item">
                                         Giỏ hàng
+                                    </span>
+                                    <span class="price">
+                                        <c:if test="${not empty subTotalHeader}">
+                                            <fmt:formatNumber value="${subTotalHeader}" type="number" pattern="#,##0"/> VND
+                                        </c:if>
+                                        <c:if test="${empty subTotalHeader}">
+                                            0 VND
+                                        </c:if>
+                                        <i class="fas fa-chevron-down"></i>
                                     </span>
                                 </div>
                                 <div class="cart-dropdown-block">
-                                    <div class=" single-cart-block ">
-                                        <div class="cart-product">
-                                            <a href="home?state=detail" class="image">
-                                                <img src="${pageContext.request.contextPath}/customer/image/products/cart-product-1.jpg" alt="">
-                                            </a>
-                                            <div class="content">
-                                                <h3 class="title"><a href="home?state=detail">Đắc Nhân Tâm</a></h3>
-                                                <p class="price"><span class="qty">1 ×</span> 140.000 VND</p>
-                                                <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                    <c:choose>
+                                        <%-- If cart has items, display them --%>
+                                        <c:when test="${not empty cartItemsHeader}">
+                                            <div class="single-cart-block">
+                                                <c:forEach var="item" items="${cartItemsHeader}">
+                                                    <div class="cart-product">
+                                                        <a href="home?state=detail&bookId=${item.bookId}" class="image">
+                                                            <img src="${pageContext.request.contextPath}/${item.imageUrl}" alt="${item.title}">
+                                                        </a>
+                                                        <div class="content">
+                                                            <h3 class="title"><a href="home?state=detail&bookId=${item.bookId}">${item.title}</a></h3>
+                                                            <p class="price"><span class="qty">${item.quantity} ×</span> <fmt:formatNumber value="${item.price}" type="number" pattern="#,##0"/> VND</p>
+                                                            <a href="cart?action=delete&itemId=${item.cartItemId}" class="cross-btn"><i class="fas fa-times"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class=" single-cart-block ">
-                                        <div class="btn-block">
-                                            <a href="cart" class="btn">Xem giỏ hàng <i
-                                                    class="fas fa-chevron-right"></i></a>
-                                            <a href="checkout.html" class="btn btn--primary">Thanh toán <i
-                                                    class="fas fa-chevron-right"></i></a>
-                                        </div>
-                                    </div>
+                                            <div class="single-cart-block">
+                                                <div class="btn-block">
+                                                    <a href="cart" class="btn">Xem giỏ hàng <i class="fas fa-chevron-right"></i></a>
+                                                    <a href="checkout" class="btn btn--primary">Thanh toán <i class="fas fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <%-- Otherwise, show empty message --%>
+                                        <c:otherwise>
+                                            <div class="single-cart-block">
+                                                <p class="text-center p-4">Giỏ hàng của bạn đang trống.</p>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>

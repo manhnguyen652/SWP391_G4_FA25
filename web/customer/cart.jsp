@@ -60,10 +60,14 @@
                                                 <%-- Lặp qua các sản phẩm trong giỏ hàng --%>
                                                 <c:forEach var="item" items="${cartItems}">
                                                     <tr>
-                                                        <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
+                                                        <td class="pro-remove">
+                                                            <a href="cart?action=delete&itemId=${item.cartItemId}">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </a>
+                                                        </td>
                                                         <td class="pro-thumbnail">
                                                             <a href="home?state=detail&bookId=${item.bookId}">
-                                                                <img src="customer/image/products/product-1.jpg" alt="Product"> <%-- Thay bằng ảnh động nếu có --%>
+                                                                <img src="customer/image/products/product-1.jpg" alt="Product">
                                                             </a>
                                                         </td>
                                                         <td class="pro-title"><a href="home?state=detail&bookId=${item.bookId}">${item.title}</a></td>
