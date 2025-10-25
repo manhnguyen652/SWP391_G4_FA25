@@ -398,7 +398,7 @@
                                     <a href="javascript:void(0)">Blog</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="contact.html">Liên hệ</a>
+                                    <a href="contact">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>
