@@ -159,9 +159,9 @@
                                                                 <a href="home?state=cart&action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-shopping-basket"></i>
                                                                 </a>
-                                                               <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
-        <i class="fas fa-heart"></i>
-    </a>
+                                                                <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </a>
                                                                 <a href="compare.html" class="single-btn">
                                                                     <i class="fas fa-random"></i>
                                                                 </a>
@@ -187,18 +187,34 @@
                                 <div class="col-md-12">
                                     <div class="pagination-block">
                                         <ul class="pagination-btns flex-center">
+                                            <c:choose>
+                                                <c:when test="${not empty searchQuery}">
+                                                    <%-- Nếu đang tìm kiếm, URL là 'search' VÀ đính kèm 'searchQuery' --%>
+                                                    <c:url var="pageUrlBase" value="search">
+                                                        <c:param name="searchQuery" value="${searchQuery}" />
+                                                    </c:url>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <%-- Nếu không, URL là 'home' --%>
+                                                    <c:url var="pageUrlBase" value="home" />
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                            <%-- Nút Lùi (Previous) --%>
                                             <c:if test="${currentPage > 1}">
-                                                <li><a href="home?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                                <li><a href="${pageUrlBase}?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                                     </c:if>
 
+                                            <%-- Các trang --%>
                                             <c:forEach begin="1" end="${totalPages}" var="i">
                                                 <li class="${i == currentPage ? 'active' : ''}">
-                                                    <a href="home?page=${i}" class="single-btn">${i}</a>
+                                                    <a href="${pageUrlBase}?page=${i}" class="single-btn">${i}</a>
                                                 </li>
                                             </c:forEach>
 
+                                            <%-- Nút Tiến (Next) --%>
                                             <c:if test="${currentPage < totalPages}">
-                                                <li><a href="home?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                                <li><a href="${pageUrlBase}?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
                                                     </c:if>
                                         </ul>
                                     </div>
@@ -392,53 +408,7 @@
                 </div>
             </main>
         </div>
-        <!--=================================
-  Brands Slider
-===================================== -->
-        <section class="section-margin">
-            <h2 class="sr-only">Brand Slider</h2>
-            <div class="container">
-                <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                     "autoplay": true,
-                     "autoplaySpeed": 8000,
-                     "slidesToShow": 6
-                     }' data-slick-responsive='[
-                     {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                     {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                     {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                     ]'>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-3.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-4.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-5.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-6.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--=================================
-    Footer Area
-===================================== -->
+        <jsp:include page="./common/brand_slider.jsp"></jsp:include>
         <jsp:include page="./common/footer.jsp"></jsp:include>
             <!-- Use Minified Plugins Version For Fast Page Load -->
             <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>

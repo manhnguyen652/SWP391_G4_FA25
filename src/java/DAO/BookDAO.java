@@ -163,7 +163,7 @@ public class BookDAO {
     }
 
     public void addToCart(int accountId, int bookId, int quantity) {
-        
+
         String getCartIdQuery = "SELECT id FROM cart WHERE u_id = ?";
         String checkItemQuery = "SELECT * FROM cart_items WHERE cart_id = ? AND b_id = ?";
         String updateQuantityQuery = "UPDATE cart_items SET quantity = quantity + ? WHERE cart_id = ? AND b_id = ?";
@@ -171,9 +171,8 @@ public class BookDAO {
 
         try {
             conn = DBConnection.getConnection();
-            conn.setAutoCommit(false); 
+            conn.setAutoCommit(false);
 
-            
             int cartId = -1;
             ps = conn.prepareStatement(getCartIdQuery);
             ps.setInt(1, accountId);
@@ -181,7 +180,6 @@ public class BookDAO {
             if (rs.next()) {
                 cartId = rs.getInt("id");
             }
-           
 
             if (cartId != -1) {
                 // Bước 2
@@ -190,14 +188,14 @@ public class BookDAO {
                 ps.setInt(2, bookId);
                 rs = ps.executeQuery();
 
-                if (rs.next()) { 
+                if (rs.next()) {
                     ps = conn.prepareStatement(updateQuantityQuery);
                     ps.setInt(1, quantity);
                     ps.setInt(2, cartId);
                     ps.setInt(3, bookId);
                     ps.executeUpdate();
-                } else { 
-                    
+                } else {
+
                     ps = conn.prepareStatement(insertItemQuery);
                     ps.setInt(1, cartId);
                     ps.setInt(2, bookId);
@@ -205,21 +203,119 @@ public class BookDAO {
                     ps.executeUpdate();
                 }
             }
-            conn.commit(); 
+            conn.commit();
         } catch (Exception e) {
             try {
                 if (conn != null) {
-                    conn.rollback(); 
+                    conn.rollback();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
             e.printStackTrace();
         } finally {
-           
+
         }
     }
-    
+
+    public List<Book> searchBooks(String searchQuery, int pageNumber, int pageSize) {
+        List<Book> bookList = new ArrayList<>();
+        String query = "SELECT b.*, a.name AS authorName "
+                + "FROM books b "
+                + "INNER JOIN authors a ON b.a_id = a.id "
+                + "INNER JOIN publishers p ON b.p_id = p.id " // JOIN thêm bảng publishers
+                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? " // Điều kiện tìm kiếm
+                + "ORDER BY b.b_id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        int offset = (pageNumber - 1) * pageSize;
+
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(query);
+            String searchPattern = "%" + searchQuery + "%";
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+            ps.setInt(4, offset);
+            ps.setInt(5, pageSize);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBId(rs.getInt("b_id"));
+                book.setBTitle(rs.getString("b_title"));
+                book.setDescription(rs.getString("description"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setPrice(rs.getDouble("price"));
+                book.setStock(rs.getInt("stock"));
+                book.setPId(rs.getInt("p_id"));
+                book.setAId(rs.getInt("a_id"));
+                book.setImageId(rs.getInt("image_id"));
+                book.setCId(rs.getInt("c_id"));
+                book.setAuthorName(rs.getString("authorName"));
+                bookList.add(book);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return bookList;
+    }
+
+    /**
+     * MỚI: Lấy tổng số sách tìm thấy dựa trên từ khóa.
+     */
+    public int getTotalSearchBooks(String searchQuery) {
+        String query = "SELECT count(*) "
+                + "FROM books b "
+                + "INNER JOIN authors a ON b.a_id = a.id "
+                + "INNER JOIN publishers p ON b.p_id = p.id " // JOIN thêm bảng publishers
+                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ?";
+
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(query);
+            String searchPattern = "%" + searchQuery + "%";
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
 //    public static void main(String[] args) {
 //        BookDAO bookDAO = new BookDAO();
 //        Book bookList = bookDAO.getBookById(1);

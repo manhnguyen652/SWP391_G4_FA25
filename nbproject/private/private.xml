@@ -9,27 +9,15 @@
             <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/login_register.jsp</file>
         </group>
         <group name="PRJ301">
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/HomeController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/PermissionDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/Shipping.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/ForgotPasswordController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/common/header.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/BookDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/CartDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/RefundDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/CartController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/DBConnection.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/StaffDashboardController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Filter/CartFilter.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/book_detail.jsp</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/cart.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/common/footer.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/Shipping.jsp</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/FeedbackList.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/FeedbackDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/ProfileController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/StatisticsAPI.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/WishlistController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/OrderDAO.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/AuthFilter.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/PublisherDAO.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/common/header.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/home.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/CheckoutController.java</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/css/main.css</file>
         </group>
     </open-files>
 </project-private>
