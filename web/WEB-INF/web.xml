@@ -24,6 +24,10 @@
         <servlet-name>WishlistController</servlet-name>
         <servlet-class>Controllers.WishlistController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ContactController</servlet-name>
+        <servlet-class>Controllers.ContactController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>WishlistController</servlet-name>
         <url-pattern>/wishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactController</servlet-name>
+        <url-pattern>/contact</url-pattern>
     </servlet-mapping>
 </web-app>
