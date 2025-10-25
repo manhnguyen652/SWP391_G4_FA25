@@ -1,4 +1,3 @@
-
 package Controllers;
 
 import DAO.CartDAO;
@@ -17,40 +16,49 @@ import model.CartItem;
 import model.CartItemDTO;
 
 public class CartController extends HttpServlet {
-   
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    Account account = (Account) session.getAttribute("account");
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        String action = request.getParameter("action");
 
-    if (account == null) {
-        // Nếu chưa đăng nhập, chuyển về trang đăng nhập
-        response.sendRedirect("login-register"); // Hoặc URL trang login của bạn
-        return;
+        if (account == null) {
+            response.sendRedirect("login-register");
+            return;
+        }
+
+        CartDAO cartDAO = new CartDAO();
+        if ("delete".equals(action)) {
+            try {
+                int cartItemId = Integer.parseInt(request.getParameter("itemId"));
+                cartDAO.deleteItemFromCart(cartItemId);
+                response.sendRedirect("cart?delete=success");
+                return; // Stop further processing
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                response.sendRedirect("cart?delete=error");
+                return;
+            }
+        }
+        List<CartItemDTO> cartItems = cartDAO.getCartItemsByAccountId(account.getU_id());
+
+        double subTotal = 0;
+        for (CartItemDTO item : cartItems) {
+            subTotal += item.getTotal();
+        }
+
+        request.setAttribute("cartItems", cartItems);
+        request.setAttribute("subTotal", subTotal);
+        request.getRequestDispatcher("customer/cart.jsp").forward(request, response);
+        
+
     }
 
-    // Nếu đã đăng nhập, lấy các sản phẩm trong giỏ hàng
-    CartDAO cartDAO = new CartDAO();
-    List<CartItemDTO> cartItems = cartDAO.getCartItemsByAccountId(account.getU_id());
-    
-    // Tính tổng tiền
-    double subTotal = 0;
-    for (CartItemDTO item : cartItems) {
-        subTotal += item.getTotal();
-    }
-
-    // Gửi danh sách sản phẩm và tổng tiền sang trang JSP
-    request.setAttribute("cartItems", cartItems);
-    request.setAttribute("subTotal", subTotal);
-    
-    request.getRequestDispatcher("customer/cart.jsp").forward(request, response);
-}
-     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
 
     }
 
