@@ -8,7 +8,7 @@ public class CartItem {
     private int id;
     private int cartId;
     private int bId;
-    private int quantity; // Thêm cột này
+    private int quantity;
 
     // Constructors
     public CartItem() {
