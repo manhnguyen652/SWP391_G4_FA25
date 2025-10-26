@@ -108,8 +108,13 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="header-search-block">
-                            <input type="text" placeholder="Tìm theo tên, nhà xuất bản, tác giả">
-                            <button>Tìm kiếm</button>
+                            <form action="search" method="get" class="header-search-block">
+                                <input type="text" 
+                                       name="searchQuery" 
+                                       placeholder="Tìm theo tên, nhà xuất bản, tác giả" 
+                                       value="${searchQuery}">
+                                <button type="submit">Tìm kiếm</button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -158,16 +163,16 @@
                                                 ${cartItemCount > 0 ? cartItemCount : 0}
                                             </span>
                                         </div>
-                                            <span class="price">
-                                                <c:if test="${not empty subTotalHeader}">
-                                                    <fmt:formatNumber value="${subTotalHeader}" type="number" pattern="#,##0"/> VND
-                                                </c:if>
-                                                <c:if test="${empty subTotalHeader}">
-                                                    0 VND
-                                                </c:if>
-                                                <i class="fas fa-chevron-down"></i>
-                                            </span>
-                                        
+                                        <span class="price">
+                                            <c:if test="${not empty subTotalHeader}">
+                                                <fmt:formatNumber value="${subTotalHeader}" type="number" pattern="#,##0"/> VND
+                                            </c:if>
+                                            <c:if test="${empty subTotalHeader}">
+                                                0 VND
+                                            </c:if>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </span>
+
                                     </div>
                                     <div class="cart-dropdown-block">
                                         <c:choose>

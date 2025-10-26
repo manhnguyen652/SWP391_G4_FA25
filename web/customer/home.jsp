@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="vi">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,14 +57,14 @@
                                         </div>
                                         <div class="col-lg-3 col-md-2 col-sm-6  mt--10 mt-md--0">
                                             <div class="sorting-selection">
-                                                <span>Hiển thị:</span>
+<!--                                                <span>Hiển thị:</span>
                                                 <select class="form-control nice-select sort-select">
                                                     <option value="" selected="selected">3</option>
                                                     <option value="">9</option>
                                                     <option value="">5</option>
                                                     <option value="">10</option>
                                                     <option value="">12</option>
-                                                </select>
+                                                </select>-->
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
@@ -106,7 +106,7 @@
                                                 Showing 1 to 9 of 14 (2 Pages)
                                             </span>
                                         </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
+<!--                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
                                             <div class="sorting-selection">
                                                 <span>Show:</span>
                                                 <select class="form-control nice-select sort-select">
@@ -117,7 +117,7 @@
                                                     <option value="">12</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                             <div class="sorting-selection">
                                                 <span>Lọc theo:</span>
@@ -159,9 +159,9 @@
                                                                 <a href="home?state=cart&action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-shopping-basket"></i>
                                                                 </a>
-                                                               <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
-        <i class="fas fa-heart"></i>
-    </a>
+                                                                <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </a>
                                                                 <a href="compare.html" class="single-btn">
                                                                     <i class="fas fa-random"></i>
                                                                 </a>
@@ -187,18 +187,28 @@
                                 <div class="col-md-12">
                                     <div class="pagination-block">
                                         <ul class="pagination-btns flex-center">
+                                            <c:choose>
+                                                <c:when test="${not empty searchQuery}">
+                                                    <c:url var="pageUrlBase" value="search">
+                                                        <c:param name="searchQuery" value="${searchQuery}" />
+                                                    </c:url>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:url var="pageUrlBase" value="home" />
+                                                </c:otherwise>
+                                            </c:choose>
                                             <c:if test="${currentPage > 1}">
-                                                <li><a href="home?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                                <li><a href="${pageUrlBase}?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                                     </c:if>
 
                                             <c:forEach begin="1" end="${totalPages}" var="i">
                                                 <li class="${i == currentPage ? 'active' : ''}">
-                                                    <a href="home?page=${i}" class="single-btn">${i}</a>
+                                                    <a href="${pageUrlBase}?page=${i}" class="single-btn">${i}</a>
                                                 </li>
                                             </c:forEach>
 
                                             <c:if test="${currentPage < totalPages}">
-                                                <li><a href="home?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                                <li><a href="${pageUrlBase}?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
                                                     </c:if>
                                         </ul>
                                     </div>
@@ -392,59 +402,11 @@
                 </div>
             </main>
         </div>
-        <!--=================================
-  Brands Slider
-===================================== -->
-        <section class="section-margin">
-            <h2 class="sr-only">Brand Slider</h2>
-            <div class="container">
-                <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                     "autoplay": true,
-                     "autoplaySpeed": 8000,
-                     "slidesToShow": 6
-                     }' data-slick-responsive='[
-                     {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                     {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                     {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                     {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                     ]'>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-3.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-4.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-5.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-6.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-1.jpg" alt="">
-                    </div>
-                    <div class="single-slide">
-                        <img src="${pageContext.request.contextPath}/customer/image/others/brand-2.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--=================================
-    Footer Area
-===================================== -->
+        <jsp:include page="./common/brand_slider.jsp"></jsp:include>
         <jsp:include page="./common/footer.jsp"></jsp:include>
             <!-- Use Minified Plugins Version For Fast Page Load -->
             <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
-
-
 </html>

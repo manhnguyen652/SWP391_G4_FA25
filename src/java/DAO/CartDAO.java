@@ -160,4 +160,37 @@ public class CartDAO {
             }
         }
     }
+
+    public void updateCartItemQuantity(int cartItemId, int quantity) {
+        if (quantity <= 0) {
+            // Nếu số lượng là 0 hoặc âm, xóa sản phẩm
+            deleteItemFromCart(cartItemId);
+        } else {
+            // Ngược lại, cập nhật số lượng
+            String query = "UPDATE cart_items SET quantity = ? WHERE id = ?";
+            Connection conn = null;
+            PreparedStatement ps = null;
+
+            try {
+                conn = DBConnection.getConnection();
+                ps = conn.prepareStatement(query);
+                ps.setInt(1, quantity);
+                ps.setInt(2, cartItemId);
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+        }
+    }
 }
