@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="vi">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,14 +57,14 @@
                                         </div>
                                         <div class="col-lg-3 col-md-2 col-sm-6  mt--10 mt-md--0">
                                             <div class="sorting-selection">
-                                                <span>Hiển thị:</span>
+<!--                                                <span>Hiển thị:</span>
                                                 <select class="form-control nice-select sort-select">
                                                     <option value="" selected="selected">3</option>
                                                     <option value="">9</option>
                                                     <option value="">5</option>
                                                     <option value="">10</option>
                                                     <option value="">12</option>
-                                                </select>
+                                                </select>-->
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
@@ -106,7 +106,7 @@
                                                 Showing 1 to 9 of 14 (2 Pages)
                                             </span>
                                         </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
+<!--                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
                                             <div class="sorting-selection">
                                                 <span>Show:</span>
                                                 <select class="form-control nice-select sort-select">
@@ -117,7 +117,7 @@
                                                     <option value="">12</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                             <div class="sorting-selection">
                                                 <span>Lọc theo:</span>
@@ -189,30 +189,24 @@
                                         <ul class="pagination-btns flex-center">
                                             <c:choose>
                                                 <c:when test="${not empty searchQuery}">
-                                                    <%-- Nếu đang tìm kiếm, URL là 'search' VÀ đính kèm 'searchQuery' --%>
                                                     <c:url var="pageUrlBase" value="search">
                                                         <c:param name="searchQuery" value="${searchQuery}" />
                                                     </c:url>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <%-- Nếu không, URL là 'home' --%>
                                                     <c:url var="pageUrlBase" value="home" />
                                                 </c:otherwise>
                                             </c:choose>
-
-                                            <%-- Nút Lùi (Previous) --%>
                                             <c:if test="${currentPage > 1}">
                                                 <li><a href="${pageUrlBase}?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                                     </c:if>
 
-                                            <%-- Các trang --%>
                                             <c:forEach begin="1" end="${totalPages}" var="i">
                                                 <li class="${i == currentPage ? 'active' : ''}">
                                                     <a href="${pageUrlBase}?page=${i}" class="single-btn">${i}</a>
                                                 </li>
                                             </c:forEach>
 
-                                            <%-- Nút Tiến (Next) --%>
                                             <c:if test="${currentPage < totalPages}">
                                                 <li><a href="${pageUrlBase}?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
                                                     </c:if>
@@ -415,6 +409,4 @@
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
-
-
 </html>
