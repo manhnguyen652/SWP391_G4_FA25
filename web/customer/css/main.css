@@ -27579,7 +27579,7 @@ textarea.form-control {
 }
 .method-notice:before {
   font-family: "Font Awesome 5 Free";
-  content: "";
+ 
   display: inline-block;
   position: absolute;
   top: 1em;

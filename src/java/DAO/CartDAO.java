@@ -193,4 +193,66 @@ public class CartDAO {
             }
         }
     }
+    public List<CartItemDTO> getCartItemsByIds(List<Integer> cartItemIds) {
+        List<CartItemDTO> itemList = new ArrayList<>();
+        
+        // Nếu danh sách ID rỗng, trả về danh sách rỗng ngay lập tức
+        if (cartItemIds == null || cartItemIds.isEmpty()) {
+            return itemList;
+        }
+
+        // Xây dựng chuỗi truy vấn động với mệnh đề IN (?, ?, ...)
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT ci.id as cart_item_id, b.b_id, b.b_title, b.price, ci.quantity ");
+        queryBuilder.append("FROM cart_items ci ");
+        queryBuilder.append("JOIN books b ON ci.b_id = b.b_id ");
+        queryBuilder.append("WHERE ci.id IN (");
+        
+        // Thêm dấu ? cho mỗi ID
+        for (int i = 0; i < cartItemIds.size(); i++) {
+            queryBuilder.append("?");
+            if (i < cartItemIds.size() - 1) {
+                queryBuilder.append(", ");
+            }
+        }
+        queryBuilder.append(")");
+
+        String query = queryBuilder.toString();
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBConnection.getConnection();
+            ps = conn.prepareStatement(query);
+
+            // Gán giá trị ID vào các dấu ?
+            for (int i = 0; i < cartItemIds.size(); i++) {
+                ps.setInt(i + 1, cartItemIds.get(i));
+            }
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                CartItemDTO item = new CartItemDTO();
+                item.setCartItemId(rs.getInt("cart_item_id"));
+                item.setBookId(rs.getInt("b_id"));
+                item.setTitle(rs.getString("b_title"));
+                item.setPrice(rs.getDouble("price"));
+                item.setQuantity(rs.getInt("quantity"));
+                // Tính tổng cho từng mục
+                item.setTotal(item.getPrice() * item.getQuantity()); 
+                itemList.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng tất cả kết nối
+            try { if (rs != null) rs.close(); } catch (Exception e) { /* ignored */ }
+            try { if (ps != null) ps.close(); } catch (Exception e) { /* ignored */ }
+            try { if (conn != null) conn.close(); } catch (Exception e) { /* ignored */ }
+        }
+        return itemList;
+    }
 }
