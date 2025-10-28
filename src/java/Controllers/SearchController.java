@@ -15,6 +15,9 @@ import model.Book;
 import model.Category;
 import model.Publisher;
 
+// You might need @WebServlet annotation if not using web.xml
+// import jakarta.servlet.annotation.WebServlet;
+// @WebServlet(name = "SearchController", urlPatterns = {"/search"})
 public class SearchController extends HttpServlet {
 
     // Đặt số lượng sản phẩm mỗi trang (giống như trang home)
@@ -46,21 +49,24 @@ public class SearchController extends HttpServlet {
         List<Book> bookList;
         int totalBooks;
 
-        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+        // Trim search query to handle empty spaces
+        String trimmedQuery = (searchQuery != null) ? searchQuery.trim() : "";
+
+        if (!trimmedQuery.isEmpty()) {
             // Thực hiện tìm kiếm
-            bookList = bookDAO.searchBooks(searchQuery, currentPage, PAGE_SIZE);
-            totalBooks = bookDAO.getTotalSearchBooks(searchQuery);
-            request.setAttribute("searchQuery", searchQuery); // Gửi lại từ khóa để sticky form và phân trang
+            bookList = bookDAO.searchBooks(trimmedQuery, currentPage, PAGE_SIZE);
+            totalBooks = bookDAO.getTotalSearchBooks(trimmedQuery);
+            request.setAttribute("searchQuery", trimmedQuery); // Pass the trimmed query
         } else {
-            // Nếu không có từ khóa, hoạt động như trang home
+            // Nếu không có từ khóa hoặc chỉ có khoảng trắng, hiển thị như trang home
             bookList = bookDAO.getBooksByPage(currentPage, PAGE_SIZE);
             totalBooks = bookDAO.getTotalBooks();
+            // Không set searchQuery attribute
         }
 
         int totalPages = (int) Math.ceil((double) totalBooks / PAGE_SIZE);
 
-        // --- TẢI DỮ LIỆU SIDEBAR (BẮT BUỘC) ---
-        // Giả định bạn đã có các DAO này
+       
         CategoryDAO categoryDAO = new CategoryDAO();
         AuthorDAO authorDAO = new AuthorDAO();
         PublisherDAO publisherDAO = new PublisherDAO();
@@ -69,17 +75,17 @@ public class SearchController extends HttpServlet {
         List<Author> authorList = authorDAO.getAllAuthors();
         List<Publisher> publisherList = publisherDAO.getAllPublishers();
 
-        // --- Gửi dữ liệu đến JSP ---
+       
         request.setAttribute("bookList", bookList);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("totalPages", totalPages);
+        
 
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("authorList", authorList);
         request.setAttribute("publisherList", publisherList);
 
-        // (Giả sử dữ liệu giỏ hàng (cartItemsHeader, v.v.) được tải bởi một Filter)
-        // Forward về home.jsp để hiển thị
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+      
+        request.getRequestDispatcher("/customer/home.jsp").forward(request, response);
     }
 }

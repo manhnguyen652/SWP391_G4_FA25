@@ -57,14 +57,14 @@
                                         </div>
                                         <div class="col-lg-3 col-md-2 col-sm-6  mt--10 mt-md--0">
                                             <div class="sorting-selection">
-<!--                                                <span>Hiển thị:</span>
-                                                <select class="form-control nice-select sort-select">
-                                                    <option value="" selected="selected">3</option>
-                                                    <option value="">9</option>
-                                                    <option value="">5</option>
-                                                    <option value="">10</option>
-                                                    <option value="">12</option>
-                                                </select>-->
+                                                <!--                                                <span>Hiển thị:</span>
+                                                                                                <select class="form-control nice-select sort-select">
+                                                                                                    <option value="" selected="selected">3</option>
+                                                                                                    <option value="">9</option>
+                                                                                                    <option value="">5</option>
+                                                                                                    <option value="">10</option>
+                                                                                                    <option value="">12</option>
+                                                                                                </select>-->
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
@@ -106,18 +106,18 @@
                                                 Showing 1 to 9 of 14 (2 Pages)
                                             </span>
                                         </div>
-<!--                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
-                                            <div class="sorting-selection">
-                                                <span>Show:</span>
-                                                <select class="form-control nice-select sort-select">
-                                                    <option value="" selected="selected">3</option>
-                                                    <option value="">9</option>
-                                                    <option value="">5</option>
-                                                    <option value="">10</option>
-                                                    <option value="">12</option>
-                                                </select>
-                                            </div>
-                                        </div>-->
+                                        <!--                                        <div class="col-lg-2 col-md-2 col-sm-6  mt--10 mt-md--0">
+                                                                                    <div class="sorting-selection">
+                                                                                        <span>Show:</span>
+                                                                                        <select class="form-control nice-select sort-select">
+                                                                                            <option value="" selected="selected">3</option>
+                                                                                            <option value="">9</option>
+                                                                                            <option value="">5</option>
+                                                                                            <option value="">10</option>
+                                                                                            <option value="">12</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>-->
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                             <div class="sorting-selection">
                                                 <span>Lọc theo:</span>
@@ -187,29 +187,49 @@
                                 <div class="col-md-12">
                                     <div class="pagination-block">
                                         <ul class="pagination-btns flex-center">
+
                                             <c:choose>
                                                 <c:when test="${not empty searchQuery}">
+
                                                     <c:url var="pageUrlBase" value="search">
                                                         <c:param name="searchQuery" value="${searchQuery}" />
                                                     </c:url>
                                                 </c:when>
                                                 <c:otherwise>
+
                                                     <c:url var="pageUrlBase" value="home" />
                                                 </c:otherwise>
                                             </c:choose>
+
+
                                             <c:if test="${currentPage > 1}">
-                                                <li><a href="${pageUrlBase}?page=${currentPage - 1}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                                    </c:if>
+                                                <li>
+                                                    <c:url var="prevUrl" value="${pageUrlBase}">
+                                                        <c:param name="page" value="${currentPage - 1}" />
+                                                    </c:url>
+                                                    <a href="${prevUrl}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a>
+                                                </li>
+                                            </c:if>
 
                                             <c:forEach begin="1" end="${totalPages}" var="i">
                                                 <li class="${i == currentPage ? 'active' : ''}">
-                                                    <a href="${pageUrlBase}?page=${i}" class="single-btn">${i}</a>
+                                                    <c:url var="pageUrl" value="${pageUrlBase}">
+                                                        <c:param name="page" value="${i}" />
+                                                    </c:url>
+                                                    <a href="${pageUrl}" class="single-btn">${i}</a>
                                                 </li>
                                             </c:forEach>
 
+                                            <%-- Next Button --%>
                                             <c:if test="${currentPage < totalPages}">
-                                                <li><a href="${pageUrlBase}?page=${currentPage + 1}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                                                    </c:if>
+                                                <li>
+                                                    <%-- Construct next page URL --%>
+                                                    <c:url var="nextUrl" value="${pageUrlBase}">
+                                                        <c:param name="page" value="${currentPage + 1}" />
+                                                    </c:url>
+                                                    <a href="${nextUrl}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a>
+                                                </li>
+                                            </c:if>
                                         </ul>
                                     </div>
                                 </div>
@@ -404,8 +424,7 @@
         </div>
         <jsp:include page="./common/brand_slider.jsp"></jsp:include>
         <jsp:include page="./common/footer.jsp"></jsp:include>
-            <!-- Use Minified Plugins Version For Fast Page Load -->
-            <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>

@@ -1,63 +1,57 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html> <%-- Make sure you have the opening html tag --%>
-    <head> <%-- Add the style block inside the head --%>
-        <%-- Other head elements like meta tags, title, links to CSS/JS --%>
-
+<html> 
+    <head> 
         <style>
-            /* >>>>>>>>>> Header - Cart Alignment for two lines <<<<<<<<< */
-
             .cart-block {
-                display: flex !important; /* Keep main container flex */
-                align-items: center !important; /* Vertically align icon and text block */
+                display: flex !important;
+                align-items: center !important;
                 position: relative !important;
-                cursor: pointer !important; /* Make the whole block clickable for dropdown */
+                cursor: pointer !important;
             }
 
-            /* Adjust the icon's position */
             .cart-block::before {
-                margin-right: 10px !important; /* Space between icon and text */
-                font-size: 30px !important; /* Adjust icon size */
+                margin-right: 10px !important;
+                font-size: 30px !important;
                 line-height: 1 !important;
             }
 
             .cart-total {
-                /* This will now contain two lines of text */
+
                 display: flex !important;
-                flex-direction: column !important; /* Stack items vertically */
-                align-items: flex-start !important; /* Align text to the left within this block */
+                flex-direction: column !important;
+                align-items: flex-start !important;
                 position: relative !important;
                 padding-right: 0 !important;
             }
 
             .cart-total .top-line {
-                display: flex !important; /* Make the top line a flex container */
-                align-items: center !important; /* Vertically align "Shopping Cart" and count */
-                margin-bottom: 2px !important; /* Small space between lines */
+                display: flex !important;
+                align-items: center !important;
+                margin-bottom: 2px !important;
             }
 
             .cart-total .text-item {
-                order: 1 !important; /* "Shopping Cart" first */
-                font-size: 14px !important; /* Adjust font size */
-                font-weight: 600 !important; /* Make it a bit bolder */
-                color: #333 !important; /* Darker text */
-                margin-right: 8px !important; /* Space before the count */
+                order: 1 !important;
+                font-size: 14px !important;
+                font-weight: 600 !important;
+                color: #333 !important;
+                margin-right: 8px !important;
                 line-height: 1.2 !important;
-                white-space: nowrap; /* Prevent "Shopping Cart" from wrapping */
+                white-space: nowrap;
             }
 
             .cart-total .text-number {
-                order: 2 !important; /* Count second */
+                order: 2 !important;
                 position: static !important;
                 width: auto !important;
                 height: auto !important;
                 line-height: 1 !important;
                 padding: 2px 6px !important;
-                font-size: 11px !important; /* Smaller count font */
-                margin-right: 0 !important; /* Remove margin here */
+                font-size: 11px !important;
+                margin-right: 0 !important;
                 border-radius: 4px !important;
                 background: #bd0018 !important;
                 color: #fff !important;
@@ -66,32 +60,30 @@
             }
 
             .cart-total .price {
-                order: 3 !important; /* Price on the bottom line */
-                font-size: 15px !important; /* Larger price font */
-                font-weight: 600 !important; /* Make price bolder */
-                color: #62ab00 !important; /* Green price */
+                order: 3 !important;
+                font-size: 15px !important;
+                font-weight: 600 !important;
+                color: #62ab00 !important;
                 line-height: 1.2 !important;
-                margin-left: 0 !important; /* Remove left margin */
-                white-space: nowrap; /* Prevent price from wrapping */
+                margin-left: 0 !important;
+                white-space: nowrap;
             }
 
-            /* Ensure the dropdown arrow aligns */
             .cart-total .price i {
-                margin-left: 5px !important; /* Space before the dropdown arrow */
-                font-size: 10px !important; /* Smaller arrow icon */
-                color: #777 !important; /* Muted arrow color */
+                margin-left: 5px !important;
+                font-size: 10px !important;
+                color: #777 !important;
             }
 
-            /* Keep dropdown positioning relative to cart-block */
             .cart-dropdown-block {
                 top: calc(100% + 5px) !important;
                 right: 0 !important;
-                left: auto !important; /* Ensure it aligns to the right */
+                left: auto !important;
             }
 
-            /* Ensure the user dropdown aligns correctly if needed */
+
             .header-links .dropdown {
-                margin-right: 20px !important; /* Add space between user name and cart */
+                margin-right: 20px !important;
             }
 
         </style>
@@ -109,9 +101,9 @@
                     <div class="col-lg-5">
                         <div class="header-search-block">
                             <form action="search" method="get" class="header-search-block">
-                                <input type="text" 
-                                       name="searchQuery" 
-                                       placeholder="Tìm theo tên, nhà xuất bản, tác giả" 
+                                <input type="text"
+                                       name="searchQuery"
+                                       placeholder="Tìm theo tên, nhà xuất bản, tác giả"
                                        value="${searchQuery}">
                                 <button type="submit">Tìm kiếm</button>
                             </form>
@@ -134,6 +126,7 @@
                                                         </a>
                                                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                                             <li><a class="dropdown-item" href="my-account">Tài khoản của tôi</a></li>
+                                                            <li><a class="dropdown-item" href="wishlist">Danh sách yêu thích</a></li>
                                                             <li><hr class="dropdown-divider"></li>
 
                                                             <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
@@ -332,6 +325,7 @@
                                 <li class="menu-item has-children">
                                     <a href="home">Trang chủ</a>
                                 </li>
+                               
                                 <!-- Shop -->
                                 <!--                            <li class="menu-item has-children mega-menu">
                                                                 <a href="javascript:void(0)">shop <i

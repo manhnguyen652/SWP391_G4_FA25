@@ -1,18 +1,28 @@
 package model;
 
 public class Book {
+
     private int bId;
     private String bTitle;
     private String description;
     private int publicationYear;
     private double price;
     private int stock;
-    private int pId; 
-    private int aId; 
-    private int imageId; 
-    private int cId; 
+    private int pId;
+    private int aId;
+    private int imageId;
+    private int cId;
     private String authorName;
-    
+    private int wishlistItemId;
+
+    public int getWishlistItemId() {
+        return wishlistItemId;
+    }
+
+    public void setWishlistItemId(int wishlistItemId) {
+        this.wishlistItemId = wishlistItemId;
+    }
+
     public Book() {
     }
 
@@ -109,20 +119,22 @@ public class Book {
     public void setCId(int cId) {
         this.cId = cId;
     }
-     public String getAuthorName() {
+
+    public String getAuthorName() {
         return authorName;
     }
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "bId=" + bId +
-                ", bTitle='" + bTitle + '\'' +
-                ", price=" + price +
-                ", authorName='" + authorName + '\'' +
-                '}';
+        return "Book{"
+                + "bId=" + bId
+                + ", bTitle='" + bTitle + '\''
+                + ", price=" + price
+                + ", authorName='" + authorName + '\''
+                + '}';
     }
 }
