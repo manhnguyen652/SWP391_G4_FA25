@@ -1,179 +1,113 @@
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
-
-
+<html lang="vi">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Pustok - Book Store</title>
+        <title>Pustok - Danh sách yêu thích</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Use Minified Plugins Version For Fast Page Load -->
-        <link rel="stylesheet" type="text/css" media="screen" href="css/plugins.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-        <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
-
     <body>
         <div class="site-wrapper" id="top">
-            <jsp:include page="./common/header.jsp"></jsp:include>	
+            <jsp:include page="./common/header.jsp"></jsp:include>
                 <section class="breadcrumb-section">
                     <h2 class="sr-only">Site Breadcrumb</h2>
                     <div class="container">
                         <div class="breadcrumb-contents">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active">Wishlist</li>
+                                    <li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active">Danh sách yêu thích</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </section>
-                <!-- Wishlist Page Start -->
                 <div class="cart_area inner-page-sec-padding-bottom">
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <form action="https://htmldemo.net/pustok/pustok/">
-                                    <!-- Cart Table -->
-                                    <div class="cart-table table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="pro-thumbnail">Image</th>
-                                                    <th class="pro-title">Product</th>
-                                                    <th class="pro-price">Price</th>
-                                                    <th class="pro-quantity">Quantity</th>
-                                                    <th class="pro-subtotal">Total</th>
-                                                    <th class="pro-remove">Remove</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="pro-thumbnail"><a href="#"><img
-                                                                src="image/products/product-1.jpg" alt="Product"></a></td>
-                                                    <td class="pro-title"><a href="#">Rinosin Glasses</a></td>
-                                                    <td class="pro-price"><span>$395.00</span></td>
-                                                    <td class="pro-quantity">
-                                                        <div class="pro-qty">
-                                                            <div class="count-input-block">
-                                                                <input type="number" class="form-control text-center" value="1">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="pro-subtotal"><span>$395.00</span></td>
-                                                    <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pro-thumbnail"><a href="#"><img
-                                                                src="image/products/product-2.jpg" alt="Product"></a></td>
-                                                    <td class="pro-title"><a href="#">Silacon Glasses</a></td>
-                                                    <td class="pro-price"><span>$275.00</span></td>
-                                                    <td class="pro-quantity">
-                                                        <div class="pro-qty">
-                                                            <div class="count-input-block">
-                                                                <input type="number" class="form-control text-center" value="1">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="pro-subtotal"><span>$550.00</span></td>
-                                                    <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pro-thumbnail"><a href="#"><img
-                                                                src="image/products/product-3.jpg" alt="Product"></a></td>
-                                                    <td class="pro-title"><a href="#">Easin Glasses</a></td>
-                                                    <td class="pro-price"><span>$295.00</span></td>
-                                                    <td class="pro-quantity">
-                                                        <div class="pro-qty">
-                                                            <div class="count-input-block">
-                                                                <input type="number" class="form-control text-center" value="1">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="pro-subtotal"><span>$295.00</span></td>
-                                                    <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pro-thumbnail"><a href="#"><img
-                                                                src="image/products/product-4.jpg" alt="Product"></a></td>
-                                                    <td class="pro-title"><a href="#">Macrox Glasses</a></td>
-                                                    <td class="pro-price"><span>$220.00</span></td>
-                                                    <td class="pro-quantity">
-                                                        <div class="pro-qty">
-                                                            <div class="count-input-block">
-                                                                <input type="number" class="form-control text-center" value="1">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="pro-subtotal"><span>$220.00</span></td>
-                                                    <td class="pro-remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
+                                <form action="#"> <%-- Form may not be needed --%>
+                                <div class="cart-table table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="pro-thumbnail">Ảnh</th>
+                                                <th class="pro-title">Sản phẩm</th>
+                                                <th class="pro-price">Giá</th>
+                                                <th class="pro-stock">Trạng thái kho</th>
+                                                <th class="pro-addtocart">Thêm vào giỏ</th>
+                                                <th class="pro-remove">Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:choose>
+                                                <c:when test="${not empty wishlistItems}">
+                                                    <c:forEach var="book" items="${wishlistItems}">
+                                                        <tr>
+                                                            <td class="pro-thumbnail">
+                                                                <a href="home?state=detail&bookId=${book.BId}">
+                                                                    <%-- Replace with dynamic image path if available --%>
+                                                                    <img src="${pageContext.request.contextPath}/customer/image/products/product-1.jpg" alt="${book.BTitle}" style="max-width: 80px;">
+                                                                </a>
+                                                            </td>
+                                                            <td class="pro-title">
+                                                                <a href="home?state=detail&bookId=${book.BId}">${book.BTitle}</a>
+                                                                <br><small>Tác giả: ${book.authorName}</small>
+                                                            </td>
+                                                            <td class="pro-price">
+                                                                <span><fmt:formatNumber value="${book.price}" pattern="#,##0"/> VND</span>
+                                                            </td>
+                                                            <td class="pro-stock">
+                                                                <%-- Display stock status --%>
+                                                                <c:choose>
+                                                                    <c:when test="${book.stock > 0}">
+                                                                        <span class="text-success">Còn hàng</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-danger">Hết hàng</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </td>
+                                                            <td class="pro-addtocart">
+                                                                <%-- Only show Add to Cart if in stock --%>
+                                                                <c:if test="${book.stock > 0}">
+                                                                    <a href="home?state=cart&action=add&bookId=${book.BId}" class="btn btn--primary btn-sm">Thêm vào giỏ</a>
+                                                                </c:if>
+                                                            </td>
+                                                            <td class="pro-remove">
+                                                                <%-- Use wishlistItemId for removal --%>
+                                                                <a href="wishlist?action=remove&itemId=${book.wishlistItemId}" title="Xóa khỏi danh sách yêu thích">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr>
+                                                        <td colspan="6" class="text-center py-5">Danh sách yêu thích của bạn đang trống.</td>
+                                                    </tr>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- Cart Page End -->
             </div>
-            <!--=================================
-      Brands Slider
-    ===================================== -->
-            <section class="section-margin">
-                <h2 class="sr-only">Brand Slider</h2>
-                <div class="container">
-                    <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                         "autoplay": true,
-                         "autoplaySpeed": 8000,
-                         "slidesToShow": 6
-                         }' data-slick-responsive='[
-                         {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                         {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                         {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                         {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                         {"breakpoint":320, "settings": {"slidesToShow": 1} }
-                         ]'>
-                        <div class="single-slide">
-                            <img src="image/others/brand-1.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-2.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-3.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-4.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-5.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-6.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-1.jpg" alt="">
-                        </div>
-                        <div class="single-slide">
-                            <img src="image/others/brand-2.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!--=================================
-        Footer Area
-    ===================================== -->
+        </div>
+        <jsp:include page="./common/brand_slider.jsp"></jsp:include>
         <jsp:include page="./common/footer.jsp"></jsp:include>
-        <!-- Use Minified Plugins Version For Fast Page Load -->
-        <script src="js/plugins.js"></script>
-        <script src="js/ajax-mail.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
+        <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
     </body>
-
-
 </html>

@@ -35,10 +35,14 @@
     <servlet>
         <servlet-name>UpdateCartQuantityServlet</servlet-name>
         <servlet-class>Controllers.UpdateCartQuantityServlet</servlet-class>
-        </servlet>
-        <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ContactController</servlet-name>
         <servlet-class>Controllers.ContactController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompareController</servlet-name>
+        <servlet-class>Controllers.CompareController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -67,9 +71,13 @@
     <servlet-mapping>
         <servlet-name>UpdateCartQuantityServlet</servlet-name>
         <url-pattern>/update-cart-quantity</url-pattern>
-         </servlet-mapping>
-              <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ContactController</servlet-name>
         <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompareController</servlet-name>
+        <url-pattern>/compare</url-pattern>
     </servlet-mapping>
 </web-app>
