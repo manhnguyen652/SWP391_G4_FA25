@@ -162,9 +162,7 @@
                                                                 <a href="wishlist?action=add&bookId=${book.BId}&page=${currentPage}" class="single-btn">
                                                                     <i class="fas fa-heart"></i>
                                                                 </a>
-                                                                <a href="compare.html" class="single-btn">
-                                                                    <i class="fas fa-random"></i>
-                                                                </a>
+                                                                <a href="compare?action=add&bookId=${book.BId}" class="single-btn" title="Thêm vào so sánh"> <i class="fas fa-random"></i> </a>
                                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
                                                                    class="single-btn">
                                                                     <i class="fas fa-eye"></i>

@@ -14,6 +14,15 @@ public class Book {
     private int cId;
     private String authorName;
     private int wishlistItemId;
+    private int compareItemId;
+
+    public int getCompareItemId() {
+        return compareItemId;
+    }
+
+    public void setCompareItemId(int compareItemId) {
+        this.compareItemId = compareItemId;
+    }
 
     public int getWishlistItemId() {
         return wishlistItemId;
