@@ -8,14 +8,13 @@
             <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account.jsp</file>
         </group>
         <group name="PRJ301">
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Filter/CartFilter.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/login_register.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/category-detail.jsp</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/home.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/feedback_list.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/contact.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/checkout.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/CartDAO.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/CheckoutController.java</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/common/brand_slider.jsp</file>
-            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/my-account.jsp</file>
+            <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/css/main.css</file>
         </group>
     </open-files>
 </project-private>
