@@ -18,11 +18,13 @@ import javax.crypto.spec.SecretKeySpec;
 public class Config {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:9999/apex_autos_servlet/front-end/payment-result.jsp";
+    
+    // Đảm bảo port (7000) và context path (SWP391_G4) là đúng
+    public static String vnp_ReturnUrl = "http://localhost:7000/SWP391_G4/checkout-result"; 
+    
     public static String vnp_TmnCode = "ACUO7SFV";
     public static String secretKey = "7P3SCA2DK9E39PV5O74MMQ481GDOH4NA";
     
-
     public static String md5(String message) {
         String digest = null;
         try {
@@ -59,7 +61,6 @@ public class Config {
         return digest;
     }
 
-    //Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);

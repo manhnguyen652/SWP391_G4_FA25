@@ -3,19 +3,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
-
-
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Pustok - Book Store</title>
+        <title>Pustok - Thanh toán</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Use Minified Plugins Version For Fast Page Load -->
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
     </head>
-
     <body>
         <div class="site-wrapper" id="top">
             <jsp:include page="./common/header.jsp"></jsp:include>
@@ -25,163 +21,117 @@
                         <div class="breadcrumb-contents">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                                    <li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
                                     <li class="breadcrumb-item active">Thanh toán</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </section>
+
                 <main id="content" class="page-section inner-page-sec-padding-bottom space-db--20">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Checkout Form s-->
-                                <div class="checkout-form">
-                                    <div class="row row-40">
-                                        <div class="col-12">
+                        <form action="checkout" method="POST"> 
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="checkout-form">
+                                        <div class="row row-40">
+                                            <div class="col-lg-7 mb--20">
+                                                <div id="billing-form" class="mb-40">
+                                                    <h4 class="checkout-title">Thông tin người nhận</h4>
+                                                    <div class="row">
 
-                                        </div>
-                                        <div class="col-lg-7 mb--20">
-                                            <!-- Billing Address -->
-                                            <div id="billing-form" class="mb-40">
-                                                <h4 class="checkout-title">Địa chỉ thanh toán</h4>
-                                                <div class="row">
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Họ*</label>
-                                                        <input type="text" placeholder="Họ">
+                                                        <div class="col-md-6 col-12 mb--20">
+                                                            <label>Họ*</label>
+                                                            <input type="text" name="lastName" placeholder="Họ" value="${sessionScope.account.l_name}" required>
                                                     </div>
                                                     <div class="col-md-6 col-12 mb--20">
                                                         <label>Tên*</label>
-                                                        <input type="text" placeholder="Tên">
-                                                    </div>
-
-                                                    <div class="col-12 col-12 mb--20">
-                                                        <label>Nước*</label>
-                                                        <select class="nice-select">
-                                                            <option>Bangladesh</option>
-                                                            <option>China</option>
-                                                            <option>country</option>
-                                                            <option>India</option>
-                                                            <option>Japan</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Địa chỉ Email*</label>
-                                                        <input type="email" placeholder="Địa chỉ Email">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Số điện thoại*</label>
-                                                        <input type="text" placeholder="Số điện thoại">
+                                                        <input type="text" name="firstName" placeholder="Tên" value="${sessionScope.account.f_name}" required>
                                                     </div>
                                                     <div class="col-12 mb--20">
-                                                        <label>Địa chỉ cụ thể*</label>
-                                                        <input type="text" placeholder="Địa chỉ cụ thể">
-
+                                                        <label>Địa chỉ Email*</label>
+                                                        <input type="email" name="email" placeholder="Địa chỉ Email" value="${sessionScope.account.u_email}" required>
                                                     </div>
 
-                                                    <div class="col-12 mb--20 ">
-                                                        <div class="block-border check-bx-wrapper">
-                                                            <div class="check-box">
-                                                                <input type="checkbox" id="create_account">
-                                                                <label for="create_account">Create an Acount?</label>
+                                                    <hr>
+
+                                                    <h4 class="checkout-title mt-3">Địa chỉ giao hàng</h4>
+
+                                                    <c:if test="${not empty savedAddresses}">
+                                                        <p>Chọn địa chỉ đã lưu:</p>
+                                                        <c:forEach var="addr" items="${savedAddresses}" varStatus="loop">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="addressSelection" id="addr_${addr.id}" value="${addr.id}" ${loop.first ? 'checked' : ''}>
+                                                                <label class="form-check-label" for="addr_${addr.id}">
+                                                                    <strong>${addr.phone}</strong> - ${addr.address}, ${addr.country}
+                                                                </label>
                                                             </div>
-                                                            <div class="check-box">
-                                                                <input type="checkbox" id="shiping_address" data-shipping>
-                                                                <label for="shiping_address">Ship to Different Address</label>
-                                                            </div>
+                                                        </c:forEach>
+                                                    </c:if>
+
+                                                    <div class="form-check mt-2">
+                                                        <input class="form-check-input" type="radio" name="addressSelection" id="addr_new" value="new" ${empty savedAddresses ? 'checked' : ''}>
+                                                        <label class="form-check-label" for="addr_new">
+                                                            Sử dụng địa chỉ mới
+                                                        </label>
+                                                    </div>
+
+                                                    <div id="new-address-form" style="display:none; margin-top: 15px; padding-left: 20px;">
+                                                        <h5>Nhập địa chỉ mới</h5>
+                                                        <div class="col-12 mb--20">
+                                                            <label>Số điện thoại mới*</label>
+                                                            <input type="text" class="form-control" name="new_phone" placeholder="Số điện thoại">
+                                                        </div>
+                                                        <div class="col-12 mb--20">
+                                                            <label>Địa chỉ cụ thể mới*</label>
+                                                            <input type="text" class="form-control" name="new_address" placeholder="Địa chỉ cụ thể (Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố)">
+                                                        </div>
+                                                        <div class="col-12 mb--20">
+                                                            <label>Nước mới*</label>
+                                                            <select class="form-control nice-select" name="new_country">
+                                                                <option value="VN" selected>Việt Nam</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Shipping Address -->
-                                            <div id="shipping-form" class="mb--40">
-                                                <h4 class="checkout-title">Shipping Address</h4>
-                                                <div class="row">
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>First Name*</label>
-                                                        <input type="text" placeholder="First Name">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Last Name*</label>
-                                                        <input type="text" placeholder="Last Name">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Email Address*</label>
-                                                        <input type="email" placeholder="Email Address">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Phone no*</label>
-                                                        <input type="text" placeholder="Phone number">
-                                                    </div>
-                                                    <div class="col-12 mb--20">
-                                                        <label>Company Name</label>
-                                                        <input type="text" placeholder="Company Name">
-                                                    </div>
-                                                    <div class="col-12 mb--20">
-                                                        <label>Address*</label>
-                                                        <input type="text" placeholder="Address line 1">
-                                                        <input type="text" placeholder="Address line 2">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Country*</label>
-                                                        <select class="nice-select">
-                                                            <option>Bangladesh</option>
-                                                            <option>China</option>
-                                                            <option>country</option>
-                                                            <option>India</option>
-                                                            <option>Japan</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Town/City*</label>
-                                                        <input type="text" placeholder="Town/City">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>State*</label>
-                                                        <input type="text" placeholder="State">
-                                                    </div>
-                                                    <div class="col-md-6 col-12 mb--20">
-                                                        <label>Zip Code*</label>
-                                                        <input type="text" placeholder="Zip Code">
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="order-note-block mt--30">
                                                 <label for="order-note">Ghi chú đơn hàng</label>
-                                                <textarea id="order-note" cols="30" rows="10" class="order-note"
-                                                          placeholder="Ghi chú đơn hàng "></textarea>
+                                                <textarea id="order-note" name="orderNote" cols="30" rows="10" class="order-note"
+                                                          placeholder="Ghi chú về đơn hàng của bạn..."></textarea>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-5">
                                             <div class="row">
-                                                <!-- Cart Total -->
                                                 <div class="col-12">
                                                     <div class="checkout-cart-total">
                                                         <h2 class="checkout-title">ĐƠN HÀNG CỦA BẠN</h2>
                                                         <h4>Sản phẩm <span>Tổng tiền</span></h4>
                                                         <ul>
-                                                        <c:forEach var="item" items="${checkoutItems}">
-                                                            <li>
-                                                                <span class="left">${item.title} X ${item.quantity}</span> 
-                                                                <span class="right"><fmt:formatNumber value="${item.total}" pattern="#,##0" /> VND</span>
-                                                            </li>
-                                                        </c:forEach>
-                                                    </ul>
+                                                            <c:forEach var="item" items="${checkoutItems}">
+                                                                <li>
+                                                                    <span class="left">${item.title} X ${item.quantity}</span> 
+                                                                    <span class="right"><fmt:formatNumber value="${item.total}" pattern="#,##0" /> VND</span>
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
+                                                        <p>Tạm tính <span><fmt:formatNumber value="${checkoutSubTotal}" pattern="#,##0" /> VND</span></p>
+                                                        <p>Phí vận chuyển <span><fmt:formatNumber value="${checkoutShippingFee}" pattern="#,##0" /> VND</span></p>
+                                                        <h4>Tổng cộng <span><fmt:formatNumber value="${checkoutGrandTotal}" pattern="#,##0" /> VND</span></h4>
 
+                                                        <div class="method-notice mt--25">
+                                                            <p>Bạn sẽ được chuyển hướng đến cổng VNPAY để hoàn tất thanh toán.</p>
+                                                        </div>
+                                                        <div class="term-block">
+                                                            <input type="checkbox" id="accept_terms2" required>
+                                                            <label for="accept_terms2">Tôi đã đọc và chấp nhận các điều khoản và điều kiện*</label>
+                                                        </div>
 
-                                                    <p>Tạm tính <span><fmt:formatNumber value="${checkoutSubTotal}" pattern="#,##0" /> VND</span></p>
-                                                    <p>Phí vận chuyển <span><fmt:formatNumber value="${checkoutShippingFee}" pattern="#,##0" /> VND</span></p>
-                                                    <h4>Tổng cộng <span><fmt:formatNumber value="${checkoutGrandTotal}" pattern="#,##0" /> VND</span></h4>
-                                                    <div class="method-notice mt--25">
-
+                                                        <button type="submit" name="action" value="placeOrder" class="place-order w-100">Đặt hàng (VNPAY)</button>
                                                     </div>
-                                                    <div class="term-block">
-                                                        <input type="checkbox" id="accept_terms2">
-                                                        <label for="accept_terms2">Tôi đã đọc và chấp nhận các điều khoản và điều kiện
-                                                        </label>
-                                                    </div>
-                                                    <button class="place-order w-100">Thanh toán</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </main>
         </div>
@@ -198,7 +148,34 @@
         <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const newAddressForm = document.getElementById('new-address-form');
+                const addressRadios = document.querySelectorAll('input[name="addressSelection"]');
+                const newAddressInputs = newAddressForm.querySelectorAll('input, select');
+
+                function toggleNewAddressForm(show) {
+                    if (show) {
+                        newAddressForm.style.display = 'block';
+                        newAddressInputs.forEach(input => input.required = true);
+                    } else {
+                        newAddressForm.style.display = 'none';
+                        newAddressInputs.forEach(input => input.required = false);
+                    }
+                }
+
+                addressRadios.forEach(radio => {
+                    radio.addEventListener('change', function () {
+                        toggleNewAddressForm(this.value === 'new');
+                    });
+                });
+
+                const checkedRadio = document.querySelector('input[name="addressSelection"]:checked');
+                if (checkedRadio) {
+                    toggleNewAddressForm(checkedRadio.value === 'new');
+                }
+            });
+        </script>
     </body>
-
-
 </html>

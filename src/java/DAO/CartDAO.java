@@ -255,4 +255,32 @@ public class CartDAO {
         }
         return itemList;
     }
+    public void removeItemsFromCart(List<Integer> cartItemIds) {
+        if (cartItemIds == null || cartItemIds.isEmpty()) {
+            return;
+        }
+        
+        StringBuilder placeholders = new StringBuilder();
+        for (int i = 0; i < cartItemIds.size(); i++) {
+            placeholders.append("?");
+            if (i < cartItemIds.size() - 1) {
+                placeholders.append(",");
+            }
+        }
+
+        String sql = "DELETE FROM cart_items WHERE id IN (" + placeholders.toString() + ")";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            for (int i = 0; i < cartItemIds.size(); i++) {
+                ps.setInt(i + 1, cartItemIds.get(i));
+            }
+            
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

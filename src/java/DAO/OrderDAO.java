@@ -1,15 +1,19 @@
-//package DAO;
-//
-//import model.Order;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class OrderDAO {
-//
+package DAO;
+
+import model.CartItemDTO;
+import model.Order;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import model.OrderDetailDTO;
+
+public class OrderDAO {
+
 //    public List<Order> getAllOrders(int page, int recordsPerPage) {
 //        List<Order> orders = new ArrayList<>();
 //        String sql = "SELECT o.*, a.f_name, a.l_name, s.name as status_name " +
@@ -237,7 +241,6 @@
 //        }
 //        return orders;
 //    }
-//
 //    public int getTotalSearchOrders(String searchTerm) {
 //        String sql = "SELECT COUNT(*) FROM [order] o " +
 //                    "JOIN account a ON o.u_id = a.u_id " +
@@ -301,4 +304,135 @@
 //        }
 //        return 0.0;
 //    }
-//}
+    public int createOrder(Order order) {
+        // Cập nhật SQL để khớp với CSDL đã sửa (Bước 1)
+        String sql = "INSERT INTO [order] (u_id, total_amount, create_date, status_id, "
+                + "ship_fname, ship_lname, ship_email, ship_phone, ship_address, ship_country, note) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int orderId = -1;
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, order.getUId());
+            ps.setDouble(2, order.getTotalAmount());
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setInt(4, 1); // 1 = Chờ thanh toán
+
+            ps.setString(5, order.getShip_fname());
+            ps.setString(6, order.getShip_lname());
+            ps.setString(7, order.getShip_email());
+            ps.setString(8, order.getShip_phone());
+            ps.setString(9, order.getShip_address());
+            ps.setString(10, order.getShip_country());
+            ps.setString(11, order.getNote());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        orderId = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderId;
+    }
+
+    public void addOrderDetails(List<CartItemDTO> items, int orderId) {
+        String sql = "INSERT INTO order_details (order_id, b_id, quantity, price_per_item) "
+                + "VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            conn.setAutoCommit(false);
+            for (CartItemDTO item : items) {
+                ps.setInt(1, orderId);
+                ps.setInt(2, item.getBookId());
+                ps.setInt(3, item.getQuantity());
+                ps.setDouble(4, item.getPrice());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderStatus(int orderId, int statusId) {
+        String sql = "UPDATE [order] SET status_id = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, statusId);
+            ps.setInt(2, orderId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Order getOrderById(int orderId) {
+        Order order = null;
+        String sql = "SELECT * FROM [order] WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setUId(rs.getInt("u_id"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setCreateDate(rs.getTimestamp("create_date"));
+                    order.setStatusId(rs.getInt("status_id"));
+                    // Lấy các trường ship_*
+                    order.setShip_fname(rs.getString("ship_fname"));
+                    order.setShip_lname(rs.getString("ship_lname"));
+                    order.setShip_email(rs.getString("ship_email"));
+                    order.setShip_phone(rs.getString("ship_phone"));
+                    order.setShip_address(rs.getString("ship_address"));
+                    order.setShip_country(rs.getString("ship_country"));
+                    order.setNote(rs.getString("note"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order; // Trả về null nếu không tìm thấy
+    }
+
+    /**
+     * Lấy danh sách chi tiết các sản phẩm trong đơn hàng
+     */
+    public List<OrderDetailDTO> getOrderDetailsDTO(int orderId) {
+        List<OrderDetailDTO> items = new ArrayList<>();
+        String sql = "SELECT od.quantity, od.price_per_item, b.b_title "
+                + "FROM order_details od "
+                + "JOIN books b ON od.b_id = b.b_id "
+                + "WHERE od.order_id = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    OrderDetailDTO item = new OrderDetailDTO();
+                    item.setProductName(rs.getString("b_title"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setPricePerItem(rs.getDouble("price_per_item"));
+                    // totalItemPrice sẽ được tính tự động bằng getter
+                    items.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+}
