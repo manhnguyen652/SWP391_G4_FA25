@@ -11,6 +11,123 @@
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
+
+        <%-- =================================== --%>
+        <%-- BẮT ĐẦU KHỐI CSS TÙY CHỈNH CHO TRANG CHECKOUT --%>
+        <%-- =================================== --%>
+        <style>
+            /* Tùy chỉnh các thẻ chọn địa chỉ */
+            .checkout-form .address-option {
+                border: 1px solid #e6e6e6;
+                padding: 15px 20px;
+                margin-bottom: 15px;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .checkout-form .address-option:hover {
+                border-color: #62ab00;
+                background: #f9f9f9;
+            }
+            .checkout-form .address-option.new-address-option {
+                border-style: dashed;
+            }
+
+            /* Ghi đè label của Bootstrap để khớp theme */
+            .checkout-form .form-check-label {
+                position: relative;
+                padding-left: 35px; /* Tăng khoảng cách cho nút radio tùy chỉnh */
+                cursor: pointer;
+                font-size: 15px;
+                color: #333;
+                width: 100%;
+                line-height: 1.4;
+            }
+            .checkout-form .form-check-label strong {
+                display: block;
+                font-size: 16px;
+                color: #1a1f2b;
+                font-weight: 600;
+                margin-bottom: 3px;
+            }
+
+            /* Ẩn nút radio gốc */
+            .checkout-form .form-check-input[type="radio"] {
+                display: none;
+            }
+
+            /* Tạo nút radio tùy chỉnh (vòng tròn ngoài) */
+            .checkout-form .form-check-label::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%; /* Căn giữa theo chiều dọc */
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+                border: 2px solid #565f69;
+                border-radius: 50%; /* Bo tròn */
+                background: #fff;
+                transition: all 0.3s ease;
+            }
+
+            /* Tạo dấu chấm bên trong khi được chọn */
+            .checkout-form .form-check-input[type="radio"]:checked + .form-check-label::after {
+                content: "";
+                position: absolute;
+                left: 5px; /* Căn giữa dấu chấm */
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #62ab00; /* Màu active của theme */
+                opacity: 1;
+                transition: all 0.3s ease;
+            }
+
+            /* Đổi màu viền khi được chọn */
+            .checkout-form .form-check-input[type="radio"]:checked + .form-check-label::before {
+                border-color: #62ab00;
+            }
+
+            /* Style cho form địa chỉ mới */
+            #new-address-form {
+                border: 1px solid #e6e6e6;
+                padding: 25px;
+                margin-top: 15px !important; /* Ghi đè style inline */
+                background: #f9f9f9;
+                border-radius: 4px;
+            }
+            #new-address-form h5 {
+                font-size: 18px;
+                font-weight: 600;
+                color: #1a1f2b;
+                border-bottom: 1px solid #e6e6e6;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            /* Đảm bảo input trong form mới khớp với style chung */
+            #new-address-form .form-control {
+                width: 100%;
+                background-color: #f4f4f4;
+                border: 1px solid transparent;
+                border-radius: 0;
+                line-height: 23px;
+                padding: 10px 20px;
+                font-size: 14px;
+                color: #14191e;
+                margin-bottom: 15px;
+            }
+            #new-address-form .form-control:focus {
+                border-color: #62ab00;
+                box-shadow: none;
+                outline: none;
+            }
+        </style>
+        <%-- =================================== --%>
+        <%-- KẾT THÚC KHỐI CSS TÙY CHỈNH --%>
+        <%-- =================================== --%>
     </head>
     <body>
         <div class="site-wrapper" id="top">
@@ -61,23 +178,26 @@
                                                     <c:if test="${not empty savedAddresses}">
                                                         <p>Chọn địa chỉ đã lưu:</p>
                                                         <c:forEach var="addr" items="${savedAddresses}" varStatus="loop">
-                                                            <div class="form-check">
+                                                            <%-- Thêm class 'address-option' --%>
+                                                            <div class="form-check address-option"> 
                                                                 <input class="form-check-input" type="radio" name="addressSelection" id="addr_${addr.id}" value="${addr.id}" ${loop.first ? 'checked' : ''}>
                                                                 <label class="form-check-label" for="addr_${addr.id}">
-                                                                    <strong>${addr.phone}</strong> - ${addr.address}, ${addr.country}
+                                                                    <strong>${addr.phone}</strong>
+                                                                    ${addr.address}, ${addr.country}
                                                                 </label>
                                                             </div>
                                                         </c:forEach>
                                                     </c:if>
 
-                                                    <div class="form-check mt-2">
+                                                    <%-- Thêm class 'address-option new-address-option' --%>
+                                                    <div class="form-check mt-2 address-option new-address-option">
                                                         <input class="form-check-input" type="radio" name="addressSelection" id="addr_new" value="new" ${empty savedAddresses ? 'checked' : ''}>
                                                         <label class="form-check-label" for="addr_new">
                                                             Sử dụng địa chỉ mới
                                                         </label>
                                                     </div>
 
-                                                    <div id="new-address-form" style="display:none; margin-top: 15px; padding-left: 20px;">
+                                                    <div id="new-address-form" style="display:none; margin-top: 15px;">
                                                         <h5>Nhập địa chỉ mới</h5>
                                                         <div class="col-12 mb--20">
                                                             <label>Số điện thoại mới*</label>
