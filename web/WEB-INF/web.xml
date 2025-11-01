@@ -44,6 +44,10 @@
         <servlet-name>CompareController</servlet-name>
         <servlet-class>Controllers.CompareController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <servlet-class>Controllers.CheckoutResultController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -79,5 +83,9 @@
     <servlet-mapping>
         <servlet-name>CompareController</servlet-name>
         <url-pattern>/compare</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <url-pattern>/checkout-result</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,27 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 public class OrderDetail {
+
     private int id;
     private int orderId;
     private int bId;
     private int quantity;
+    private double pricePerItem;
 
-    // Constructors
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, int orderId, int bId, int quantity) {
-        this.id = id;
-        this.orderId = orderId;
-        this.bId = bId;
-        this.quantity = quantity;
-    }
-
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -52,5 +41,13 @@ public class OrderDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getPricePerItem() {
+        return pricePerItem;
+    }
+
+    public void setPricePerItem(double pricePerItem) {
+        this.pricePerItem = pricePerItem;
     }
 }
