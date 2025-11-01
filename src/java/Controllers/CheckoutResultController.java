@@ -81,7 +81,7 @@ public class CheckoutResultController extends HttpServlet {
                 request.setAttribute("orderItems", orderItems);
                 
                 // Chuyển sang trang order-complete.jsp
-                request.getRequestDispatcher("customer/order-complete.jsp").forward(request, response);
+                request.getRequestDispatcher("customer/order_complete.jsp").forward(request, response);
                 // --- KẾT THÚC THAY ĐỔI ---
             } else {
                 System.out.println("Payment failed for order: " + orderId + " with code: " + vnp_ResponseCode);
