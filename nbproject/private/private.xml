@@ -47,6 +47,10 @@
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/SearchController.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/compare.jsp</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account-orders.jsp</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/Controllers/MyOrdersController.java</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/src/java/DAO/OrderDAO.java</file>
+        </group>
     </open-files>
 </project-private>

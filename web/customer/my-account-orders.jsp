@@ -10,6 +10,35 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/customer/css/plugins.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/customer/css/main.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
+
+    <style>
+        .status-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 8px;
+        }
+        .status-tabs a {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #333;
+            background: #fff;
+            transition: 0.3s;
+        }
+        .status-tabs a:hover {
+            background: #f0f0f0;
+        }
+        .status-tabs a.active {
+            background-color: #7fad39;
+            color: white;
+            border-color: #7fad39;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,6 +78,28 @@
                     <div class="col-lg-9 col-md-8">
                         <div class="myaccount-content">
                             <h3 class="title">Orders</h3>
+
+                            <!-- Tabs lọc trạng thái -->
+                            <div class="status-tabs">
+                                <a href="${pageContext.request.contextPath}/my-account/orders" 
+                                   class="${empty currentStatus ? 'active' : ''}">Tất cả</a>
+
+                                <a href="${pageContext.request.contextPath}/my-account/orders?status=1" 
+                                   class="${currentStatus == '1' ? 'active' : ''}">Đang chờ xử lý</a>
+
+                                <a href="${pageContext.request.contextPath}/my-account/orders?status=2" 
+                                   class="${currentStatus == '2' ? 'active' : ''}">Đã xác nhận</a>
+
+                                <a href="${pageContext.request.contextPath}/my-account/orders?status=3" 
+                                   class="${currentStatus == '3' ? 'active' : ''}">Đang giao hàng</a>
+
+                                <a href="${pageContext.request.contextPath}/my-account/orders?status=4" 
+                                   class="${currentStatus == '4' ? 'active' : ''}">Đã giao hàng</a>
+
+                                <a href="${pageContext.request.contextPath}/my-account/orders?status=5" 
+                                   class="${currentStatus == '5' ? 'active' : ''}">Đã hủy</a>
+                            </div>
+
                             <div class="myaccount-table table-responsive text-center">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
