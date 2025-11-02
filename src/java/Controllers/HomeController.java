@@ -44,16 +44,25 @@ public class HomeController extends HttpServlet {
 
         if (state == null) {
             String pageStr = request.getParameter("page");
+            String sortOrder = request.getParameter("sortOrder");
+            if (sortOrder == null || sortOrder.isEmpty()) {
+                sortOrder = "default";
+            }
             int currentPage = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
 
             int totalBooks = bookDAO.getTotalBooks();
             int totalPages = (int) Math.ceil((double) totalBooks / BOOKS_PER_PAGE);
 
-            List<Book> bookList = bookDAO.getBooksByPage(currentPage, BOOKS_PER_PAGE);
+            List<Book> bookList = bookDAO.getBooksByPage(currentPage, BOOKS_PER_PAGE, sortOrder);
+            
+            // Lấy khoảng giá min/max cho slider
+            java.util.Map<String, Double> priceRange = bookDAO.getPriceRange();
 
             request.setAttribute("bookList", bookList);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
+            request.setAttribute("priceRange", priceRange);
+            request.setAttribute("selectedSortOrder", sortOrder);
 
             request.getRequestDispatcher("/customer/home.jsp").forward(request, response);
 

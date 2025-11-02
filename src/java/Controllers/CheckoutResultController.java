@@ -1,5 +1,6 @@
 package Controllers;
 
+import DAO.CartDAO;
 import DAO.OrderDAO;
 import com.vnpay.common.Config;
 import jakarta.servlet.ServletException;
@@ -7,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -71,6 +73,18 @@ public class CheckoutResultController extends HttpServlet {
                 // --- THAY ĐỔI TỪ ĐÂY ---
                 System.out.println("Payment success for order: " + orderId);
                 orderDAO.updateOrderStatus(orderId, 2); // 2 = Đã thanh toán
+                
+                // Xóa items khỏi giỏ hàng sau khi thanh toán thành công
+                HttpSession session = request.getSession();
+                @SuppressWarnings("unchecked")
+                List<Integer> selectedItemIds = (List<Integer>) session.getAttribute("selectedCheckoutItems");
+                
+                if (selectedItemIds != null && !selectedItemIds.isEmpty()) {
+                    CartDAO cartDAO = new CartDAO();
+                    cartDAO.removeItemsFromCart(selectedItemIds);
+                    session.removeAttribute("selectedCheckoutItems");
+                    System.out.println("Removed " + selectedItemIds.size() + " items from cart after successful payment");
+                }
                 
                 // Lấy thông tin chi tiết đơn hàng
                 Order orderInfo = orderDAO.getOrderById(orderId);

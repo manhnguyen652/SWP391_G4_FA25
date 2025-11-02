@@ -1,9 +1,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html> 
-    <head> 
+<%@ page import="DAO.CategoryDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Category" %>
+<%
+    // Load categoryList nếu chưa có trong request
+    if (request.getAttribute("categoryList") == null) {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categoryList = categoryDAO.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
+    }
+%> 
         <style>
             .cart-block {
                 display: flex !important;
@@ -188,7 +196,7 @@
                                                 <div class="single-cart-block">
                                                     <div class="btn-block">
                                                         <a href="cart" class="btn">Xem giỏ hàng <i class="fas fa-chevron-right"></i></a>
-                                                        <a href="checkout" class="btn btn--primary">Thanh toán <i class="fas fa-chevron-right"></i></a>
+                                                        <a href="cart?action=checkoutAll" class="btn btn--primary">Thanh toán <i class="fas fa-chevron-right"></i></a>
                                                     </div>
                                                 </div>
                                             </c:when>
@@ -215,96 +223,11 @@
                                 <a href="javascript:void(0)" class="category-trigger"><i
                                         class="fa fa-bars"></i>Thể loại</a>
                                 <ul class="category-menu">
-                                    <li class="cat-item has-children">
-                                        <a href="#">Giáo Dục & Học Tập</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Sách Tham Khảo</a></li>
-                                            <li><a href="#">Sách Luyện Thi</a></li>
-                                            <li><a href="#">Ngoại Ngữ</a></li>
-                                            <li><a href="#">Phát Triển Bản Thân</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children mega-menu"><a href="#">Tiểu Sử</a>
-                                        <ul class="sub-menu">
-                                            <li class="single-block">
-                                                <h3 class="title">Nhân Vật Nổi Tiếng</h3>
-                                                <ul>
-                                                    <li><a href="#">Doanh Nhân & Lãnh Đạo</a></li>
-                                                    <li><a href="#">Chính Trị Gia</a></li>
-                                                    <li><a href="#">Nhà Khoa Học</a></li>
-                                                    <li><a href="#">Nghệ Sĩ & Diễn Viên</a></li>
-                                                    <li><a href="#">Nhà Văn & Nhà Thơ</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">Tiểu Sử Truyền Cảm Hứng</h3>
-                                                <ul>
-                                                    <li><a href="#">Vượt Lên Nghịch Cảnh</a></li>
-                                                    <li><a href="#">Câu Chuyện Thành Công</a></li>
-                                                    <li><a href="#">Những Người Truyền Cảm Hứng</a></li>
-                                                    <li><a href="#">Sách Về Cuộc Sống</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">Tiểu Sử Lịch Sử</h3>
-                                                <ul>
-                                                    <li><a href="#">Anh Hùng Dân Tộc</a></li>
-                                                    <li><a href="#">Nhà Cải Cách & Cách Mạng</a></li>
-                                                    <li><a href="#">Danh Nhân Văn Hóa</a></li>
-                                                    <li><a href="#">Lịch Sử Các Triều Đại</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <h3 class="title">Quốc Tế</h3>
-                                                <ul>
-                                                    <li><a href="#">Lãnh Đạo Toàn Cầu</a></li>
-                                                    <li><a href="#">Nhà Tư Tưởng & Triết Gia</a></li>
-                                                    <li><a href="#">Nhân Vật Ảnh Hưởng Trong Công Nghệ</a></li>
-                                                    <li><a href="#">Nhân Vật Nổi Tiếng Thế Giới</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Kinh Doanh & Tài Chính</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Quản Trị & Lãnh Đạo</a></li>
-                                            <li><a href="#">Khởi Nghiệp & Đổi Mới</a></li>
-                                            <li><a href="#">Đầu Tư & Chứng Khoán</a></li>
-                                            <li><a href="#">Kỹ Năng Làm Việc & Tư Duy</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Lịch & Kế Hoạch</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Lịch Năm & Lịch Để Bàn</a></li>
-                                            <li><a href="#">Planner Cá Nhân</a></li>
-                                            <li><a href="#">Sổ Tay Ghi Chú</a></li>
-                                            <li><a href="#">Bullet Journal & Học Tập</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Sách Thiếu Nhi</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Truyện Cổ Tích</a></li>
-                                            <li><a href="#">Truyện Tranh Thiếu Nhi</a></li>
-                                            <li><a href="#">Sách Kỹ Năng Sống</a></li>
-                                            <li><a href="#">Sách Tô Màu & Học Chữ</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Truyện Tranh</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Manga Nhật Bản</a></li>
-                                            <li><a href="#">Truyện Tranh Việt Nam</a></li>
-                                            <li><a href="#">Học Đường</a></li>
-                                            <li><a href="#">Truyện Hài & Phiêu Lưu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cat-item has-children"><a href="#">Sách Nấu Ăn</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Món Ăn Gia Đình</a></li>
-                                            <li><a href="#">Ẩm Thực Chay</a></li>
-                                            <li><a href="#">Bánh Ngọt & Tráng Miệng</a></li>
-                                            <li><a href="#">Ẩm Thực Thế Giới</a></li>
-                                        </ul>
-                                    </li>
+                                    <c:forEach var="cat" items="${categoryList}">
+                                        <li class="cat-item">
+                                            <a href="search?categoryId=${cat.id}">${cat.cateName}</a>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </nav>

@@ -24519,7 +24519,7 @@ input[type=number] {
 .sb-range-slider .ui-slider-handle:focus {
   outline: none;
 }
-.sb-range-slider .ui-widget-header {
+    .sb-range-slider .ui-widget-header {
   background: #62ab00;
   top: 0;
   height: 100%;
