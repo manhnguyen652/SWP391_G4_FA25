@@ -435,4 +435,31 @@ public class OrderDAO {
         }
         return items;
     }
+      public List<Order> getOrdersByUserId(int userId) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT o.*, s.name AS status_name FROM orders o " +
+                     "JOIN status s ON o.status_id = s.id WHERE o.u_id = ? ORDER BY o.create_date DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setUId(rs.getInt("u_id"));
+                o.setTotalAmount(rs.getDouble("total_amount"));
+                o.setCreateDate(rs.getTimestamp("create_date"));
+                o.setStatusId(rs.getInt("status_id"));
+                o.setNote(rs.getString("note"));
+                // thêm nếu cần hiển thị status name
+                o.setShip_fname(rs.getString("ship_fname"));
+                o.setShip_lname(rs.getString("ship_lname"));
+                list.add(o);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
