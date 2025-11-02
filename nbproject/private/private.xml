@@ -2,11 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/home.jsp</file>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/contact.jsp</file>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account.jsp</file>
-        </group>
         <group name="PRJ301">
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/HomeController.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/CategoryDAO.java</file>
@@ -51,6 +46,11 @@
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/DAO/OrderDAO.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/SearchController.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/compare.jsp</file>
+        </group>
+        <group>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/account_details.jsp</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account.jsp</file>
+            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account-details.jsp</file>
         </group>
     </open-files>
 </project-private>
