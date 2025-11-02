@@ -42,7 +42,26 @@ public class CartController extends HttpServlet {
                 response.sendRedirect("cart?delete=error");
                 return;
             }
+        } else if ("checkoutAll".equals(action)) {
+            // Lấy tất cả items trong giỏ hàng và chuyển sang checkout
+            List<CartItemDTO> cartItems = cartDAO.getCartItemsByAccountId(account.getU_id());
+            if (cartItems == null || cartItems.isEmpty()) {
+                response.sendRedirect("cart?error=emptycart");
+                return;
+            }
+            
+            // Lấy tất cả cart item IDs
+            List<Integer> allItemIds = new ArrayList<>();
+            for (CartItemDTO item : cartItems) {
+                allItemIds.add(item.getCartItemId());
+            }
+            
+            // Set vào session và redirect đến checkout
+            session.setAttribute("selectedCheckoutItems", allItemIds);
+            response.sendRedirect("checkout");
+            return;
         }
+        
         List<CartItemDTO> cartItems = cartDAO.getCartItemsByAccountId(account.getU_id());
 
         double subTotal = 0;

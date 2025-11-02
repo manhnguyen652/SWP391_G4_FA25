@@ -70,16 +70,12 @@
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                             <div class="sorting-selection">
                                                 <span>Lọc theo:</span>
-                                                <select class="form-control nice-select sort-select mr-0">
-                                                    <option value="" selected="selected">Sắp xếp mặc định</option>
-                                                    <option value="">Sắp xếp theo: Tên (A → Z)</option>
-                                                    <option value="">Sắp xếp theo: Tên (Z → A)</option>
-                                                    <option value="">Sắp xếp theo: Giá (Thấp → Cao)</option>
-                                                    <option value="">Sắp xếp theo: Giá (Cao → Thấp)</option>
-                                                    <option value="">Sắp xếp theo: Xếp hạng (Cao nhất)</option>
-                                                    <option value="">Sắp xếp theo: Xếp hạng (Thấp nhất)</option>
-                                                    <option value="">Sắp xếp theo: Mẫu (A → Z)</option>
-                                                    <option value="">Sắp xếp theo: Mẫu (Z → A) </option>
+                                                <select id="sortOrder" name="sortOrder" class="form-control nice-select sort-select mr-0">
+                                                    <option value="default" ${selectedSortOrder == null || selectedSortOrder == 'default' ? 'selected' : ''}>Sắp xếp mặc định</option>
+                                                    <option value="name_asc" ${selectedSortOrder == 'name_asc' ? 'selected' : ''}>Sắp xếp theo: Tên (A → Z)</option>
+                                                    <option value="name_desc" ${selectedSortOrder == 'name_desc' ? 'selected' : ''}>Sắp xếp theo: Tên (Z → A)</option>
+                                                    <option value="price_asc" ${selectedSortOrder == 'price_asc' ? 'selected' : ''}>Sắp xếp theo: Giá (Thấp → Cao)</option>
+                                                    <option value="price_desc" ${selectedSortOrder == 'price_desc' ? 'selected' : ''}>Sắp xếp theo: Giá (Cao → Thấp)</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -187,15 +183,37 @@
                                         <ul class="pagination-btns flex-center">
 
                                             <c:choose>
-                                                <c:when test="${not empty searchQuery}">
-
+                                                <c:when test="${not empty searchQuery || not empty selectedCategoryId || not empty selectedMinPrice || not empty selectedMaxPrice || not empty selectedAuthorId || not empty selectedPublisherId}">
                                                     <c:url var="pageUrlBase" value="search">
-                                                        <c:param name="searchQuery" value="${searchQuery}" />
+                                                        <c:if test="${not empty searchQuery}">
+                                                            <c:param name="searchQuery" value="${searchQuery}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedCategoryId}">
+                                                            <c:param name="categoryId" value="${selectedCategoryId}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedMinPrice}">
+                                                            <c:param name="minPrice" value="${selectedMinPrice}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedMaxPrice}">
+                                                            <c:param name="maxPrice" value="${selectedMaxPrice}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedAuthorId}">
+                                                            <c:param name="authorId" value="${selectedAuthorId}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedPublisherId}">
+                                                            <c:param name="publisherId" value="${selectedPublisherId}" />
+                                                        </c:if>
+                                                        <c:if test="${not empty selectedSortOrder}">
+                                                            <c:param name="sortOrder" value="${selectedSortOrder}" />
+                                                        </c:if>
                                                     </c:url>
                                                 </c:when>
                                                 <c:otherwise>
-
-                                                    <c:url var="pageUrlBase" value="home" />
+                                                    <c:url var="pageUrlBase" value="home">
+                                                        <c:if test="${not empty selectedSortOrder}">
+                                                            <c:param name="sortOrder" value="${selectedSortOrder}" />
+                                                        </c:if>
+                                                    </c:url>
                                                 </c:otherwise>
                                             </c:choose>
 
@@ -204,6 +222,9 @@
                                                 <li>
                                                     <c:url var="prevUrl" value="${pageUrlBase}">
                                                         <c:param name="page" value="${currentPage - 1}" />
+                                                        <c:if test="${not empty selectedSortOrder && selectedSortOrder != 'default'}">
+                                                            <c:param name="sortOrder" value="${selectedSortOrder}" />
+                                                        </c:if>
                                                     </c:url>
                                                     <a href="${prevUrl}" class="single-btn prev-btn"><i class="zmdi zmdi-chevron-left"></i></a>
                                                 </li>
@@ -213,6 +234,9 @@
                                                 <li class="${i == currentPage ? 'active' : ''}">
                                                     <c:url var="pageUrl" value="${pageUrlBase}">
                                                         <c:param name="page" value="${i}" />
+                                                        <c:if test="${not empty selectedSortOrder && selectedSortOrder != 'default'}">
+                                                            <c:param name="sortOrder" value="${selectedSortOrder}" />
+                                                        </c:if>
                                                     </c:url>
                                                     <a href="${pageUrl}" class="single-btn">${i}</a>
                                                 </li>
@@ -224,6 +248,9 @@
                                                     <%-- Construct next page URL --%>
                                                     <c:url var="nextUrl" value="${pageUrlBase}">
                                                         <c:param name="page" value="${currentPage + 1}" />
+                                                        <c:if test="${not empty selectedSortOrder && selectedSortOrder != 'default'}">
+                                                            <c:param name="sortOrder" value="${selectedSortOrder}" />
+                                                        </c:if>
                                                     </c:url>
                                                     <a href="${nextUrl}" class="single-btn next-btn"><i class="zmdi zmdi-chevron-right"></i></a>
                                                 </li>
@@ -367,47 +394,121 @@
                         </div>
                         <div class="col-lg-3  mt--40 mt-lg--0">
                             <div class="inner-page-sidebar">
-                                <!-- Accordion -->
-                                <div class="single-block">
-                                    <h3 class="sidebar-title">Thể loại</h3>
-                                    <ul class="sidebar-menu--shop">
-                                        <c:forEach var="cat" items="${categoryList}">
-                                            <li><a href="#">${cat.cateName}</a></li>
-                                            </c:forEach>
-                                    </ul>
-                                </div>
-                                <!-- Price -->
-                                <div class="single-block">
-                                    <h3 class="sidebar-title">Lọc theo giá</h3>
-                                    <div class="range-slider pt--30">
-                                        <div class="sb-range-slider"></div>
-                                        <div class="slider-price">
-                                            <p>
-                                                <input type="text" id="amount" readonly="">
-                                            </p>
+                                <!-- Filter Form -->
+                                <form id="filterForm" method="GET" action="search">
+                                    <!-- Hidden fields để giữ searchQuery và sortOrder nếu có -->
+                                    <c:if test="${not empty searchQuery}">
+                                        <input type="hidden" name="searchQuery" value="${searchQuery}">
+                                    </c:if>
+                                    <c:if test="${not empty selectedSortOrder}">
+                                        <input type="hidden" id="sortOrderHidden" name="sortOrder" value="${selectedSortOrder}">
+                                    </c:if>
+                                    
+                                    <!-- Accordion -->
+                                    <div class="single-block">
+                                        <h3 class="sidebar-title">Thể loại</h3>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle w-100 text-left" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span id="categoryText">
+                                                    <c:choose>
+                                                        <c:when test="${not empty selectedCategoryId}">
+                                                            <c:forEach var="cat" items="${categoryList}">
+                                                                <c:if test="${cat.id == selectedCategoryId}">${cat.cateName}</c:if>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>Tất cả thể loại</c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu w-100" aria-labelledby="categoryDropdown">
+                                                <li><a class="dropdown-item filter-dropdown-item" href="javascript:void(0);" data-filter="categoryId" data-value="">Tất cả thể loại</a></li>
+                                                <c:forEach var="cat" items="${categoryList}">
+                                                    <li><a class="dropdown-item filter-dropdown-item ${selectedCategoryId == cat.id ? 'active' : ''}" href="javascript:void(0);" data-filter="categoryId" data-value="${cat.id}" data-text="${cat.cateName}">${cat.cateName}</a></li>
+                                                </c:forEach>
+                                            </ul>
                                         </div>
+                                        <input type="hidden" id="categoryId" name="categoryId" value="${selectedCategoryId}">
                                     </div>
-                                </div>
-                                <!-- Size -->
-                                <div class="single-block">
-                                    <h3 class="sidebar-title">Tác giả</h3>
-                                    <ul class="sidebar-menu--shop menu-type-2">
-
-                                        <c:forEach var="author" items="${authorList}">
-                                            <li><a href="#">${author.name}</a></li>
-                                            </c:forEach>
-                                    </ul>
-                                </div>
-                                <!-- Color -->
-                                <div class="single-block">
-                                    <h3 class="sidebar-title">Nhà xuất bản</h3>
-                                    <ul class="sidebar-menu--shop menu-type-2">
-
-                                        <c:forEach var="pub" items="${publisherList}">
-                                            <li><a href="#">${pub.name}</a></li>
-                                            </c:forEach>
-                                    </ul>
-                                </div>
+                                    <!-- Price -->
+                                    <div class="single-block">
+                                        <h3 class="sidebar-title">Lọc theo giá</h3>
+                                        <div class="price-inputs pt--30">
+                                            <div class="form-group mb-3">
+                                                <label for="minPriceInput" class="form-label">Giá tối thiểu (VND)</label>
+                                                <input type="number" 
+                                                       id="minPriceInput" 
+                                                       class="form-control" 
+                                                       placeholder="0" 
+                                                       min="0" 
+                                                       step="1000"
+                                                       value="<c:choose><c:when test="${not empty selectedMinPrice}">${selectedMinPrice}</c:when><c:otherwise>0</c:otherwise></c:choose>">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="maxPriceInput" class="form-label">Giá tối đa (VND)</label>
+                                                <input type="number" 
+                                                       id="maxPriceInput" 
+                                                       class="form-control" 
+                                                       placeholder="<c:choose><c:when test="${not empty priceRange && not empty priceRange.maxPrice}"><fmt:formatNumber value="${priceRange.maxPrice}" pattern="#,##0"/></c:when><c:otherwise>1000000</c:otherwise></c:choose>" 
+                                                       min="0" 
+                                                       step="1000"
+                                                       value="<c:choose><c:when test="${not empty selectedMaxPrice}">${selectedMaxPrice}</c:when><c:when test="${not empty priceRange && not empty priceRange.maxPrice}">${priceRange.maxPrice}</c:when><c:otherwise>1000000</c:otherwise></c:choose>">
+                                            </div>
+                                            <button type="button" id="applyPriceFilter" class="btn btn-primary w-100">ÁP DỤNG</button>
+                                        </div>
+                                        <input type="hidden" id="minPrice" name="minPrice" value="${selectedMinPrice}">
+                                        <input type="hidden" id="maxPrice" name="maxPrice" value="${selectedMaxPrice}">
+                                    </div>
+                                    <!-- Author -->
+                                    <div class="single-block">
+                                        <h3 class="sidebar-title">Tác giả</h3>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle w-100 text-left" type="button" id="authorDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span id="authorText">
+                                                    <c:choose>
+                                                        <c:when test="${not empty selectedAuthorId}">
+                                                            <c:forEach var="author" items="${authorList}">
+                                                                <c:if test="${author.id == selectedAuthorId}">${author.name}</c:if>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>Tất cả tác giả</c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu w-100" aria-labelledby="authorDropdown">
+                                                <li><a class="dropdown-item filter-dropdown-item" href="javascript:void(0);" data-filter="authorId" data-value="">Tất cả tác giả</a></li>
+                                                <c:forEach var="author" items="${authorList}">
+                                                    <li><a class="dropdown-item filter-dropdown-item ${selectedAuthorId == author.id ? 'active' : ''}" href="javascript:void(0);" data-filter="authorId" data-value="${author.id}" data-text="${author.name}">${author.name}</a></li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                        <input type="hidden" id="authorId" name="authorId" value="${selectedAuthorId}">
+                                    </div>
+                                    <!-- Publisher -->
+                                    <div class="single-block">
+                                        <h3 class="sidebar-title">Nhà xuất bản</h3>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle w-100 text-left" type="button" id="publisherDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span id="publisherText">
+                                                    <c:choose>
+                                                        <c:when test="${not empty selectedPublisherId}">
+                                                            <c:forEach var="pub" items="${publisherList}">
+                                                                <c:if test="${pub.id == selectedPublisherId}">${pub.name}</c:if>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>Tất cả nhà xuất bản</c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                            </button>
+                                            <ul class="dropdown-menu w-100" aria-labelledby="publisherDropdown">
+                                                <li><a class="dropdown-item filter-dropdown-item" href="javascript:void(0);" data-filter="publisherId" data-value="">Tất cả nhà xuất bản</a></li>
+                                                <c:forEach var="pub" items="${publisherList}">
+                                                    <li><a class="dropdown-item filter-dropdown-item ${selectedPublisherId == pub.id ? 'active' : ''}" href="javascript:void(0);" data-filter="publisherId" data-value="${pub.id}" data-text="${pub.name}">${pub.name}</a></li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                        <input type="hidden" id="publisherId" name="publisherId" value="${selectedPublisherId}">
+                                    </div>
+                                </form>
                                 <!-- Promotion Block -->
                                 <div class="single-block">
                                     <a href="#" class="promo-image sidebar">
@@ -425,5 +526,130 @@
         <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                // Xử lý input giá tối thiểu và tối đa
+                $("#minPriceInput, #maxPriceInput").on('input', function() {
+                    var minPrice = $("#minPriceInput").val() || '';
+                    var maxPrice = $("#maxPriceInput").val() || '';
+                    
+                    // Cập nhật hidden fields
+                    $("#minPrice").val(minPrice);
+                    $("#maxPrice").val(maxPrice);
+                });
+                
+                // Validation khi blur (rời khỏi input)
+                $("#minPriceInput, #maxPriceInput").on('blur', function() {
+                    var minPrice = parseInt($("#minPriceInput").val()) || 0;
+                    var maxPrice = parseInt($("#maxPriceInput").val()) || 0;
+                    
+                    // Validation: đảm bảo giá tối thiểu <= giá tối đa (nếu cả hai đều có giá trị)
+                    if (minPrice > 0 && maxPrice > 0 && minPrice > maxPrice) {
+                        alert("Giá tối thiểu không được lớn hơn giá tối đa!");
+                        if ($(this).attr('id') === 'minPriceInput') {
+                            $("#minPriceInput").val(0);
+                            $("#minPrice").val(0);
+                        } else {
+                            $("#maxPriceInput").val(minPrice);
+                            $("#maxPrice").val(minPrice);
+                        }
+                    }
+                });
+                
+                // Xử lý nút ÁP DỤNG cho price filter
+                $("#applyPriceFilter").on('click', function() {
+                    var minPrice = $("#minPriceInput").val() || '';
+                    var maxPrice = $("#maxPriceInput").val() || '';
+                    
+                    // Cập nhật hidden fields trước khi submit
+                    $("#minPrice").val(minPrice);
+                    $("#maxPrice").val(maxPrice);
+                    
+                    // Validation trước khi submit
+                    var minPriceInt = parseInt(minPrice) || 0;
+                    var maxPriceInt = parseInt(maxPrice) || 0;
+                    
+                    if (maxPriceInt > 0 && minPriceInt > maxPriceInt) {
+                        alert("Giá tối thiểu không được lớn hơn giá tối đa!");
+                        return false;
+                    }
+                    
+                    // Submit form để filter
+                    $("#filterForm").submit();
+                });
+                
+                // Xử lý click vào dropdown item (Thể loại, Tác giả, Nhà xuất bản)
+                $(".filter-dropdown-item").on('click', function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var filterType = $this.data('filter');
+                    var filterValue = $this.data('value');
+                    var filterText = $this.data('text') || 'Tất cả ' + (filterType === 'categoryId' ? 'thể loại' : filterType === 'authorId' ? 'tác giả' : 'nhà xuất bản');
+                    
+                    // Cập nhật hidden field
+                    $("#" + filterType).val(filterValue);
+                    
+                    // Cập nhật text trên button
+                    var textSpanId = filterType.replace('Id', 'Text');
+                    $("#" + textSpanId).text(filterText);
+                    
+                    // Remove active class từ tất cả items trong cùng dropdown
+                    $this.closest('.dropdown-menu').find('.dropdown-item').removeClass('active');
+                    // Add active class cho item được chọn
+                    $this.addClass('active');
+                    
+                    // Submit form để filter
+                    $("#filterForm").submit();
+                });
+                
+                // Xử lý thay đổi sắp xếp (sortOrder)
+                $("#sortOrder").on('change', function() {
+                    var sortOrder = $(this).val();
+                    var urlParams = new URLSearchParams(window.location.search);
+                    
+                    // Xác định base URL (search hoặc home)
+                    var baseUrl = window.location.pathname;
+                    if (baseUrl.includes('search')) {
+                        baseUrl = 'search';
+                    } else {
+                        baseUrl = 'home';
+                    }
+                    
+                    // Cập nhật hoặc thêm sortOrder parameter
+                    if (sortOrder && sortOrder !== 'default') {
+                        urlParams.set('sortOrder', sortOrder);
+                    } else {
+                        urlParams.delete('sortOrder');
+                    }
+                    
+                    // Reset về page 1 khi thay đổi sort
+                    urlParams.set('page', '1');
+                    
+                    // Redirect với parameters mới
+                    window.location.href = baseUrl + '?' + urlParams.toString();
+                });
+            });
+        </script>
+        <style>
+            .single-block .dropdown {
+                margin-top: 10px;
+            }
+            .single-block .dropdown-toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .single-block .dropdown-toggle::after {
+                margin-left: auto;
+            }
+            .dropdown-item.active {
+                background-color: #28a745;
+                color: white;
+            }
+            .dropdown-item.active:hover {
+                background-color: #218838;
+                color: white;
+            }
+        </style>
     </body>
 </html>

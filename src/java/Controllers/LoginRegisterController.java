@@ -100,13 +100,13 @@ public class LoginRegisterController extends HttpServlet {
 
                 switch (role) {
                     case 1: // Admin
-                        url = ""; 
+                        url = "staff-dashboard"; 
                         break;
                     case 2: // Customer
                         url = "home";
                         break;
                     case 3: // Staff
-                        url = ""; 
+                        url = "staff/book-management"; 
                         break;
                     case 4: // Shipper
                         url = "/customer/shipping.jsp"; 

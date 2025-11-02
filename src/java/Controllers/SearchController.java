@@ -43,7 +43,46 @@ public class SearchController extends HttpServlet {
 
         String searchQuery = request.getParameter("searchQuery");
         String pageStr = request.getParameter("page");
+        String sortOrder = request.getParameter("sortOrder");
+        if (sortOrder == null || sortOrder.isEmpty()) {
+            sortOrder = "default";
+        }
         int currentPage = (pageStr == null || pageStr.isEmpty()) ? 1 : Integer.parseInt(pageStr);
+        
+        // Lấy các tham số filter
+        String categoryIdStr = request.getParameter("categoryId");
+        String minPriceStr = request.getParameter("minPrice");
+        String maxPriceStr = request.getParameter("maxPrice");
+        String authorIdStr = request.getParameter("authorId");
+        String publisherIdStr = request.getParameter("publisherId");
+        
+        // Parse các tham số filter
+        Integer categoryId = null;
+        Double minPrice = null;
+        Double maxPrice = null;
+        Integer authorId = null;
+        Integer publisherId = null;
+        
+        try {
+            if (categoryIdStr != null && !categoryIdStr.trim().isEmpty()) {
+                categoryId = Integer.parseInt(categoryIdStr);
+            }
+            if (minPriceStr != null && !minPriceStr.trim().isEmpty()) {
+                minPrice = Double.parseDouble(minPriceStr);
+            }
+            if (maxPriceStr != null && !maxPriceStr.trim().isEmpty()) {
+                maxPrice = Double.parseDouble(maxPriceStr);
+            }
+            if (authorIdStr != null && !authorIdStr.trim().isEmpty()) {
+                authorId = Integer.parseInt(authorIdStr);
+            }
+            if (publisherIdStr != null && !publisherIdStr.trim().isEmpty()) {
+                publisherId = Integer.parseInt(publisherIdStr);
+            }
+        } catch (NumberFormatException e) {
+            // Nếu parse lỗi, giữ giá trị null (không áp dụng filter đó)
+            e.printStackTrace();
+        }
 
         BookDAO bookDAO = new BookDAO();
         List<Book> bookList;
@@ -51,17 +90,30 @@ public class SearchController extends HttpServlet {
 
         // Trim search query to handle empty spaces
         String trimmedQuery = (searchQuery != null) ? searchQuery.trim() : "";
+        
+        // Kiểm tra xem có filter hoặc search không
+        boolean hasFilter = categoryId != null || minPrice != null || maxPrice != null 
+                          || authorId != null || publisherId != null;
+        boolean hasSearch = !trimmedQuery.isEmpty();
 
-        if (!trimmedQuery.isEmpty()) {
-            // Thực hiện tìm kiếm
-            bookList = bookDAO.searchBooks(trimmedQuery, currentPage, PAGE_SIZE);
-            totalBooks = bookDAO.getTotalSearchBooks(trimmedQuery);
-            request.setAttribute("searchQuery", trimmedQuery); // Pass the trimmed query
+        if (hasSearch || hasFilter) {
+            // Sử dụng phương thức searchAndFilterBooks để kết hợp tìm kiếm và lọc
+            bookList = bookDAO.searchAndFilterBooks(
+                trimmedQuery.isEmpty() ? null : trimmedQuery,
+                categoryId, minPrice, maxPrice, authorId, publisherId, sortOrder,
+                currentPage, PAGE_SIZE
+            );
+            totalBooks = bookDAO.getTotalSearchAndFilterBooks(
+                trimmedQuery.isEmpty() ? null : trimmedQuery,
+                categoryId, minPrice, maxPrice, authorId, publisherId
+            );
+            if (!trimmedQuery.isEmpty()) {
+                request.setAttribute("searchQuery", trimmedQuery);
+            }
         } else {
-            // Nếu không có từ khóa hoặc chỉ có khoảng trắng, hiển thị như trang home
-            bookList = bookDAO.getBooksByPage(currentPage, PAGE_SIZE);
+            // Nếu không có từ khóa và không có filter, hiển thị như trang home
+            bookList = bookDAO.getBooksByPage(currentPage, PAGE_SIZE, sortOrder);
             totalBooks = bookDAO.getTotalBooks();
-            // Không set searchQuery attribute
         }
 
         int totalPages = (int) Math.ceil((double) totalBooks / PAGE_SIZE);
@@ -74,12 +126,23 @@ public class SearchController extends HttpServlet {
         List<Category> categoryList = categoryDAO.getAllCategories();
         List<Author> authorList = authorDAO.getAllAuthors();
         List<Publisher> publisherList = publisherDAO.getAllPublishers();
+        
+        // Lấy khoảng giá min/max
+        java.util.Map<String, Double> priceRange = bookDAO.getPriceRange();
 
        
         request.setAttribute("bookList", bookList);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("totalPages", totalPages);
         
+        // Truyền lại các giá trị filter để hiển thị trên UI
+        request.setAttribute("selectedCategoryId", categoryId);
+        request.setAttribute("selectedMinPrice", minPrice);
+        request.setAttribute("selectedMaxPrice", maxPrice);
+        request.setAttribute("selectedAuthorId", authorId);
+        request.setAttribute("selectedPublisherId", publisherId);
+        request.setAttribute("selectedSortOrder", sortOrder);
+        request.setAttribute("priceRange", priceRange);
 
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("authorList", authorList);

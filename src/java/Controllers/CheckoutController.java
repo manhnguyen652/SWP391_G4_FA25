@@ -168,8 +168,8 @@ public class CheckoutController extends HttpServlet {
             }
 
             orderDAO.addOrderDetails(checkoutItems, newOrderId);
-            cartDAO.removeItemsFromCart(selectedItemIds);
-            session.removeAttribute("selectedCheckoutItems");
+            // KHÔNG xóa giỏ hàng ở đây - sẽ xóa sau khi thanh toán thành công
+            // Giữ selectedCheckoutItems trong session để xóa sau khi thanh toán thành công
 
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
