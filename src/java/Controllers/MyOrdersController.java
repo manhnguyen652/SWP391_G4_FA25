@@ -19,21 +19,29 @@ public class MyOrdersController extends HttpServlet {
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("account");
         if (acc == null) {
-            System.out.println(">>> account = null");
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        if (acc == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
+
+        String statusParam = request.getParameter("status"); // lấy trạng thái từ URL
 
         OrderDAO orderDAO = new OrderDAO();
-        List<Order> orders = orderDAO.getOrdersByUserId2(acc.getU_id());
+        List<Order> orders;
+
+        if (statusParam != null && !statusParam.isEmpty()) {
+            try {
+                int statusId = Integer.parseInt(statusParam);
+                orders = orderDAO.getOrdersByUserIdAndStatus(acc.getU_id(), statusId);
+            } catch (NumberFormatException e) {
+                orders = orderDAO.getOrdersByUserId2(acc.getU_id());
+            }
+        } else {
+            orders = orderDAO.getOrdersByUserId2(acc.getU_id());
+        }
 
         request.setAttribute("orders", orders);
-
-        request.getRequestDispatcher("/customer/my-account-orders.jsp").forward(request, response);   
+        request.setAttribute("currentStatus", statusParam);
+        request.getRequestDispatcher("/customer/my-account-orders.jsp").forward(request, response);
     }
 
 }
