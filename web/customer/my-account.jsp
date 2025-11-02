@@ -86,7 +86,7 @@
                                         </a>
                                     </li>
                                     <li class="${param.section == null || param.section == 'orders' ? 'active' : ''}">
-                                        <a href="${pageContext.request.contextPath}/my-account?section=orders"><i class="fa fa-shopping-cart"></i> Orders</a>
+                                       <a href="${pageContext.request.contextPath}/my-account/orders"><i class="fa fa-shopping-cart"></i> Orders</a>
                                     </li>
                                     <li class="${param.section == 'address' ? 'active' : ''}">
                                         <a href="${pageContext.request.contextPath}/my-account?section=address"><i class="fa fa-map-marker"></i> Address</a>

@@ -7,6 +7,24 @@ public class OrderDetail {
     private int bId;
     private int quantity;
     private double pricePerItem;
+    private String bookName;
+    private String bookImage;
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(String bookImage) {
+        this.bookImage = bookImage;
+    }
 
     public OrderDetail() {
     }

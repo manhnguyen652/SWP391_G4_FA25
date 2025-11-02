@@ -47,10 +47,6 @@
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/src/java/Controllers/SearchController.java</file>
             <file>file:/D:/Project_WEB/SWP391_G4_FA25/web/customer/compare.jsp</file>
         </group>
-        <group>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/account_details.jsp</file>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account.jsp</file>
-            <file>file:/D:/NetBeansProjects/SWP391_G4_FA25/web/customer/my-account-details.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
