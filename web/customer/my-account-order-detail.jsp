@@ -1,40 +1,47 @@
-<%-- 
-    Document   : my-account-order-detail.jsp
-    Created on : Oct 31, 2025, 9:15:54 PM
-    Author     : admin123
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>chi tiết order</title>
-    </head>
-    <body>
-        <h3>Order Detail</h3>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết đơn hàng</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/customer/css/plugins.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/customer/css/main.css">
+</head>
+<body>
+<div class="site-wrapper" id="top">
+    <jsp:include page="./common/header.jsp"/>
 
-<p><b>Order ID:</b> ${param.orderId}</p>
-<p><b>Ngày đặt:</b> ${order.date}</p>
-<p><b>Trạng thái:</b> ${order.status}</p>
+    <div class="container my-5">
+        <h3>Chi tiết đơn hàng #${orderId}</h3>
+        <table class="table table-bordered text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Giá / Sản phẩm</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="d" items="${orderDetails}">
+                    <tr>
+                        <td><img src="${pageContext.request.contextPath}/customer/image/books/${d.bookImage}" width="60"/></td>
+                        <td>${d.bookName}</td>
+                        <td>${d.quantity}</td>
+                        <td><fmt:formatNumber value="${d.pricePerItem}" type="number"/> VND</td>
+                        <td><fmt:formatNumber value="${d.quantity * d.pricePerItem}" type="number"/> VND</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
-<table class="table">
-    <thead>
-        <tr><th>Image</th><th>Product</th><th>Price</th><th>Quantity</th><th>Total</th></tr>
-    </thead>
-    <tbody>
-        <c:forEach var="item" items="${order.items}">
-            <tr>
-                <td><img src="${item.image}" width="60"></td>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>${item.quantity}</td>
-                <td>${item.total}</td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+        <a href="${pageContext.request.contextPath}/my-account/orders" class="btn btn__bg mt-3">← Quay lại danh sách đơn hàng</a>
+    </div>
 
-<a href="my-account.jsp?section=orders" class="btn">← Quay lại</a>
+    <jsp:include page="./common/footer.jsp"/>
+</div>
 </body>
 </html>

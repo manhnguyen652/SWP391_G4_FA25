@@ -15,18 +15,25 @@ public class MyOrdersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("account");
-
+        if (acc == null) {
+            System.out.println(">>> account = null");
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
         if (acc == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         OrderDAO orderDAO = new OrderDAO();
-        List<Order> orderList = orderDAO.getOrdersByUserId(acc.getU_id());
+        List<Order> orders = orderDAO.getOrdersByUserId2(acc.getU_id());
 
-        request.setAttribute("orderList", orderList);
-        request.getRequestDispatcher("/customer/my-orders.jsp").forward(request, response);
+        request.setAttribute("orders", orders);
+
+        request.getRequestDispatcher("/customer/my-account-orders.jsp").forward(request, response);   
     }
+
 }

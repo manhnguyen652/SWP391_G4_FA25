@@ -17,6 +17,15 @@ public class Order {
     private String ship_address;
     private String ship_country;
     private String note;
+    private String statusName;
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
 
     public Order() {
     }
