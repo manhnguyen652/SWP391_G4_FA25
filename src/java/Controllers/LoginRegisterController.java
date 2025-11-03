@@ -21,7 +21,7 @@ import javax.mail.SendFailedException;
 @WebServlet("/login-register")
 public class LoginRegisterController extends HttpServlet {
 
-    // 🔹 KIỂM TRA ĐỊNH DẠNG EMAIL
+    //  KIỂM TRA ĐỊNH DẠNG EMAIL
     private boolean isValidEmailFormat(String email) {
         if (email == null) {
             return false;
@@ -30,7 +30,7 @@ public class LoginRegisterController extends HttpServlet {
         return email.matches(regex);
     }
 
-    // 🔹 KIỂM TRA EMAIL THẬT SỰ TỒN TẠI BẰNG KICKBOX API
+    // ? KIỂM TRA EMAIL THẬT SỰ TỒN TẠI BẰNG KICKBOX API
     private boolean verifyWithKickbox(String email) {
         try {
             String apiKey = "live_ca9344c306539653d66ee48421ad7e383f9cfd538f32f72b8f10713575bd8bb8"; // ⚠️ Thay bằng API Key thật của bạn
@@ -44,7 +44,7 @@ public class LoginRegisterController extends HttpServlet {
             int responseCode = conn.getResponseCode();
             if (responseCode != 200) {
                 System.out.println("Kickbox API error: " + responseCode);
-                return true; // Không chặn khi API lỗi
+                return true; 
             }
 
             java.io.BufferedReader reader = new java.io.BufferedReader(
@@ -57,12 +57,11 @@ public class LoginRegisterController extends HttpServlet {
             reader.close();
 
             String json = sb.toString().toLowerCase();
-            // Nếu kết quả trả về là undeliverable => email không tồn tại
             return !(json.contains("\"result\":\"undeliverable\"") || json.contains("\"reason\":\"invalid_email\""));
 
         } catch (Exception e) {
             e.printStackTrace();
-            return true; // Không chặn khi lỗi mạng hoặc API
+            return true; 
         }
     }
 
@@ -79,8 +78,7 @@ public class LoginRegisterController extends HttpServlet {
         String action = request.getParameter("action");
         AccountDAO dao = new AccountDAO();
         HttpSession session = request.getSession();
-
-        // 🟢 ĐĂNG NHẬP
+       
         if ("login".equals(action)) {
             String email = request.getParameter("login_email");
             String password = request.getParameter("login_password");
@@ -121,14 +119,14 @@ public class LoginRegisterController extends HttpServlet {
                 request.getRequestDispatcher("/customer/login_register.jsp").forward(request, response);
             }
 
-            // 🟡 ĐĂNG KÝ
+            //  ĐĂNG KÝ
         } else if ("register".equals(action)) {
             String fullName = request.getParameter("fullname");
             String email = request.getParameter("email");
             String pass = request.getParameter("password");
             String repass = request.getParameter("repeat_password");
 
-            // Kiểm tra rỗng
+            
             if (fullName == null || fullName.trim().isEmpty()
                     || email == null || email.trim().isEmpty()
                     || pass == null || pass.trim().isEmpty()
@@ -140,7 +138,7 @@ public class LoginRegisterController extends HttpServlet {
                 return;
             }
 
-            // Kiểm tra định dạng email
+            
             if (!isValidEmailFormat(email)) {
                 request.setAttribute("registerError", "Email không hợp lệ! (vd: example@gmail.com)");
                 request.setAttribute("fullname", fullName);
