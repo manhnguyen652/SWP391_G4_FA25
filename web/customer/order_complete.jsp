@@ -11,6 +11,54 @@
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/plugins.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/customer/css/main.css" />
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/customer/image/favicon.ico">
+        <style>
+            .action-buttons {
+                margin-top: 40px;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .action-buttons .btn {
+                padding: 15px 40px;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 5px;
+                text-decoration: none;
+                display: inline-block;
+                transition: all 0.3s ease;
+            }
+            .action-buttons .btn-primary {
+                background-color: #62ab00;
+                color: #fff;
+                border: none;
+            }
+            .action-buttons .btn-primary:hover {
+                background-color: #4d8a00;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(98, 171, 0, 0.3);
+            }
+            .action-buttons .btn-info {
+                background-color: #17a2b8;
+                color: #fff;
+                border: none;
+            }
+            .action-buttons .btn-info:hover {
+                background-color: #138496;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+            }
+            .action-buttons .btn-secondary {
+                background-color: #6c757d;
+                color: #fff;
+                border: none;
+            }
+            .action-buttons .btn-secondary:hover {
+                background-color: #5a6268;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+            }
+        </style>
     </head>
     <body>
         <div class="site-wrapper" id="top">
@@ -81,6 +129,15 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <a href="my-account/orders" class="btn btn-primary">
+                                    <i class="fas fa-list-alt"></i> Xem đơn mua của tôi
+                                </a>
+                                <a href="home" class="btn btn-secondary">
+                                    <i class="fas fa-home"></i> Về trang chủ
+                                </a>
                             </div>
                         </div>
                     </div>
