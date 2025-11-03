@@ -101,6 +101,16 @@
                 transform: translateY(-2px);
                 box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
             }
+            .action-buttons .btn-info {
+                background-color: #17a2b8;
+                color: #fff;
+                border: none;
+            }
+            .action-buttons .btn-info:hover {
+                background-color: #138496;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+            }
             .failure-reasons {
                 background: #f8f9fa;
                 border-radius: 8px;
@@ -195,6 +205,9 @@
                                 <div class="action-buttons">
                                     <a href="checkout" class="btn btn-primary">
                                         <i class="fas fa-redo"></i> Thử lại thanh toán
+                                    </a>
+                                    <a href="my-account/orders" class="btn btn-info">
+                                        <i class="fas fa-list-alt"></i> Xem đơn mua của tôi
                                     </a>
                                     <a href="cart" class="btn btn-secondary">
                                         <i class="fas fa-shopping-cart"></i> Quay lại giỏ hàng
