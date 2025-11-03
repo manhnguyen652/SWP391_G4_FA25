@@ -100,12 +100,17 @@ public class CheckoutResultController extends HttpServlet {
             } else {
                 System.out.println("Payment failed for order: " + orderId + " with code: " + vnp_ResponseCode);
                 orderDAO.updateOrderStatus(orderId, 3); // 3 = Thanh toán thất bại
+                
+                // Lấy thông tin đơn hàng để hiển thị trên trang thất bại
+                Order orderInfo = orderDAO.getOrderById(orderId);
+                request.setAttribute("orderInfo", orderInfo);
                 request.setAttribute("message", "Thanh toán thất bại cho đơn hàng: " + orderId);
+                request.setAttribute("responseCode", vnp_ResponseCode);
                 request.getRequestDispatcher("customer/order_failure.jsp").forward(request, response);
             }
         } else {
             System.err.println("VNPAY SecureHash mismatch!");
-            request.setAttribute("message", "Lỗi xác thực chữ ký VNPAY!");
+            request.setAttribute("message", "Lỗi xác thực chữ ký VNPAY! Vui lòng liên hệ bộ phận hỗ trợ.");
             request.getRequestDispatcher("customer/order_failure.jsp").forward(request, response);
         }
     }
