@@ -45,19 +45,19 @@
                                      "asNavFor": ".product-slider-nav"
                                      }'>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-1.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-1.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-2.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-2.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-3.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-3.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-4.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-4.jpg" alt="">
                                     </div>
                                     <div class="single-slide">
-                                        <img src="image/products/product-details-5.jpg" alt="">
+                                        <img src="${pageContext.request.contextPath}/customer/image/products/product-details-5.jpg" alt="">
                                     </div>
                                 </div>
                                 <!-- Product Details Slider Nav -->
@@ -106,15 +106,28 @@
                                 </div>
                                 <div class="rating-widget">
                                     <div class="rating-block">
-                                        <span class="fas fa-star star_on"></span>
-                                        <span class="fas fa-star star_on"></span>
-                                        <span class="fas fa-star star_on"></span>
-                                        <span class="fas fa-star star_on"></span>
-                                        <span class="fas fa-star "></span>
+                                        <%
+                                            Object avgRatingObj = request.getAttribute("averageRating");
+                                            Object reviewCountObj = request.getAttribute("reviewCount");
+                                            double avgRating = (avgRatingObj != null) ? (Double) avgRatingObj : 0.0;
+                                            int reviewCount = (reviewCountObj != null) ? (Integer) reviewCountObj : 0;
+                                            int fullStars = (int) Math.floor(avgRating);
+                                            boolean hasHalfStar = (avgRating - fullStars) >= 0.5;
+                                            
+                                            for (int i = 1; i <= 5; i++) {
+                                                if (i <= fullStars) {
+                                                    out.print("<span class=\"fas fa-star star_on\"></span>");
+                                                } else if (i == fullStars + 1 && hasHalfStar) {
+                                                    out.print("<span class=\"fas fa-star-half-alt star_on\"></span>");
+                                                } else {
+                                                    out.print("<span class=\"fas fa-star\"></span>");
+                                                }
+                                            }
+                                        %>
                                     </div>
                                     <div class="review-widget">
-                                        <a href="#">(1 Reviews)</a> <span>|</span>
-                                        <a href="#">Write a review</a>
+                                        <a href="#tab-2">(${reviewCount} Reviews)</a> <span>|</span>
+                                        <a href="#tab-2">Write a review</a>
                                     </div>
                                 </div>
                                 <article class="product-details-article">
@@ -155,7 +168,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#tab-2" role="tab"
                                    aria-controls="tab-2" aria-selected="true">
-                                    REVIEWS (1)
+                                    REVIEWS (${reviewCount})
                                 </a>
                             </li>
                         </ul>
@@ -168,75 +181,211 @@
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
                                 <div class="review-wrapper">
-                                    <h2 class="title-lg mb--20">1 REVIEW FOR AUCTOR GRAVIDA ENIM</h2>
-                                    <div class="review-comment mb--20">
-                                        <div class="avatar">
-                                            <img src="image/icon/author-logo.png" alt="">
+                                    <%@page import="java.util.List, model.Review, java.text.SimpleDateFormat, model.Account"%>
+                                    <%
+                                        List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
+                                        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                                        Account accountCheck = (Account) session.getAttribute("account");
+                                    %>
+                                    <h2 class="title-lg mb--20">${reviewCount} REVIEW${reviewCount != 1 ? 'S' : ''} FOR ${bookDetail.BTitle}</h2>
+                                    
+                                    <% 
+                                        String error = request.getParameter("error");
+                                        String success = request.getParameter("review");
+                                        String updateSuccess = request.getParameter("update");
+                                        String deleteSuccess = request.getParameter("delete");
+                                        
+                                        if (success != null && "success".equals(success)) {
+                                    %>
+                                        <div class="alert alert-success mb--20" role="alert">
+                                            Cảm ơn bạn đã đánh giá! Đánh giá của bạn đã được gửi thành công.
                                         </div>
-                                        <div class="text">
-                                            <div class="rating-block mb--15">
-                                                <span class="ion-android-star-outline star_on"></span>
-                                                <span class="ion-android-star-outline star_on"></span>
-                                                <span class="ion-android-star-outline star_on"></span>
-                                                <span class="ion-android-star-outline"></span>
-                                                <span class="ion-android-star-outline"></span>
-                                            </div>
-                                            <h6 class="author">ADMIN – <span class="font-weight-400">OCt 11, 2025</span>
-                                            </h6>
-                                            <p>Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio
-                                                quis mi.</p>
+                                    <% } %>
+                                    <% if (updateSuccess != null && "success".equals(updateSuccess)) { %>
+                                        <div class="alert alert-success mb--20" role="alert">
+                                            Đánh giá của bạn đã được cập nhật thành công!
                                         </div>
-                                    </div>
-                                    <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
-                                    <div class="rating-row pt-2">
-                                        <p class="d-block">Your Rating</p>
-                                        <span class="rating-widget-block">
-                                            <input type="radio" name="star" id="star1">
-                                            <label for="star1"></label>
-                                            <input type="radio" name="star" id="star2">
-                                            <label for="star2"></label>
-                                            <input type="radio" name="star" id="star3">
-                                            <label for="star3"></label>
-                                            <input type="radio" name="star" id="star4">
-                                            <label for="star4"></label>
-                                            <input type="radio" name="star" id="star5">
-                                            <label for="star5"></label>
-                                        </span>
-                                        <form action="https://htmldemo.net/pustok/pustok/" class="mt--15 site-form ">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="message">Comment</label>
-                                                        <textarea name="message" id="message" cols="30" rows="10"
-                                                                  class="form-control"></textarea>
-                                                    </div>
+                                    <% } %>
+                                    <% if (deleteSuccess != null && "success".equals(deleteSuccess)) { %>
+                                        <div class="alert alert-success mb--20" role="alert">
+                                            Đánh giá đã được xóa thành công!
+                                        </div>
+                                    <% } %>
+                                    <% if (error != null) { %>
+                                        <div class="alert alert-danger mb--20" role="alert">
+                                            <% 
+                                                if ("already_reviewed".equals(error)) {
+                                                    out.print("Bạn đã đánh giá sách này rồi!");
+                                                } else if ("missing_fields".equals(error)) {
+                                                    out.print("Vui lòng điền đầy đủ thông tin!");
+                                                } else if ("invalid_rating".equals(error)) {
+                                                    out.print("Đánh giá không hợp lệ!");
+                                                } else if ("update_failed".equals(error)) {
+                                                    out.print("Cập nhật đánh giá thất bại. Vui lòng thử lại!");
+                                                } else if ("delete_failed".equals(error)) {
+                                                    out.print("Xóa đánh giá thất bại. Vui lòng thử lại!");
+                                                } else if ("unauthorized".equals(error)) {
+                                                    out.print("Bạn không có quyền thực hiện thao tác này!");
+                                                } else {
+                                                    out.print("Có lỗi xảy ra. Vui lòng thử lại!");
+                                                }
+                                            %>
+                                        </div>
+                                    <% } %>
+                                    
+                                    <% if (reviewList != null && !reviewList.isEmpty()) { %>
+                                        <% for (Review review : reviewList) { %>
+                                            <%
+                                                Review editReview = (Review) request.getAttribute("editReview");
+                                                boolean isEditing = (editReview != null && editReview.getReviewId() == review.getReviewId());
+                                                boolean isOwner = (accountCheck != null && accountCheck.getU_id() == review.getUserId());
+                                            %>
+                                            <div class="review-comment mb--20" id="review-<%= review.getReviewId() %>">
+                                                <div class="avatar">
+                                                    <img src="${pageContext.request.contextPath}/customer/image/icon/author-logo.png" alt="">
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label for="name">Name *</label>
-                                                        <input type="text" id="name" class="form-control">
+                                                <div class="text">
+                                                    <!-- View Mode -->
+                                                    <div class="review-view-mode" id="view-<%= review.getReviewId() %>">
+                                                        <div class="rating-block mb--15">
+                                                            <% 
+                                                                int rating = review.getRating();
+                                                                for (int i = 1; i <= 5; i++) {
+                                                                    if (i <= rating) {
+                                                                        out.print("<span class=\"fas fa-star star_on\"></span>");
+                                                                    } else {
+                                                                        out.print("<span class=\"fas fa-star\"></span>");
+                                                                    }
+                                                                }
+                                                            %>
+                                                        </div>
+                                                        <h6 class="author">
+                                                            <%= review.getUserName() != null ? review.getUserName() : "Anonymous" %> – 
+                                                            <span class="font-weight-400">
+                                                                <%= review.getCreatedDate() != null ? dateFormat.format(review.getCreatedDate()) : "" %>
+                                                            </span>
+                                                            <% if (isOwner) { %>
+                                                                <div class="review-actions" style="float: right; position: relative;">
+                                                                    <button class="review-menu-btn" onclick="toggleReviewMenu(<%= review.getReviewId() %>)" style="background: none; border: none; cursor: pointer; font-size: 18px; color: #666; padding: 0 5px;">
+                                                                        <i class="fas fa-ellipsis-v"></i>
+                                                                    </button>
+                                                                    <div class="review-menu" id="menu-<%= review.getReviewId() %>" style="display: none; position: absolute; right: 0; top: 25px; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 1000; min-width: 120px;">
+                                                                        <a href="javascript:void(0)" 
+                                                                           onclick="showEditForm(<%= review.getReviewId() %>, <%= review.getRating() %>)" 
+                                                                           data-comment="<%= review.getComment() != null ? review.getComment().replace("\"", "&quot;").replace("\n", "\\n").replace("\r", "").replace("'", "&#39;") : "" %>"
+                                                                           id="edit-link-<%= review.getReviewId() %>"
+                                                                           class="review-menu-item" 
+                                                                           style="display: block; padding: 10px 15px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; cursor: pointer;">
+                                                                            <i class="fas fa-edit" style="margin-right: 8px;"></i> Sửa
+                                                                        </a>
+                                                                        <a href="home?state=deleteReview&reviewId=<%= review.getReviewId() %>" 
+                                                                           class="review-menu-item" 
+                                                                           style="display: block; padding: 10px 15px; color: #d32f2f; text-decoration: none;"
+                                                                           onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');">
+                                                                            <i class="fas fa-trash" style="margin-right: 8px;"></i> Xóa
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        </h6>
+                                                        <p><%= review.getComment() != null ? review.getComment() : "" %></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label for="email">Email *</label>
-                                                        <input type="text" id="email" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label for="website">Website</label>
-                                                        <input type="text" id="website" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="submit-btn">
-                                                        <a href="#" class="btn btn-black">Post Comment</a>
+                                                    
+                                                    <!-- Edit Mode (Hidden by default) -->
+                                                    <div class="review-edit-mode" id="edit-<%= review.getReviewId() %>" style="display: none;">
+                                                        <h2 class="title-lg mb--20">CHỈNH SỬA ĐÁNH GIÁ</h2>
+                                                        <form action="home" method="POST" class="mt--15 site-form" onsubmit="return validateEditForm(<%= review.getReviewId() %>)">
+                                                            <input type="hidden" name="state" value="updateReview">
+                                                            <input type="hidden" name="reviewId" value="<%= review.getReviewId() %>">
+                                                            <div class="rating-row pt-2" style="text-align: left !important; display: block !important;">
+                                                                <p class="d-block" style="text-align: left !important; margin-bottom: 10px; float: none !important; display: block !important;">Your Rating</p>
+                                                                <span class="rating-widget-block" style="display: flex !important; flex-direction: row !important; gap: 5px !important; justify-content: flex-start !important; align-items: center !important; transform: none !important; -webkit-transform: none !important; float: none !important; margin: 0 !important; padding: 0 !important;">
+                                                                    <input type="radio" name="rating" id="edit-star<%= review.getReviewId() %>-1" value="1" required>
+                                                                    <label for="edit-star<%= review.getReviewId() %>-1"></label>
+                                                                    <input type="radio" name="rating" id="edit-star<%= review.getReviewId() %>-2" value="2" required>
+                                                                    <label for="edit-star<%= review.getReviewId() %>-2"></label>
+                                                                    <input type="radio" name="rating" id="edit-star<%= review.getReviewId() %>-3" value="3" required>
+                                                                    <label for="edit-star<%= review.getReviewId() %>-3"></label>
+                                                                    <input type="radio" name="rating" id="edit-star<%= review.getReviewId() %>-4" value="4" required>
+                                                                    <label for="edit-star<%= review.getReviewId() %>-4"></label>
+                                                                    <input type="radio" name="rating" id="edit-star<%= review.getReviewId() %>-5" value="5" required>
+                                                                    <label for="edit-star<%= review.getReviewId() %>-5"></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="edit-comment-<%= review.getReviewId() %>">Comment *</label>
+                                                                        <textarea name="comment" id="edit-comment-<%= review.getReviewId() %>" cols="30" rows="10"
+                                                                                  class="form-control" required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="submit-btn">
+                                                                        <button type="submit" class="btn btn-black">Cập nhật</button>
+                                                                        <button type="button" onclick="cancelEdit(<%= review.getReviewId() %>)" class="btn btn-outline-secondary" style="margin-left: 10px;">Hủy</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
+                                        <% } %>
+                                    <% } else { %>
+                                        <p class="mb--20">Chưa có đánh giá nào cho sách này. Hãy là người đầu tiên đánh giá!</p>
+                                    <% } %>
+                                    
+                                    <%
+                                        Boolean hasReviewed = (Boolean) request.getAttribute("hasReviewed");
+                                        if (hasReviewed == null) hasReviewed = false;
+                                    %>
+                                    
+                                    <% if (accountCheck != null && !hasReviewed) { %>
+                                        <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
+                                        
+                                        <div class="rating-row pt-2" style="text-align: left !important; display: block !important;">
+                                            <p class="d-block" style="text-align: left !important; margin-bottom: 10px; float: none !important; display: block !important;">Your Rating</p>
+                                            <form action="home" method="POST" class="mt--15 site-form">
+                                                <input type="hidden" name="state" value="review">
+                                                <input type="hidden" name="bookId" value="${bookDetail.BId}">
+                                                <span class="rating-widget-block" style="display: flex !important; flex-direction: row !important; gap: 5px !important; justify-content: flex-start !important; align-items: center !important; transform: none !important; -webkit-transform: none !important; float: none !important; margin: 0 !important; padding: 0 !important;">
+                                                    <input type="radio" name="rating" id="star1" value="1" required>
+                                                    <label for="star1"></label>
+                                                    <input type="radio" name="rating" id="star2" value="2" required>
+                                                    <label for="star2"></label>
+                                                    <input type="radio" name="rating" id="star3" value="3" required>
+                                                    <label for="star3"></label>
+                                                    <input type="radio" name="rating" id="star4" value="4" required>
+                                                    <label for="star4"></label>
+                                                    <input type="radio" name="rating" id="star5" value="5" required>
+                                                    <label for="star5"></label>
+                                                </span>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="comment">Comment *</label>
+                                                            <textarea name="comment" id="comment" cols="30" rows="10"
+                                                                      class="form-control" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="submit-btn">
+                                                            <button type="submit" class="btn btn-black">Post Comment</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    <% } else if (hasReviewed) { %>
+                                        <div class="alert alert-info mb--20" role="alert">
+                                            Bạn đã đánh giá sách này rồi. Cảm ơn bạn!
+                                        </div>
+                                    <% } else { %>
+                                        <div class="alert alert-warning mb--20" role="alert">
+                                            Vui lòng <a href="login-register">đăng nhập</a> để đánh giá sách này.
+                                        </div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -605,5 +754,128 @@
         <script src="${pageContext.request.contextPath}/customer/js/plugins.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/ajax-mail.js"></script>
         <script src="${pageContext.request.contextPath}/customer/js/custom.js"></script>
+        <script>
+            function toggleReviewMenu(reviewId) {
+                var menu = document.getElementById('menu-' + reviewId);
+                var allMenus = document.querySelectorAll('.review-menu');
+                
+                // Đóng tất cả các menu khác
+                allMenus.forEach(function(m) {
+                    if (m.id !== 'menu-' + reviewId) {
+                        m.style.display = 'none';
+                    }
+                });
+                
+                // Toggle menu hiện tại
+                if (menu.style.display === 'none' || menu.style.display === '') {
+                    menu.style.display = 'block';
+                } else {
+                    menu.style.display = 'none';
+                }
+            }
+            
+            // Đóng menu khi click ra ngoài
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.review-actions')) {
+                    var allMenus = document.querySelectorAll('.review-menu');
+                    allMenus.forEach(function(menu) {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+            
+            // Hover effect cho menu items
+            document.addEventListener('DOMContentLoaded', function() {
+                var menuItems = document.querySelectorAll('.review-menu-item');
+                menuItems.forEach(function(item) {
+                    item.addEventListener('mouseenter', function() {
+                        this.style.backgroundColor = '#f5f5f5';
+                    });
+                    item.addEventListener('mouseleave', function() {
+                        this.style.backgroundColor = 'white';
+                    });
+                });
+            });
+            
+            // Hiển thị form edit
+            function showEditForm(reviewId, rating) {
+                // Đóng menu
+                var menu = document.getElementById('menu-' + reviewId);
+                if (menu) {
+                    menu.style.display = 'none';
+                }
+                
+                // Lấy comment từ data attribute
+                var editLink = document.getElementById('edit-link-' + reviewId);
+                var comment = '';
+                if (editLink && editLink.getAttribute('data-comment')) {
+                    comment = editLink.getAttribute('data-comment')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#39;/g, "'")
+                        .replace(/\\n/g, '\n');
+                }
+                
+                // Ẩn view mode
+                var viewMode = document.getElementById('view-' + reviewId);
+                if (viewMode) {
+                    viewMode.style.display = 'none';
+                }
+                
+                // Hiển thị edit mode
+                var editMode = document.getElementById('edit-' + reviewId);
+                if (editMode) {
+                    editMode.style.display = 'block';
+                    
+                    // Set rating
+                    var ratingInput = document.getElementById('edit-star' + reviewId + '-' + rating);
+                    if (ratingInput) {
+                        ratingInput.checked = true;
+                    }
+                    
+                    // Set comment
+                    var commentTextarea = document.getElementById('edit-comment-' + reviewId);
+                    if (commentTextarea) {
+                        commentTextarea.value = comment;
+                    }
+                    
+                    // Scroll to form
+                    editMode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+            
+            // Hủy edit
+            function cancelEdit(reviewId) {
+                // Ẩn edit mode
+                var editMode = document.getElementById('edit-' + reviewId);
+                if (editMode) {
+                    editMode.style.display = 'none';
+                }
+                
+                // Hiển thị view mode
+                var viewMode = document.getElementById('view-' + reviewId);
+                if (viewMode) {
+                    viewMode.style.display = 'block';
+                }
+            }
+            
+            // Validate form before submit
+            function validateEditForm(reviewId) {
+                var form = document.querySelector('#edit-' + reviewId + ' form');
+                var rating = form.querySelector('input[name="rating"]:checked');
+                var comment = document.getElementById('edit-comment-' + reviewId);
+                
+                if (!rating) {
+                    alert('Vui lòng chọn đánh giá!');
+                    return false;
+                }
+                
+                if (!comment || !comment.value.trim()) {
+                    alert('Vui lòng nhập bình luận!');
+                    return false;
+                }
+                
+                return true;
+            }
+        </script>
     </body>
 </html>

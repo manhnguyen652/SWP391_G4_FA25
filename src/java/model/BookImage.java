@@ -7,7 +7,7 @@ package model;
 public class BookImage {
     private int id;
     private String imgUrl;
-    private int bId; // Khóa ngoại tới bảng books
+    private int bId; 
 
     // Constructors
     public BookImage() {

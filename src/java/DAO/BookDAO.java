@@ -223,7 +223,7 @@ public class BookDAO {
                 + "FROM books b "
                 + "INNER JOIN authors a ON b.a_id = a.id "
                 + "INNER JOIN publishers p ON b.p_id = p.id " // JOIN thêm bảng publishers
-                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? " // Điều kiện tìm kiếm
+                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? OR b.description LIKE ? " // Điều kiện tìm kiếm (thêm description)
                 + getOrderByClause(sortOrder)
                 + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
@@ -236,8 +236,9 @@ public class BookDAO {
             ps.setString(1, searchPattern);
             ps.setString(2, searchPattern);
             ps.setString(3, searchPattern);
-            ps.setInt(4, offset);
-            ps.setInt(5, pageSize);
+            ps.setString(4, searchPattern); // Thêm tìm kiếm theo description
+            ps.setInt(5, offset);
+            ps.setInt(6, pageSize);
 
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -283,7 +284,7 @@ public class BookDAO {
                 + "FROM books b "
                 + "INNER JOIN authors a ON b.a_id = a.id "
                 + "INNER JOIN publishers p ON b.p_id = p.id " // JOIN thêm bảng publishers
-                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ?";
+                + "WHERE b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? OR b.description LIKE ?"; // Thêm tìm kiếm theo description
 
         try {
             conn = new DBConnection().getConnection();
@@ -292,6 +293,7 @@ public class BookDAO {
             ps.setString(1, searchPattern);
             ps.setString(2, searchPattern);
             ps.setString(3, searchPattern);
+            ps.setString(4, searchPattern); // Thêm tìm kiếm theo description
             rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
@@ -558,11 +560,12 @@ public class BookDAO {
         
         // Điều kiện tìm kiếm
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            query.append("AND (b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ?) ");
+            query.append("AND (b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? OR b.description LIKE ?) "); // Thêm tìm kiếm theo description
             String searchPattern = "%" + searchQuery.trim() + "%";
             params.add(searchPattern);
             params.add(searchPattern);
             params.add(searchPattern);
+            params.add(searchPattern); // Thêm tìm kiếm theo description
         }
         
         // Điều kiện lọc
@@ -674,11 +677,12 @@ public class BookDAO {
         
         // Điều kiện tìm kiếm
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            query.append("AND (b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ?) ");
+            query.append("AND (b.b_title LIKE ? OR a.name LIKE ? OR p.name LIKE ? OR b.description LIKE ?) "); // Thêm tìm kiếm theo description
             String searchPattern = "%" + searchQuery.trim() + "%";
             params.add(searchPattern);
             params.add(searchPattern);
             params.add(searchPattern);
+            params.add(searchPattern); // Thêm tìm kiếm theo description
         }
         
         // Điều kiện lọc

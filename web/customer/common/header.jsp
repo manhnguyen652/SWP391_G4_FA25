@@ -135,7 +135,7 @@
                                                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                                             <li><a class="dropdown-item" href="my-account">Tài khoản của tôi</a></li>
                                                             <li><a class="dropdown-item" href="wishlist">Danh sách yêu thích</a></li>
-                                                            <li><a class="dropdown-item" href="compare">Danh sách so sánh</a></li>
+<!--                                                            <li><a class="dropdown-item" href="compare">Danh sách so sánh</a></li>-->
                                                             <li><hr class="dropdown-divider"></li>
 
                                                             <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
