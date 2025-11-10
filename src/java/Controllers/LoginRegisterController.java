@@ -107,7 +107,7 @@ public class LoginRegisterController extends HttpServlet {
                         url = "staff/book-management"; 
                         break;
                     case 4: // Shipper
-                        url = "/customer/shipping.jsp"; 
+                        url = "shipping"; 
                         break;
                     default:
                         url = "home"; 
