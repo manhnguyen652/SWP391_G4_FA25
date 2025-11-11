@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Account {
 
@@ -11,6 +12,9 @@ public class Account {
     private String f_name;
     private String l_name;
     private Date dob;
+    private String verification_code;
+    private boolean is_verified;
+    private Timestamp create_date;
 
     public int getU_id() {
         return u_id;
@@ -66,5 +70,29 @@ public class Account {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public String getVerification_code() {
+        return verification_code;
+    }
+
+    public void setVerification_code(String verification_code) {
+        this.verification_code = verification_code;
+    }
+
+    public boolean isIs_verified() {
+        return is_verified;
+    }
+
+    public void setIs_verified(boolean is_verified) {
+        this.is_verified = is_verified;
+    }
+
+    public Timestamp getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Timestamp create_date) {
+        this.create_date = create_date;
     }
 }

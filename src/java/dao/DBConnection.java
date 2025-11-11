@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBConnection {
     
     // !!! QUAN TRỌNG: Hãy chắc chắn các thông tin này là chính xác !!!
-    private static final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=BookStoreDB;encrypt=false";
+    private static final String URL = "jdbc:sqlserver://ADMIN\\SQLEXPRESS:1433;databaseName=BookStoreDB;encrypt=false";
     private static final String USER = "sa";
     private static final String PASS = "123";
 

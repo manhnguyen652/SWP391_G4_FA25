@@ -439,23 +439,23 @@
             </div>
 
             <!-- Dashboard Navigation -->
-            <div class="dashboard-nav">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <nav class="text-center">
-                                <a href="staff-dashboard" class="active">Tổng quan</a>
-                                <a href="staff-dashboard?action=users">Quản lý người dùng</a>
-                                <a href="staff-dashboard?action=books">Quản lý sách</a>
-                                <a href="staff-dashboard?action=authors">Quản lý tác giả</a>
-                                <a href="staff-dashboard?action=categories">Quản lý danh mục</a>
-                                <a href="staff-dashboard?action=orders">Quản lý đơn hàng</a>
-                                <a href="staff-dashboard?action=refunds">Quản lý hoàn tiền</a>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+<div class="dashboard-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="text-center">
+                    <a href="staff-dashboard" class="${param.action == null ? 'active' : ''}">Tổng quan</a>
+                    <a href="staff-dashboard?action=users" class="${param.action == 'users' ? 'active' : ''}">Quản lý người dùng</a>
+                    <a href="staff-dashboard?action=books" class="${param.action == 'books' ? 'active' : ''}">Quản lý sách</a>
+                    <a href="staff-dashboard?action=authors" class="${param.action == 'authors' ? 'active' : ''}">Quản lý tác giả</a>
+                    <a href="staff-dashboard?action=categories" class="${param.action == 'categories' ? 'active' : ''}">Quản lý danh mục</a>
+                    <a href="staff-dashboard?action=orders" class="${param.action == 'orders' ? 'active' : ''}">Quản lý đơn hàng</a>
+                    <a href="staff-dashboard?action=refunds" class="${param.action == 'refunds' ? 'active' : ''}">Quản lý hoàn tiền</a>
+                </nav>
             </div>
+        </div>
+    </div>
+</div>
 
             <!-- Main Content -->
             <main class="inner-page-sec-padding-bottom">

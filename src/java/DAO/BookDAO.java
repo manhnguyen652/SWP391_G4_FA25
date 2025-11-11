@@ -160,7 +160,52 @@ public class BookDAO {
         }
         return bookList;
     }
+    
+    public List<Book> getTopSellingBooks(int limit) {
+        List<Book> bookList = new ArrayList<>();
+        String query = "SELECT TOP " + limit + " b.*, a.name AS authorName, SUM(od.quantity) as total_sold "
+                + "FROM books b "
+                + "INNER JOIN authors a ON b.a_id = a.id "
+                + "INNER JOIN order_details od ON b.b_id = od.b_id "
+                + "INNER JOIN [order] o ON od.order_id = o.id "
+                + "WHERE o.status_id = 4 "
+                + "GROUP BY b.b_id, b.b_title, b.description, b.publication_year, b.price, b.stock, b.p_id, b.a_id, b.image_id, b.c_id, a.name "
+                + "ORDER BY total_sold DESC";
 
+        try {
+            conn = DBConnection.getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book();
+                book.setBId(rs.getInt("b_id"));
+                book.setBTitle(rs.getString("b_title"));
+                book.setDescription(rs.getString("description"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setPrice(rs.getDouble("price"));
+                book.setStock(rs.getInt("stock"));
+                book.setPId(rs.getInt("p_id"));
+                book.setAId(rs.getInt("a_id"));
+                book.setImageId(rs.getInt("image_id"));
+                book.setCId(rs.getInt("c_id"));
+                book.setAuthorName(rs.getString("authorName"));
+                bookList.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return bookList;
+    }
+    
     public void addToCart(int accountId, int bookId, int quantity) {
 
         String getCartIdQuery = "SELECT id FROM cart WHERE u_id = ?";
@@ -1010,7 +1055,39 @@ public class BookDAO {
             }
         }
     }
-    
+    public List<Object[]> getCategoryStatistics() {
+        List<Object[]> stats = new ArrayList<>();
+        String query = "SELECT c.cate_name, COUNT(b.b_id) as book_count, SUM(od.quantity) as total_sold "
+                + "FROM category c "
+                + "LEFT JOIN books b ON c.id = b.c_id "
+                + "LEFT JOIN order_details od ON b.b_id = od.b_id "
+                + "LEFT JOIN [order] o ON od.order_id = o.id AND o.status_id = 4 "
+                + "GROUP BY c.id, c.cate_name "
+                + "ORDER BY book_count DESC";
+        try {
+            conn = DBConnection.getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Object[] stat = new Object[3];
+                stat[0] = rs.getString("cate_name");
+                stat[1] = rs.getInt("book_count");
+                stat[2] = rs.getInt("total_sold");
+                stats.add(stat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return stats;
+    }
     /**
      * Kiểm tra sách có trong đơn hàng không
      */

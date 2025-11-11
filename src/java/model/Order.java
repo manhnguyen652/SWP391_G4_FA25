@@ -9,7 +9,8 @@ public class Order {
     private double totalAmount;
     private Timestamp createDate;
     private int statusId;
-
+    private String customerName;
+    private String customerEmail;
     private String ship_fname;
     private String ship_lname;
     private String ship_email;
@@ -19,17 +20,15 @@ public class Order {
     private String note;
     private String statusName;
 
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
-
     public Order() {
     }
-
+    public Order(int id, int u_id, double total_amount, Timestamp create_date) {
+        this.id = id;
+        this.uId = uId;
+        this.totalAmount = totalAmount;
+        this.createDate = createDate;
+    }
+    
     public int getId() {
         return id;
     }
@@ -68,6 +67,30 @@ public class Order {
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
+    }
+    
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public String getShip_fname() {
@@ -125,4 +148,6 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }
